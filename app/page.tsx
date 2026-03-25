@@ -110,13 +110,13 @@ export default function Home() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-16 md:mb-20 relative">
             <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tight drop-shadow-2xl">บริการของทางเรา</h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-transparent mx-auto mt-6"></div>
+            <div className="w-24 h-1 bg-linear-to-r from-blue-500 to-transparent mx-auto mt-6"></div>
           </div>
 
           {/* ปรับลด padding-bottom จาก pb-32 เป็น pb-16 */}
           <div className="flex flex-col gap-8 pb-16">
             {/* Premium Card 1 */}
-            <div className="sticky top-[15vh] bg-gradient-to-br from-[#002a3a]/90 to-black/90 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(0,73,101,0.5)]">
+            <div className="sticky top-[15vh] bg-linear-to-br from-[#002a3a]/90 to-black/90 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(0,73,101,0.5)]">
               <div className="mb-8 md:mb-0 md:pr-12 w-full md:w-1/2">
                 <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">01 / Marketing</span>
                 <h3 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400">Digital Marketing</h3>
@@ -130,7 +130,7 @@ export default function Home() {
             </div>
 
             {/* Premium Card 2 */}
-            <div className="sticky top-[18vh] bg-gradient-to-br from-[#001f2b]/95 to-black/95 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(0,73,101,0.5)]">
+            <div className="sticky top-[18vh] bg-linear-to-br from-[#001f2b]/95 to-black/95 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(0,73,101,0.5)]">
               <div className="mb-8 md:mb-0 md:pr-12 w-full md:w-1/2">
                 <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">02 / Development</span>
                 <h3 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400">Web & App Dev</h3>
@@ -144,7 +144,7 @@ export default function Home() {
             </div>
 
             {/* Premium Card 3 */}
-            <div className="sticky top-[21vh] bg-gradient-to-br from-black to-gray-900 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(255,255,255,0.1)]">
+            <div className="sticky top-[21vh] bg-linear-to-br from-black to-gray-900 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(255,255,255,0.1)]">
               <div className="mb-8 md:mb-0 md:pr-12 w-full md:w-1/2">
                 <span className="text-blue-400 font-bold tracking-widest uppercase text-sm mb-4 block">03 / Strategy</span>
                 <h3 className="text-4xl font-bold mb-6 text-transparent bg-clip-text bg-linear-to-r from-white to-gray-400">Brand Strategy</h3>
@@ -179,7 +179,7 @@ export default function Home() {
 
           <div className="flex flex-col border border-white/10 bg-black shadow-2xl">
             {/* Product 01 */}
-            <div className="group flex flex-col md:flex-row items-stretch min-h-[400px] border-b border-white/10">
+            <div className="group flex flex-col md:flex-row items-stretch min-h-100 border-b border-white/10">
               <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative overflow-hidden transition-colors duration-500 hover:bg-white/5">
                 <span className="absolute -left-4 -top-10 text-[10rem] font-black text-white/5 z-0 pointer-events-none transition-transform duration-500 group-hover:scale-110">01</span>
                 <div className="relative z-10">
@@ -192,13 +192,13 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] overflow-hidden">
+              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="AI Avatar" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               </div>
             </div>
 
             {/* Product 02 */}
-            <div className="group flex flex-col md:flex-row-reverse items-stretch min-h-[400px] border-b border-white/10">
+            <div className="group flex flex-col md:flex-row-reverse items-stretch min-h-100 border-b border-white/10">
               <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative overflow-hidden transition-colors duration-500 hover:bg-white/5">
                 <span className="absolute -left-4 -top-10 text-[10rem] font-black text-white/5 z-0 pointer-events-none transition-transform duration-500 group-hover:scale-110">02</span>
                 <div className="relative z-10">
@@ -211,13 +211,13 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] overflow-hidden">
+              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt="Photo Booth" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               </div>
             </div>
 
             {/* Product 03 */}
-            <div className="group flex flex-col md:flex-row items-stretch min-h-[400px]">
+            <div className="group flex flex-col md:flex-row items-stretch min-h-100">
               <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative overflow-hidden transition-colors duration-500 hover:bg-white/5">
                 <span className="absolute -left-4 -top-10 text-[10rem] font-black text-white/5 z-0 pointer-events-none transition-transform duration-500 group-hover:scale-110">03</span>
                 <div className="relative z-10">
@@ -230,7 +230,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] overflow-hidden">
+              <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
                 <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" alt="Platform" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
               </div>
             </div>
@@ -266,7 +266,7 @@ export default function Home() {
             style={{ transform: `translateX(calc(-${projectScrollProgress * 100}% + ${projectScrollProgress * 100}vw))` }}
           >
             {/* Project Card 1 */}
-            <div className="min-w-[320px] md:min-w-[420px] shrink-0 group cursor-pointer">
+            <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
               <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
                 <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Project 1" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -281,7 +281,7 @@ export default function Home() {
             </div>
 
             {/* Project Card 2 */}
-            <div className="min-w-[320px] md:min-w-[420px] shrink-0 group cursor-pointer">
+            <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
               <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
                 <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Project 2" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -296,7 +296,7 @@ export default function Home() {
             </div>
 
             {/* Project Card 3 */}
-            <div className="min-w-[320px] md:min-w-[420px] shrink-0 group cursor-pointer">
+            <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
               <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
                 <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?w=800&q=80" alt="Project 3" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -311,7 +311,7 @@ export default function Home() {
             </div>
 
             {/* Project Card 4 */}
-            <div className="min-w-[320px] md:min-w-[420px] shrink-0 group cursor-pointer">
+            <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
               <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
                 <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Project 4" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                 <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>

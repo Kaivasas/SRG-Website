@@ -24,29 +24,6 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen font-sans bg-gray-50 text-gray-900">
       
-      {/* Navbar (ดีไซน์เดียวกับหน้า Home เพื่อความต่อเนื่อง) */}
-      <nav
-        className={`fixed w-full top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 px-8 py-4 flex justify-between items-center transition-transform duration-300 ease-in-out ${
-          isNavVisible ? "translate-y-0" : "-translate-y-full"
-        }`}
-      >
-        <a href="/" className="flex items-center hover:opacity-80 transition-opacity">
-          <img src="/assets/logo_0.png" alt="Sustain Republix Logo" className="h-10 w-auto" />
-        </a>
-        <div className="flex items-center space-x-8">
-          <ul className="hidden md:flex space-x-8 text-sm font-semibold uppercase text-gray-700 tracking-wide">
-            <li><Link href="/" className="hover:text-blue-500 transition">Home</Link></li>
-            <li><a href="/#services" className="hover:text-blue-500 transition">Service</a></li>
-            <li><a href="/#works" className="hover:text-blue-500 transition">Works</a></li>
-            <li><a href="/#products" className="hover:text-blue-500 transition">Products</a></li>
-            <li><Link href="/contact" className="text-blue-600 transition">Contact</Link></li>
-          </ul>
-          <div className="text-sm font-bold bg-[#004965] text-white px-5 py-2.5 rounded-full shadow-lg">
-            0123456789
-          </div>
-        </div>
-      </nav>
-
       {/* Part 1: Hero Section (สีโทนเข้ม/รูปภาพตามแบบ) */}
       <section className="relative pt-40 pb-32 bg-[#002a3a] flex flex-col items-center justify-center overflow-hidden">
         {/* เลเยอร์พื้นหลัง (เปลี่ยน src เป็นรูปออฟฟิศสวยๆ ได้เลย) */}
