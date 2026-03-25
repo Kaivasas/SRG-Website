@@ -152,40 +152,6 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
-
-      {/* Part 4: Footer */}
-      <footer className="bg-[#e5e7eb] py-20 px-10 md:px-24 flex flex-col md:flex-row justify-between items-center md:items-start border-t border-gray-300">
-        
-        {/* ซ้าย: โลโก้ & โซเชียล */}
-        <div className="mb-12 md:mb-0 flex flex-col items-center md:items-start">
-          <h2 className="text-4xl font-black mb-8 text-gray-900 tracking-wide">
-             <span className="text-[#004965]">SUSTAIN</span> <span className="text-[#F48120]">REPUBLIX</span>
-          </h2>
-          <div className="flex space-x-6">
-            <a href="#" className="w-14 h-14 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 transition hover:scale-110 shadow-md">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
-            </a>
-            <a href="#" className="w-14 h-14 bg-blue-500 text-white rounded-full flex items-center justify-center hover:bg-blue-600 transition hover:scale-110 shadow-md">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-            </a>
-            <a href="#" className="w-14 h-14 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition hover:scale-110 shadow-md">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 448 512"><path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z" /></svg>
-            </a>
-          </div>
-        </div>
-
-        {/* ขวา: ข้อมูลติดต่อเพิ่มเติม */}
-        <div className="max-w-md text-center md:text-left">
-          <h2 className="text-4xl font-bold mb-6 text-gray-900">เรารอคุณอยู่</h2>
-          <p className="mb-6 font-medium text-xl text-gray-700">Test@gmail.com</p>
-          <p className="text-lg leading-relaxed text-gray-600 font-light">
-            Sustain Republix Group Co.,Ltd.,<br />
-            Sridan 18 Alley, Samrong Nuea,<br />
-            Mueang Samut Prakan District,<br />
-            Samut Prakan 10270
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
