@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from 'next/link';
 
 export default function ContactPage() {
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -34,11 +35,11 @@ export default function ContactPage() {
         </a>
         <div className="flex items-center space-x-8">
           <ul className="hidden md:flex space-x-8 text-sm font-semibold uppercase text-gray-700 tracking-wide">
-            <li><a href="/" className="hover:text-blue-500 transition">Home</a></li>
+            <li><Link href="/" className="hover:text-blue-500 transition">Home</Link></li>
             <li><a href="/#services" className="hover:text-blue-500 transition">Service</a></li>
             <li><a href="/#works" className="hover:text-blue-500 transition">Works</a></li>
             <li><a href="/#products" className="hover:text-blue-500 transition">Products</a></li>
-            <li><a href="/contact" className="text-blue-600 transition">Contact</a></li>
+            <li><Link href="/contact" className="text-blue-600 transition">Contact</Link></li>
           </ul>
           <div className="text-sm font-bold bg-[#004965] text-white px-5 py-2.5 rounded-full shadow-lg">
             0123456789

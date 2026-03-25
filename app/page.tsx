@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Link from 'next/link';
 
 export default function Home() {
   const projectSectionRef = useRef<HTMLDivElement>(null);
@@ -89,11 +90,11 @@ export default function Home() {
         {/* กลุ่มเมนูและปุ่มเบอร์โทร (มัดรวมกันเพื่อให้ชิดขวา) */}
         <div className="flex items-center space-x-8">
           <ul className="hidden md:flex space-x-8 text-sm font-semibold uppercase text-white tracking-wide">
-            <li><a href="#" className="hover:text-blue-400 transition">Home</a></li>
+            <li><Link href="/" className="hover:text-blue-400 transition">Home</Link></li>
             <li><a href="#services" className="hover:text-blue-400 transition">Service</a></li>
             <li><a href="#works" className="hover:text-blue-400 transition">Works</a></li>
             <li><a href="#products" className="hover:text-blue-400 transition">Product</a></li>
-            <li><a href="#contact" className="hover:text-blue-400 transition">Contact</a></li>
+            <li><Link href="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
           </ul>
           <div className="text-sm font-bold bg-black text-white px-5 py-2.5 rounded-full hover:bg-blue-500 hover:text-white transition cursor-pointer shadow-lg">
             099-123-4567
@@ -389,7 +390,7 @@ export default function Home() {
       <section className="py-32 relative z-10 flex flex-col items-center">
         {/* เปลี่ยนสีตัวหนังสือเป็น text-white */}
         <h2 className="text-4xl font-bold mb-20 text-center w-full max-w-5xl text-white drop-shadow-md">เสียงจากลูกค้าของเรา</h2>
-        
+
         <div className="flex items-center justify-center space-x-4 md:space-x-12 w-full max-w-6xl relative">
           <button className="z-10 text-4xl text-gray-400 hover:scale-110 transition hover:text-white p-4">&#8592;</button>
 
@@ -419,9 +420,11 @@ export default function Home() {
           {/* เปลี่ยนสีตัวหนังสือเป็น text-white เพื่อให้อ่านง่ายบนพื้นหลังวิดีโอ */}
           <h2 className="text-5xl md:text-6xl font-black mb-6 text-white drop-shadow-lg">พร้อมที่จะเติบโตไปกับเรา?</h2>
           <p className="text-xl text-gray-300 mb-12 max-w-2xl font-light tracking-wide">ร่วมมือไปกับเรา ก้าวไปกับเรา ให้เราเป็นส่วนหนึ่งในการขับเคลื่อนธุรกิจของคุณให้ประสบความสำเร็จ</p>
-          <button className="bg-[#004965] text-white font-bold py-5 px-16 rounded-full text-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:bg-black hover:shadow-xl transform transition hover:-translate-y-2">
+          <Link
+            href="/contact"
+            className="inline-block bg-[#004965] text-white font-bold py-5 px-16 rounded-full text-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] hover:bg-black hover:shadow-xl transform transition hover:-translate-y-2">
             ติดต่อเราเลยตอนนี้
-          </button>
+          </Link>
         </section>
 
         <footer className="bg-[#004965] text-white py-20 px-10 md:px-24 flex flex-col md:flex-row justify-between border-t border-[#003850]">
