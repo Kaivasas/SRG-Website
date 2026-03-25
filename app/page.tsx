@@ -92,7 +92,7 @@ export default function Home() {
             <li><a href="#" className="hover:text-blue-400 transition">Home</a></li>
             <li><a href="#services" className="hover:text-blue-400 transition">Service</a></li>
             <li><a href="#works" className="hover:text-blue-400 transition">Works</a></li>
-            <li><a href="#product" className="hover:text-blue-400 transition">Product</a></li>
+            <li><a href="#products" className="hover:text-blue-400 transition">Product</a></li>
             <li><a href="#contact" className="hover:text-blue-400 transition">Contact</a></li>
           </ul>
           <div className="text-sm font-bold bg-black text-white px-5 py-2.5 rounded-full hover:bg-blue-500 hover:text-white transition cursor-pointer shadow-lg">
