@@ -7,23 +7,13 @@ export default function Home() {
   const projectSectionRef = useRef<HTMLDivElement>(null);
   const [projectScrollProgress, setProjectScrollProgress] = useState(0);
 
-  // Navbar ขึ้นลง
-  const lastScrollY = useRef(0);
-  const [isNavVisible, setIsNavVisible] = useState(true);
-
   // 1. เพิ่ม State เก็บค่าความเบลอ (เริ่มต้นที่ 0 คือชัดสุด)
   const [bgBlur, setBgBlur] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // Logic สำหรับ Navbar (คงเดิม)
+      // ดึงค่าการสกรอลล์มาเก็บไว้ใช้กับฟังก์ชันด้านล่าง
       const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
-        setIsNavVisible(false);
-      } else {
-        setIsNavVisible(true);
-      }
-      lastScrollY.current = currentScrollY;
 
       // Logic ของ Project Section (คงเดิม)
       if (projectSectionRef.current) {
@@ -71,36 +61,6 @@ export default function Home() {
         {/* เลเยอร์สีดำทับอีกชั้น ช่วยให้ตัวหนังสือข้างหน้าอ่านง่ายขึ้น (ปรับ bg-black/40 ได้ตามต้องการ) */}
         <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
       </div>
-
-      {/* Navbar */}
-      <nav
-        className={`fixed w-full top-0 z-50 bg-white/20 backdrop-blur-md border-b border-white/10 px-8 py-4 flex justify-between items-center transition-transform duration-300 ease-in-out ${isNavVisible ? "translate-y-0" : "-translate-y-full"
-          }`}
-      >
-        {/* โลโก้ (จะอยู่ฝั่งซ้าย) */}
-        {/* โลโก้แบบรูปภาพ (กดแล้วกลับไปหน้า Home ได้ด้วย) */}
-        <a href="#" className="flex items-center hover:opacity-80 transition-opacity">
-          <img
-            src="/assets/logo_0.png" /* ถ้าคุณตั้งชื่อไฟล์เป็นอย่างอื่น เช่น logo.png ก็แก้ตรงนี้ครับ */
-            alt="Sustain Republix Logo"
-            className="h-10 w-auto" /* ปรับความสูง (h-10) ได้ตามต้องการ เพื่อให้พอดีกับ Navbar */
-          />
-        </a>
-
-        {/* กลุ่มเมนูและปุ่มเบอร์โทร (มัดรวมกันเพื่อให้ชิดขวา) */}
-        <div className="flex items-center space-x-8">
-          <ul className="hidden md:flex space-x-8 text-sm font-semibold uppercase text-white tracking-wide">
-            <li><Link href="/" className="hover:text-blue-400 transition">Home</Link></li>
-            <li><a href="#services" className="hover:text-blue-400 transition">Service</a></li>
-            <li><a href="#works" className="hover:text-blue-400 transition">Works</a></li>
-            <li><a href="#products" className="hover:text-blue-400 transition">Product</a></li>
-            <li><Link href="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
-          </ul>
-          <div className="text-sm font-bold bg-black text-white px-5 py-2.5 rounded-full hover:bg-blue-500 hover:text-white transition cursor-pointer shadow-lg">
-            099-123-4567
-          </div>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       {/* แก้ h-screen เป็น min-h-screen และเพิ่ม pt-24 md:pt-32 เพื่อเว้นที่ให้ Navbar */}
