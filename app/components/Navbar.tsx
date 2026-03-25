@@ -57,7 +57,7 @@ export default function Navbar() {
             <div className="absolute top-full left-1/2 -translate-x-1/2 mt-0 w-80 opacity-0 invisible translate-y-4 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-300 ease-out z-50">
               {/* ดีไซน์กล่องกระจก ใส่ normal-case เพื่อไม่ให้ข้างในเป็นตัวพิมพ์ใหญ่หมดตามเมนูหลัก */}
               <div className="bg-white/95 backdrop-blur-xl border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.1)] rounded-2xl p-3 flex flex-col gap-1 relative overflow-hidden normal-case tracking-normal">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#004965] to-[#F48120]"></div>
+                <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-[#004965] to-[#F48120]"></div>
 
                 {/* Service 01 */}
                 <Link href="/services/digital-marketing" className="group/item flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors">
