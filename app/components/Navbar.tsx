@@ -177,7 +177,7 @@ export default function Navbar() {
               </div>
             </li>
 
-            <li><Link href="/#works" className="hover:text-blue-400 transition">Works</Link></li>
+            <li><Link href="/works" className="hover:text-blue-400 transition">Works</Link></li>
             <li><Link href="/#products" className="hover:text-blue-400 transition">Product</Link></li>
             <li><Link href="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
           </ul>
