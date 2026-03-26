@@ -50,7 +50,7 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       {/* THE FIX: ปรับ z-index เป็นติดลบเยอะๆ (z-[-10]) และเพิ่ม pointer-events-none */}
       {/* เพื่อให้วิดีโอมุดลงไปอยู่ล่างสุดของเว็บ และไม่ขัดขวางการคลิกใดๆ */}
       {/* ------------------------------------------------------------- */}
-      <div className="fixed inset-0 w-screen h-screen z-[-10] bg-[#050505] overflow-hidden pointer-events-none">
+      <div className="fixed inset-0 w-screen h-screen -z-10 bg-[#050505] overflow-hidden pointer-events-none">
         <video
           autoPlay
           loop
@@ -60,7 +60,7 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
         >
           <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774496170/7020050_Abstract_Background_3840x2160_lzpmkg.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
+        <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/60 to-black/80"></div>
       </div>
 
       {/* ------------------------------------------------------------- */}
@@ -70,13 +70,13 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
         <div className="flex flex-col md:flex-row items-center gap-12 md:gap-20 w-full">
           <div className="w-full md:w-1/2 aspect-square md:aspect-4/3 bg-gray-900 rounded-3xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)] border border-white/10 relative group">
             <img src={service.heroImage} alt={service.title} className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent pointer-events-none"></div>
           </div>
           <div className="w-full md:w-1/2 flex flex-col justify-center">
             <h1 className="text-5xl md:text-7xl font-black mb-6 tracking-tight text-white drop-shadow-2xl">
               {service.title}
             </h1>
-            <p className="text-2xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#F48120] font-bold mb-6">
+            <p className="text-2xl text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-[#F48120] font-bold mb-6">
               {service.subtitle}
             </p>
             <p className="text-lg text-white/80 leading-relaxed font-light border-l-4 border-blue-500 pl-6">
@@ -166,17 +166,17 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       {/* 4. Portfolio Section */}
       {/* ------------------------------------------------------------- */}
       <section id="portfolios" className="py-24 relative z-10 bg-transparent overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 px-6 md:px-[10vw] w-full max-w-[1920px] mx-auto relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 px-6 md:px-[10vw] w-full max-w-480 mx-auto relative z-10">
           {service.portfolios.map((port) => (
             <div key={port.id} className="w-full group cursor-pointer rounded-2xl bg-white/5 backdrop-blur-xl p-6 border border-white/10 transition hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_20px_60px_-15px_rgba(30,144,255,0.3)] flex flex-col shadow-inner shadow-white/5">
               <div className="aspect-video bg-black/50 mb-6 overflow-hidden relative rounded-xl shrink-0">
                 <img src={port.image} alt={`Portfolio ${port.id}`} className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
                   <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>
                 </div>
               </div>
-              <div className="flex-grow flex flex-col justify-between">
+              <div className="grow flex flex-col justify-between">
                 <h4 className="text-xl lg:text-2xl font-bold text-white mb-2 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">Project Title 0{port.id}</h4>
                 <div className="flex justify-between items-center mt-2">
                   <p className="text-white/60 font-light uppercase text-xs tracking-widest line-clamp-1">{service.title}</p>
