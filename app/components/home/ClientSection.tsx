@@ -43,7 +43,7 @@ export default function ClientSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // กำหนดว่าหน้านึงจะโชว์กี่โลโก้ (คอมพิวเตอร์โชว์ 4 อัน)
-  const itemsPerPage = 16; 
+  const itemsPerPage = 16;
   // คำนวณว่าทั้งหมดมีกี่หน้า (เช่น 8 โลโก้ หาร 4 = 2 หน้า)
   const totalPages = Math.ceil(clients.length / itemsPerPage);
 
@@ -64,6 +64,9 @@ export default function ClientSection() {
     (currentIndex + 1) * itemsPerPage
   );
 
+  {/* ------------------------------------------------------------- */ }
+  {/* Trusted Brands (เรียกใช้ Component แค่บรรทัดเดียว!) */ }
+  {/* ------------------------------------------------------------- */ }
   return (
     <section className="py-12 md:py-16 flex flex-col items-center z-10 relative">
       <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-lg tracking-wide">
@@ -72,17 +75,17 @@ export default function ClientSection() {
 
       {/* กล่องกระจก (Glassmorphism) */}
       <div className="w-full max-w-5xl bg-white/10 p-10 border border-white/20 rounded-3xl mb-8 backdrop-blur-sm shadow-xl min-h-40 flex items-center justify-center">
-        
+
         {/* ใส่ key เป็น currentIndex เพื่อให้มัน Re-render สวยๆ เวลาเปลี่ยนหน้า */}
         <div key={currentIndex} className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center animate-pulse-short">
-          
+
           {/* ใช้ currentClients (ข้อมูลที่ถูกตัดมาแค่ 4 ตัว) */}
           {currentClients.map((client) => (
             <div key={client.id} className="w-32 h-16 flex items-center justify-center text-white/40 font-bold text-sm">
               {/* ถ้ามีรูปแล้ว มันจะโชว์รูปแทนตัวหนังสือด้านล่างครับ */}
-              <img 
-                src={client.logo} 
-                alt={client.name} 
+              <img
+                src={client.logo}
+                alt={client.name}
                 className="max-w-35 max-h-full object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300 cursor-pointer drop-shadow-sm"
                 // โค้ดสำรอง (Fallback) ถ้ารูปเสีย ให้แสดงชื่อแบรนด์แทน (แก้ปัญหาไอคอนกระดาษขาด)
                 onError={(e) => {
@@ -103,16 +106,15 @@ export default function ClientSection() {
       <div className="flex space-x-3">
         {/* วนลูปสร้างจุดตามจำนวนหน้าทั้งหมด (totalPages) */}
         {Array.from({ length: totalPages }).map((_, i) => (
-          <button 
-            key={i} 
+          <button
+            key={i}
             // เมื่อกดจุด ให้เปลี่ยนหน้าไปที่หน้านั้น
             onClick={() => setCurrentIndex(i)}
             aria-label={`Go to slide ${i + 1}`}
-            className={`h-3 rounded-full transition-all duration-500 ${
-              i === currentIndex 
+            className={`h-3 rounded-full transition-all duration-500 ${i === currentIndex
                 ? 'bg-blue-500 w-8 shadow-[0_0_10px_rgba(59,130,246,0.8)]' // จุดที่กำลังแอคทีฟ (ยาวขึ้นและมีแสง)
                 : 'bg-white/30 w-3 hover:bg-white/60 cursor-pointer' // จุดธรรมดา
-            }`}
+              }`}
           ></button>
         ))}
       </div>
