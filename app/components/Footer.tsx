@@ -28,9 +28,9 @@ export default function Footer() {
           hello@sustainrepublix.com
         </a>
         <p className="text-sm leading-relaxed text-gray-400">
-          Sustain Republix Group Co.,Ltd.,<br />
-          Sridan 18 Alley, Samrong Nuea,<br />
-          Mueang Samut Prakan District,<br />
+          Sustain Republix Group Co.,Ltd.<br />
+          888 5th floor, VGR Building,<br/>
+          Samrong Nuea, Mueang Samut Prakan District,<br/>
           Samut Prakan 10270
         </p>
       </div>
