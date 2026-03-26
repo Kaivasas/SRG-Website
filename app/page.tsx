@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from 'next/link';
+import ClientSection from "./components/ClientSection"; // <-- 1. Import เข้ามา
 
 export default function Home() {
   const projectSectionRef = useRef<HTMLDivElement>(null);
@@ -83,24 +84,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Trusted Brands (ปรับลด padding จาก py-24 เป็น py-16) */}
-      <section className="py-12 md:py-16 flex flex-col items-center z-10 relative">
-        <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-lg tracking-wide">แบรนด์ที่ไว้วางใจกับทางเรา</h2>
-
-        {/* Mockup Logo Grid */}
-        <div className="w-full max-w-5xl bg-white/10 p-10 border border-white/20 rounded-3xl mb-8 backdrop-blur-sm grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" className="h-8 opacity-70 hover:opacity-100 transition brightness-0 invert" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" className="h-8 opacity-70 hover:opacity-100 transition brightness-0 invert" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" className="h-8 opacity-70 hover:opacity-100 transition brightness-0 invert mt-2" />
-          <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Spotify_logo_without_text.svg" alt="Spotify" className="h-10 opacity-70 hover:opacity-100 transition brightness-0 invert" />
-        </div>
-
-        <div className="flex space-x-3">
-          {[1, 2, 3, 4].map((dot, i) => (
-            <div key={i} className={`w-3 h-3 rounded-full transition-all duration-300 ${i === 0 ? 'bg-blue-500 w-8' : 'bg-white/30 hover:bg-white/50 cursor-pointer'}`}></div>
-          ))}
-        </div>
-      </section>
+      {/* ------------------------------------------------------------- */}
+      {/* Trusted Brands (เรียกใช้ Component แค่บรรทัดเดียว!) */}
+      {/* ------------------------------------------------------------- */}
+      <ClientSection />
 
       {/* ------------------------------------------------------------- */}
       {/* Services Section (Premium Sticky Cards) */}
@@ -109,7 +96,7 @@ export default function Home() {
       <section id="services" className="py-16 md:py-20 relative z-10">
         <div className="max-w-5xl mx-auto px-6">
           <div className="text-center mb-16 md:mb-20 relative">
-            <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tight drop-shadow-2xl">บริการของทางเรา</h2>
+            <h2 className="text-5xl md:text-6xl font-black text-white uppercase tracking-tight drop-shadow-2xl">our services</h2>
             <div className="w-24 h-1 bg-linear-to-r from-blue-500 to-transparent mx-auto mt-6"></div>
           </div>
 
