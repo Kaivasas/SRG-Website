@@ -56,9 +56,9 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
           loop
           muted
           playsInline
-          className="w-full h-full object-cover scale-105 opacity-50"
+          className="w-full h-full object-cover scale-105 opacity-90"
         >
-          <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774496170/7020050_Abstract_Background_3840x2160_lzpmkg.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774499742/GettyImages-1310479626_ppyjhi.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-linear-to-b from-black/40 via-black/60 to-black/80"></div>
       </div>
