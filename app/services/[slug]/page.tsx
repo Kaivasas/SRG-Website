@@ -39,7 +39,7 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
   const totalCards = service.benefits.length;
   let activeCardIndex = Math.floor(whyScrollProgress * totalCards);
   if (activeCardIndex >= totalCards) {
-    activeCardIndex = totalCards - 1; 
+    activeCardIndex = totalCards - 1;
   }
 
   return (
@@ -51,14 +51,14 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       {/* เพื่อให้วิดีโอมุดลงไปอยู่ล่างสุดของเว็บ และไม่ขัดขวางการคลิกใดๆ */}
       {/* ------------------------------------------------------------- */}
       <div className="fixed inset-0 w-screen h-screen z-[-10] bg-[#050505] overflow-hidden pointer-events-none">
-        <video 
-          autoPlay 
-          loop 
-          muted 
+        <video
+          autoPlay
+          loop
+          muted
           playsInline
           className="w-full h-full object-cover scale-105 opacity-50"
         >
-          <source src="/assets/7020050_Abstract_Background_3840x2160.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774496170/7020050_Abstract_Background_3840x2160_lzpmkg.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
       </div>
@@ -90,9 +90,9 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       {/* 2. Why Choose Us Section (Equal Distance Scroll + Glassmorphism) */}
       {/* ------------------------------------------------------------- */}
       <section ref={whySectionRef} className="relative bg-transparent" style={{ height: `${service.benefits.length * 100}vh` }}>
-        
+
         <div className="sticky top-0 h-screen flex flex-col pt-32 pb-16 overflow-hidden">
-          
+
           <div className="w-full px-6 md:px-[10vw] mb-12 shrink-0 relative z-10">
             <h2 className="text-3xl md:text-5xl font-light text-white/60 drop-shadow-lg">
               {service.whyTitle}
@@ -100,16 +100,16 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
           </div>
 
           <div className="grow w-full px-6 md:px-[10vw] relative z-20 pb-12">
-            
+
             {service.benefits.map((benefit, index) => {
               const translateX = index <= activeCardIndex ? "0%" : "150vw";
               const zIndex = index;
 
               return (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="absolute inset-x-6 md:inset-x-[10vw] top-0 bottom-12 bg-white/5 backdrop-blur-2xl rounded-4xl p-8 md:p-16 flex flex-col md:flex-row items-stretch gap-12 border border-white/10 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] shadow-[0_20px_60px_rgba(0,0,0,0.5)]"
-                  style={{ 
+                  style={{
                     transform: `translateX(${translateX})`,
                     zIndex,
                   }}
@@ -119,10 +119,10 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
                     <h4 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight tracking-tight drop-shadow-md">{benefit.title}</h4>
                     <p className="text-white/80 text-lg md:text-xl leading-relaxed font-light border-l-4 border-blue-500 pl-6">{benefit.desc}</p>
                   </div>
-                  
+
                   <div className="grow w-full md:w-[55%] h-60 md:h-auto bg-black/50 rounded-3xl overflow-hidden relative border border-white/5 shadow-inner">
-                    <img 
-                      src={`https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&sig=${index}`} 
+                    <img
+                      src={`https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&sig=${index}`}
                       alt={benefit.title}
                       className="w-full h-full object-cover grayscale opacity-80"
                     />
@@ -137,64 +137,53 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* 3. Workflow Section */}
+      {/* 3. Workflow Section (Dynamic Mode) */}
       {/* ------------------------------------------------------------- */}
-      <section className="py-32 px-6 max-w-5xl mx-auto relative z-10 bg-transparent">
-        <h2 className="text-4xl md:text-5xl font-bold text-center mb-24 text-white drop-shadow-2xl">เราจะทำงานกันแบบไหน?</h2>
-        <div className="flex flex-col pb-32">
-          <div className="sticky top-[20vh] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:border-blue-500/50 hover:bg-white/10">
-            <span className="text-6xl font-black text-blue-500">1.</span>
-            <div>
-              <h3 className="text-3xl font-bold mb-2 text-white">เก็บข้อมูลและศึกษาเป้าหมาย</h3>
-              <p className="text-white/80 font-light">พูดคุยรายละเอียด ทำความเข้าใจธุรกิจและกลุ่มเป้าหมายของคุณอย่างเจาะลึก</p>
-            </div>
+      {/* ตรวจสอบก่อนว่า Service นี้มีข้อมูล workflow หรือไม่ */}
+      {service.workflow && service.workflow.length > 0 && (
+        <section className="py-32 px-6 max-w-5xl mx-auto relative z-10 bg-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-24 text-white drop-shadow-2xl">เราจะทำงานกันแบบไหน?</h2>
+          <div className="flex flex-col pb-32">
+            {/* วนลูปสร้างการ์ด Workflow */}
+            {service.workflow.map((item, index) => (
+              <div
+                key={index}
+                className={`sticky ${item.top} ${item.isDark ? 'bg-black/60' : 'bg-white/5'} backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:bg-white/10 hover:border-white/30`}
+              >
+                <span className={`text-6xl font-black ${item.color}`}>{item.step}.</span>
+                <div>
+                  <h3 className="text-3xl font-bold mb-2 text-white">{item.title}</h3>
+                  <p className="text-white/80 font-light">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+
           </div>
-          <div className="sticky top-[23vh] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:border-[#F48120]/50 hover:bg-white/10">
-            <span className="text-6xl font-black text-[#F48120]">2.</span>
-            <div>
-              <h3 className="text-3xl font-bold mb-2 text-white">วางแผนการทำงานและคุยกับทีม</h3>
-              <p className="text-white/80 font-light">จัดทำแผนกลยุทธ์ (Strategy) และ Timeline ที่ชัดเจน พร้อมนำเสนอให้คุณพิจารณา</p>
-            </div>
-          </div>
-          <div className="sticky top-[26vh] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:border-white/50 hover:bg-white/10">
-            <span className="text-6xl font-black text-gray-300">3.</span>
-            <div>
-              <h3 className="text-3xl font-bold mb-2 text-white">ลงมือทำตามแผนและเป้าหมาย</h3>
-              <p className="text-white/80 font-light">ทีมผู้เชี่ยวชาญเริ่มลงมือปฏิบัติงานตามแผนที่วางไว้ พร้อมอัปเดตความคืบหน้าอย่างใกล้ชิด</p>
-            </div>
-          </div>
-          <div className="sticky top-[29vh] bg-black/60 backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 flex items-center gap-8 transition-all hover:border-blue-400/50 hover:bg-black/80">
-            <span className="text-6xl font-black text-blue-400">4.</span>
-            <div>
-              <h3 className="text-3xl font-bold mb-2 text-white">สรุปผล และ บำรุงรักษาระบบ</h3>
-              <p className="text-gray-300 font-light">ส่งมอบงาน วัดผลลัพธ์ (KPIs) และให้บริการดูแลหลังการขายอย่างต่อเนื่อง</p>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ------------------------------------------------------------- */}
       {/* 4. Portfolio Section */}
       {/* ------------------------------------------------------------- */}
       <section id="portfolios" className="py-24 relative z-10 bg-transparent overflow-hidden">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 px-6 md:px-[10vw] w-full max-w-[1920px] mx-auto relative z-10">
-            {service.portfolios.map((port) => (
-              <div key={port.id} className="w-full group cursor-pointer rounded-2xl bg-white/5 backdrop-blur-xl p-6 border border-white/10 transition hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_20px_60px_-15px_rgba(30,144,255,0.3)] flex flex-col shadow-inner shadow-white/5">
-                <div className="aspect-video bg-black/50 mb-6 overflow-hidden relative rounded-xl shrink-0">
-                  <img src={port.image} alt={`Portfolio ${port.id}`} className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 group-hover:opacity-100" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                     <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>
-                  </div>
-                </div>
-                <div className="flex-grow flex flex-col justify-between">
-                  <h4 className="text-xl lg:text-2xl font-bold text-white mb-2 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">Project Title 0{port.id}</h4>
-                  <div className="flex justify-between items-center mt-2">
-                     <p className="text-white/60 font-light uppercase text-xs tracking-widest line-clamp-1">{service.title}</p>
-                  </div>
+          {service.portfolios.map((port) => (
+            <div key={port.id} className="w-full group cursor-pointer rounded-2xl bg-white/5 backdrop-blur-xl p-6 border border-white/10 transition hover:bg-white/10 hover:border-blue-500/50 hover:shadow-[0_20px_60px_-15px_rgba(30,144,255,0.3)] flex flex-col shadow-inner shadow-white/5">
+              <div className="aspect-video bg-black/50 mb-6 overflow-hidden relative rounded-xl shrink-0">
+                <img src={port.image} alt={`Portfolio ${port.id}`} className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+                  <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>
                 </div>
               </div>
-            ))}
+              <div className="flex-grow flex flex-col justify-between">
+                <h4 className="text-xl lg:text-2xl font-bold text-white mb-2 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">Project Title 0{port.id}</h4>
+                <div className="flex justify-between items-center mt-2">
+                  <p className="text-white/60 font-light uppercase text-xs tracking-widest line-clamp-1">{service.title}</p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
