@@ -10,92 +10,37 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
   const service = servicesData[slug as keyof typeof servicesData];
 
   // -------------------------------------------------------------
-  // ระบบ Scroll Lock & Release (ล็อคหน้าจอเพื่อสไลด์การ์ด)
+  // ระบบ Scroll Progress (หารระยะเลื่อนให้เท่ากันเป๊ะ)
   // -------------------------------------------------------------
   const whySectionRef = useRef<HTMLDivElement>(null);
-  const [activeCardIndex, setActiveCardIndex] = useState(0); 
-  const isLockedRef = useRef(false); 
+  const [whyScrollProgress, setWhyScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (!whySectionRef.current) return;
-
-      const rect = whySectionRef.current.getBoundingClientRect();
-      const isPinned = rect.top <= 10 && rect.bottom >= window.innerHeight - 10;
-
-      if (isPinned) {
-        const scrollingDown = e.deltaY > 0;
-
-        // เลื่อนลง
-        if (scrollingDown && activeCardIndex < service.benefits.length - 1) {
-          e.preventDefault(); 
-          if (!isLockedRef.current) {
-            isLockedRef.current = true;
-            setActiveCardIndex((prev) => prev + 1);
-            // ปรับเวลาหน่วงเหลือ 800ms ให้สมูทและตอบสนองไวขึ้น
-            setTimeout(() => { isLockedRef.current = false; }, 800); 
-          }
-        } 
-        // เลื่อนขึ้น
-        else if (!scrollingDown && activeCardIndex > 0) {
-          e.preventDefault(); 
-          if (!isLockedRef.current) {
-            isLockedRef.current = true;
-            setActiveCardIndex((prev) => prev - 1);
-            // ปรับเวลาหน่วงเหลือ 800ms
-            setTimeout(() => { isLockedRef.current = false; }, 800);
-          }
-        }
+    const handleScroll = () => {
+      if (whySectionRef.current) {
+        const { top, height } = whySectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        // คำนวณเป็นเปอร์เซ็นต์ (0.0 ถึง 1.0)
+        const progress = -top / (height - windowHeight);
+        setWhyScrollProgress(Math.min(Math.max(progress, 0), 1));
       }
     };
 
-    let touchStartY = 0;
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      if (!whySectionRef.current) return;
-      const rect = whySectionRef.current.getBoundingClientRect();
-      const isPinned = rect.top <= 10 && rect.bottom >= window.innerHeight - 10;
-
-      if (isPinned) {
-        const touchEndY = e.touches[0].clientY;
-        const deltaY = touchStartY - touchEndY;
-        const scrollingDown = deltaY > 0;
-
-        if (Math.abs(deltaY) > 20) { 
-          if (scrollingDown && activeCardIndex < service.benefits.length - 1) {
-            if (e.cancelable) e.preventDefault();
-            if (!isLockedRef.current) {
-              isLockedRef.current = true;
-              setActiveCardIndex((prev) => prev + 1);
-              setTimeout(() => { isLockedRef.current = false; }, 800);
-            }
-          } else if (!scrollingDown && activeCardIndex > 0) {
-            if (e.cancelable) e.preventDefault();
-            if (!isLockedRef.current) {
-              isLockedRef.current = true;
-              setActiveCardIndex((prev) => prev - 1);
-              setTimeout(() => { isLockedRef.current = false; }, 800);
-            }
-          }
-        }
-      }
-    };
-
-    window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
-    window.addEventListener("touchmove", handleTouchMove, { passive: false });
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("touchstart", handleTouchStart);
-      window.removeEventListener("touchmove", handleTouchMove);
-    };
-  }, [activeCardIndex, service?.benefits.length]);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   if (!service) {
     return <div className="min-h-screen flex items-center justify-center text-2xl">ไม่พบบริการที่คุณค้นหา</div>;
+  }
+
+  // คำนวณว่าตอนนี้ควรโชว์การ์ดใบไหน (หาร 3 ส่วนเท่าๆ กัน)
+  const totalCards = service.benefits.length;
+  // Progress 0.0-0.33 = ใบที่ 1, 0.33-0.66 = ใบที่ 2, 0.66-1.0 = ใบที่ 3
+  let activeCardIndex = Math.floor(whyScrollProgress * totalCards);
+  if (activeCardIndex >= totalCards) {
+    activeCardIndex = totalCards - 1; // กันไม่ให้ index เกิน
   }
 
   return (
@@ -124,32 +69,36 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       </section>
 
       {/* ------------------------------------------------------------- */}
-      {/* 2. Why Choose Us Section (Scroll Lock & Release System) */}
+      {/* 2. Why Choose Us Section (Equal Distance Scroll) */}
       {/* ------------------------------------------------------------- */}
-      {/* CHANGE: ขยายรันเวย์เป็น 400vh เพื่อไม่ให้สกรอลล์ทะลุกรอบก่อนเห็นการ์ดครบ 3 ใบ */}
-      <section ref={whySectionRef} className="h-[400vh] relative bg-gray-50 border-y border-gray-200">
-        
+      {/* CHANGE: ปรับเป็น 300vh เพื่อให้พอดีกับ 3 การ์ด (การ์ดละ 100vh) */}
+      <section
+        ref={whySectionRef}
+        className="relative bg-gray-50 border-y border-gray-200"
+        style={{ height: `${service.benefits.length * 100}vh` }} // <--- บรรทัดนี้คือเวทมนตร์ครับ! การ์ด 5 ใบมันจะยาว 500vh ให้เอง
+      >
+
         <div className="sticky top-0 h-screen flex flex-col pt-32 pb-16 overflow-hidden">
-          
+
           <div className="w-full px-6 md:px-[10vw] mb-12 shrink-0">
             <h2 className="text-3xl md:text-5xl font-light text-gray-400">
               {service.whyTitle}
             </h2>
           </div>
 
-          <div className="flex-grow w-full px-6 md:px-[10vw] relative z-10 pb-12">
-            
+          <div className="grow w-full px-6 md:px-[10vw] relative z-10 pb-12">
+
             {service.benefits.map((benefit, index) => {
+              // ดึงค่ามาจากที่เราหารเป๊ะๆ ด้านบน
               const translateX = index <= activeCardIndex ? "0%" : "150vw";
               const shadowEffect = index > 0 ? "-30px 0 60px rgba(0,0,0,0.15)" : "0 20px 50px rgba(0,0,0,0.05)";
               const zIndex = index;
 
               return (
-                <div 
-                  key={index} 
-                  // CHANGE: ปรับ duration แอนิเมชันให้สอดคล้องกับ Cooldown ที่ 700ms (เร็วกว่านิดหน่อย)
-                  className="absolute inset-x-6 md:inset-x-[10vw] top-0 bottom-12 bg-white rounded-[2rem] p-8 md:p-16 flex flex-col md:flex-row items-stretch gap-12 border border-gray-100 shadow-2xl transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
-                  style={{ 
+                <div
+                  key={index}
+                  className="absolute inset-x-6 md:inset-x-[10vw] top-0 bottom-12 bg-white rounded-4xl p-8 md:p-16 flex flex-col md:flex-row items-stretch gap-12 border border-gray-100 shadow-2xl transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)]"
+                  style={{
                     transform: `translateX(${translateX})`,
                     zIndex,
                     boxShadow: shadowEffect
@@ -160,10 +109,10 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
                     <h4 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight tracking-tight">{benefit.title}</h4>
                     <p className="text-gray-600 text-lg md:text-xl leading-relaxed font-light border-l-4 border-gray-200 pl-6">{benefit.desc}</p>
                   </div>
-                  
-                  <div className="flex-grow w-full md:w-[55%] h-60 md:h-auto bg-gray-100 rounded-3xl overflow-hidden relative border border-gray-100 shadow-inner">
-                    <img 
-                      src={`https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&sig=${index}`} 
+
+                  <div className="grow w-full md:w-[55%] h-60 md:h-auto bg-gray-100 rounded-3xl overflow-hidden relative border border-gray-100 shadow-inner">
+                    <img
+                      src={`https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&sig=${index}`}
                       alt={benefit.title}
                       className="w-full h-full object-cover"
                     />
@@ -218,24 +167,24 @@ export default function ServiceDetail({ params }: { params: Promise<{ slug: stri
       {/* 4. Portfolio Section */}
       {/* ------------------------------------------------------------- */}
       <section id="portfolios" className="py-24 relative z-10 bg-[#070707] border-y border-white/5 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 px-6 md:px-[10vw] w-full max-w-[1920px] mx-auto relative z-10">
-            {service.portfolios.map((port) => (
-              <div key={port.id} className="w-full group cursor-pointer rounded-2xl bg-[#0a0f16] p-6 border border-white/5 transition hover:border-blue-500/30 hover:shadow-[0_20px_60px_-15px_rgba(30,144,255,0.15)] flex flex-col">
-                <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative rounded-xl shrink-0">
-                  <img src={port.image} alt={`Portfolio ${port.id}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                     <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>
-                  </div>
-                </div>
-                <div className="flex-grow flex flex-col justify-between">
-                  <h4 className="text-xl lg:text-2xl font-bold text-white mb-2 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">Project Title 0{port.id}</h4>
-                  <div className="flex justify-between items-center mt-2">
-                     <p className="text-gray-400 font-light uppercase text-xs tracking-widest line-clamp-1">{service.title}</p>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10 px-6 md:px-[10vw] w-full max-w-480 mx-auto relative z-10">
+          {service.portfolios.map((port) => (
+            <div key={port.id} className="w-full group cursor-pointer rounded-2xl bg-[#0a0f16] p-6 border border-white/5 transition hover:border-blue-500/30 hover:shadow-[0_20px_60px_-15px_rgba(30,144,255,0.15)] flex flex-col">
+              <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative rounded-xl shrink-0">
+                <img src={port.image} alt={`Portfolio ${port.id}`} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
+                  <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>
                 </div>
               </div>
-            ))}
+              <div className="grow flex flex-col justify-between">
+                <h4 className="text-xl lg:text-2xl font-bold text-white mb-2 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">Project Title 0{port.id}</h4>
+                <div className="flex justify-between items-center mt-2">
+                  <p className="text-gray-400 font-light uppercase text-xs tracking-widest line-clamp-1">{service.title}</p>
+                </div>  
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
