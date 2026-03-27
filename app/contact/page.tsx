@@ -1,12 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Link from 'next/link';
 
 export default function ContactPage() {
   const [isNavVisible, setIsNavVisible] = useState(true);
 
-  // สำหรับ Navbar (ถ้าคุณแยก Component ไว้ในอนาคต จะจัดการง่ายขึ้นครับ)
   useEffect(() => {
     let lastScrollY = window.scrollY;
     const handleScroll = () => {
@@ -22,113 +20,121 @@ export default function ContactPage() {
   }, []);
 
   return (
-    <div className="min-h-screen font-sans bg-gray-50 text-gray-900">
+    <div className="min-h-screen font-sans bg-[#050505] text-white selection:bg-[#F48120] selection:text-white pb-0">
 
-      {/* Part 1: Hero Section (สีโทนเข้ม/รูปภาพตามแบบ) */}
-      <section className="relative pt-40 pb-32 bg-[#002a3a] flex flex-col items-center justify-center overflow-hidden">
-        {/* เลเยอร์พื้นหลัง (เปลี่ยน src เป็นรูปออฟฟิศสวยๆ ได้เลย) */}
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80" alt="Office Background" className="w-full h-full object-cover" />
-        </div>
-
-        <div className="relative z-10 text-center px-6">
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-6 tracking-tight">
-            เรารอคุณอยู่
+      {/* ------------------------------------------------------------- */}
+      {/* 1. Hero Section (Massive Typography) */}
+      {/* ------------------------------------------------------------- */}
+      <section className="pt-48 pb-16 px-6 md:px-12 border-b border-white/10">
+        <div className="max-w-[1920px] mx-auto">
+          <h1 className="text-[14vw] md:text-[11rem] font-black leading-[0.85] tracking-tighter uppercase mb-6 drop-shadow-2xl">
+            Let's <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#004965] to-[#005a72]">Collaborate.</span>
           </h1>
-          <p className="text-xl md:text-2xl text-gray-300 font-light tracking-wider">
-            ก้าวไปพร้อมเรา เราจะเคียงข้างคุณ
+          <p className="text-xl md:text-2xl text-[#939598] max-w-2xl font-light tracking-wide border-l-4 border-[#FAD337] pl-6 mt-12">
+            เราไม่ใช่แค่เพิ่มยอดขาย แต่เราพร้อมจะเป็นส่วนหนึ่งในการผลักดันให้ธุรกิจของคุณเติบโตอย่างยั่งยืน
           </p>
         </div>
       </section>
 
-      {/* Part 2: Contact Info & Booking */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-
-          {/* ซ้าย: ข้อความ + รูป CEO */}
-          <div className="flex flex-col">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">เติบโตไปพร้อมกับเรา</h2>
-            <p className="text-lg text-gray-600 mb-12">เราไม่ใช่แค่เพิ่มรายได้ แต่เราจะเป็นส่วนหนึ่งของครอบครัวคุณ</p>
-
-            <div className="w-full h-80 md:h-96 bg-gray-200 rounded-3xl overflow-hidden shadow-lg border border-gray-100 flex items-center justify-center relative">
-              {/* ใส่รูป CEO ตรงนี้ */}
-              <span className="absolute text-6xl text-gray-400 font-light">X</span>
-              {/* <img src="..." alt="CEO" className="w-full h-full object-cover relative z-10" /> */}
+      {/* ------------------------------------------------------------- */}
+      {/* 2. Editorial Content (Image Left, Typography Right) */}
+      {/* ------------------------------------------------------------- */}
+      <section className="py-24 px-6 md:px-12 max-w-[1920px] mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
+        
+        {/* ฝั่งซ้าย: รูปภาพทรงสูง (Portrait) สไตล์นิตยสาร */}
+        <div className="w-full lg:w-5/12">
+          <div className="aspect-[3/4] w-full bg-[#001f2b] overflow-hidden relative group">
+            <img 
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32b7?w=800&q=80" 
+              alt="Our Team" 
+              className="absolute inset-0 w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[1200ms] ease-[cubic-bezier(0.25,1,0.5,1)]" 
+            />
+            {/* ป้ายชื่อเล็กๆ แปะบนรูป */}
+            <div className="absolute bottom-6 left-6 bg-black/50 backdrop-blur-md px-6 py-3 border border-white/10">
+              <p className="text-white font-bold uppercase tracking-widest text-sm">Sustain Republix</p>
             </div>
           </div>
+        </div>
 
-          {/* ขวา: กล่องข้อมูลติดต่อ & กล่องปรึกษาฟรี */}
-          <div className="flex flex-col gap-8">
-
-            {/* กล่อง Contact */}
-            <div className="bg-white p-10 rounded-3xl shadow-xl border border-gray-100">
-              <h3 className="text-4xl font-bold mb-8">Contact</h3>
-              <div className="space-y-4">
-                <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
-                  <span className="text-pink-500 text-xl">📞</span>
-                  <p className="font-bold text-gray-800">+66 2249-5445</p>
+        {/* ฝั่งขวา: ข้อมูลการติดต่อแบบจัดวางอิสระ ไม่มีกรอบกั้น */}
+        <div className="w-full lg:w-7/12 flex flex-col justify-center">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
+            
+            {/* คอลัมน์ที่ 1: การติดต่อ */}
+            <div>
+              <h3 className="text-[#939598] tracking-[0.2em] uppercase text-sm mb-12 border-b border-white/10 pb-4">Contact Info</h3>
+              
+              <div className="space-y-12">
+                <div>
+                  <p className="text-[#004965] font-bold uppercase tracking-widest mb-2 text-xs">Phone</p>
+                  <p className="text-3xl md:text-4xl font-light hover:text-[#F48120] transition-colors duration-300 cursor-pointer">+66 91 773 5563</p>
                 </div>
-                <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
-                  <span className="text-blue-500 text-xl">📧</span>
-                  <p className="font-bold text-gray-800 text-sm md:text-base">arthit.p@sustain-Republix.com</p>
+                
+                <div>
+                  <p className="text-[#004965] font-bold uppercase tracking-widest mb-2 text-xs">Email</p>
+                  <p className="text-xl md:text-2xl font-light hover:text-[#F48120] transition-colors duration-300 cursor-pointer break-words">arthit.p@sustain-republix.com</p>
+                  <p className="text-xl md:text-2xl font-light hover:text-[#FAD337] transition-colors duration-300 cursor-pointer break-words mt-3">wilailak.p@sustain-republix.com</p>
                 </div>
-                <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
-                  <span className="text-blue-500 text-xl">📧</span>
-                  <p className="font-bold text-gray-800 text-sm md:text-base">wilailak.p@sustain-Republix.com</p>
-                </div>
-              </div>
-              <div className="mt-8 inline-block bg-blue-50 text-blue-800 px-4 py-2 rounded-full text-sm font-semibold">
-                เวลาทำการ: จันทร์–ศุกร์ 09:00–18:00
               </div>
             </div>
 
-            {/* กล่อง ปรึกษาฟรี! */}
-            <div className="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 flex flex-col items-center text-center">
-              <h3 className="text-5xl font-black mb-4">ปรึกษาฟรี!</h3>
-              <p className="text-gray-600 mb-8 text-lg">สามารถนัดวันปรึกษากับทางทีมผู้เชี่ยวชาญได้เลย</p>
-              <button className="w-full md:w-auto border-2 border-gray-900 text-gray-900 font-bold text-lg py-4 px-12 hover:bg-gray-900 hover:text-white transition duration-300">
-                Book a call
-              </button>
+            {/* คอลัมน์ที่ 2: ที่อยู่ */}
+            <div>
+              <h3 className="text-[#939598] tracking-[0.2em] uppercase text-sm mb-12 border-b border-white/10 pb-4">Headquarters</h3>
+              
+              <div className="space-y-12">
+                <div>
+                  <p className="text-[#004965] font-bold uppercase tracking-widest mb-2 text-xs">Address</p>
+                  <p className="text-xl md:text-2xl font-light leading-relaxed text-gray-300">
+                    <span className="text-white font-medium">Sustain Republix Group Co.,Ltd.</span><br />
+                    888 5th floor, VGR Building,<br />
+                    Samrong Nuea, Mueang Samut Prakan,<br />
+                    Samut Prakan 10270
+                  </p>
+                </div>
+                
+                <div>
+                  <p className="text-[#004965] font-bold uppercase tracking-widest mb-2 text-xs">Office Hours</p>
+                  <p className="text-xl md:text-2xl font-light text-gray-300">Mon – Fri <span className="text-[#F48120] mx-2">/</span> 09:00 – 18:00</p>
+                </div>
+              </div>
             </div>
 
+          </div>
+
+          {/* ปุ่ม Book a Call แบบดุดันเตะตา */}
+          <div className="mt-20 pt-16 border-t border-white/10">
+            <button className="bg-transparent border-2 border-[#F48120] text-[#F48120] hover:bg-[#F48120] hover:text-black px-12 py-5 font-bold text-lg uppercase tracking-[0.2em] transition-all duration-300 group">
+              Book a Call 
+              <span className="inline-block transform group-hover:translate-x-2 transition-transform ml-4">→</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------- */}
+      {/* 3. Full-width Map Section (แผนที่กางเต็มจอ 100%) */}
+      {/* ------------------------------------------------------------- */}
+      <section className="w-full h-[50vh] md:h-[70vh] relative grayscale hover:grayscale-0 transition-all duration-1000 border-t border-white/10">
+        <iframe 
+          src="https://maps.google.com/maps?q=VGR%20Building,%20Samrong%20Nuea,%20Samut%20Prakan&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+          className="absolute inset-0 w-full h-full border-0 outline-none" 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
+        
+        {/* ป้ายนำทางลอยๆ บนแผนที่ */}
+        <div className="absolute top-8 right-8 pointer-events-none">
+          <div className="bg-[#050505] text-white border border-white/20 px-6 py-3 shadow-2xl flex items-center gap-4">
+             <span className="w-3 h-3 bg-[#FAD337] rounded-full animate-pulse"></span>
+             <span className="font-bold tracking-widest uppercase text-sm">We are here</span>
           </div>
         </div>
       </section>
 
-      {/* Part 3: Map Section */}
-      <section className="py-24 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="bg-white rounded-3xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-gray-200">
-
-            {/* ซ้าย: Google Map (แทนที่ด้วย iframe แผนที่จริง) */}
-            <div className="w-full md:w-1/2 h-96 md:h-auto bg-gray-300 flex items-center justify-center relative">
-              <span className="absolute text-6xl text-gray-500 font-light z-0">X</span>
-              {/* ตัวอย่างการใส่ iframe แผนที่จริง (พิกัดสำโรงเหนือ สมุทรปราการ) */}
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3877.017565882333!2d100.63000000000001!3d13.630000000000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDM3JzQ4LjAiTiAxMDDCsDM3JzQ4LjAiRQ!5e0!3m2!1sth!2sth!4v1610000000000!5m2!1sth!2sth"
-                className="w-full h-full relative z-10 opacity-80 hover:opacity-100 transition duration-300"
-                loading="lazy"
-              ></iframe>
-            </div>
-
-            {/* ขวา: ที่อยู่ออฟฟิศ */}
-            <div className="w-full md:w-1/2 p-12 md:p-16 flex flex-col justify-center bg-gray-50">
-              <h3 className="text-4xl font-bold mb-8 text-gray-900">ออฟฟิศของเรา</h3>
-              <div className="flex items-start gap-4">
-                <div className="mt-1 text-gray-400">
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" /></svg>
-                </div>
-                <p className="text-xl text-gray-700 leading-relaxed font-light">
-                  Sustain Republix Group Co.,Ltd.<br />
-                  888 5th floor, VGR Building,<br />
-                  Samrong Nuea, Mueang Samut Prakan District,<br />
-                  Samut Prakan 10270
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
