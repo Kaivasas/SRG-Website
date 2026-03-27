@@ -51,7 +51,7 @@ export const worksData: Work[] = [
         content: [
           "เว็บไซต์เก่าโหลดช้า (5 วินาที+)",
           "Bounce Rate สูงถึง 80%",
-          "Design ไม่สื่อถึงภาพลักษณ์ Luxury"
+          "Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury Design ไม่สื่อถึงภาพลักษณ์ Luxury"
         ],
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
       },
@@ -61,7 +61,7 @@ export const worksData: Work[] = [
         content: [
           "รื้อโครงสร้าง UI/UX ใหม่ทั้งหมด",
           "ใช้เทคโนโลยี Next.js เพื่อความเร็ว",
-          "ทำ SEO เชิงลึกเพื่อดึง Organic Traffic"
+          "ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic ทำ SEO เชิงลึกเพื่อดึง Organic Traffic "
         ],
         image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80"
       },
@@ -71,7 +71,7 @@ export const worksData: Work[] = [
         content: [
           "ดีไซน์สไตล์ Minimalist Brutalism",
           "ระบบ Checkout ที่จบใน 2 ขั้นตอน",
-          "เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ"
+          "เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ เชื่อมต่อระบบ Stock หลังบ้านอัตโนมัติ "
         ],
         image: "https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?w=800&q=80"
       }
