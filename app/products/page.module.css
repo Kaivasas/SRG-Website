@@ -1,0 +1,148 @@
+.heroMark,
+.heroLine {
+  position: absolute;
+  opacity: 0.92;
+}
+
+.heroLine {
+  left: 64%;
+  top: 43%;
+  width: min(25vw, 20rem);
+  height: 1.5px;
+  background: rgba(0, 0, 0, 0.85);
+  transform-origin: left center;
+  animation: linePulse 5s ease-in-out infinite;
+}
+
+.heroMark::before,
+.heroMark::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.5px;
+  height: 3.2rem;
+  background: rgba(0, 0, 0, 0.85);
+  transform-origin: center;
+}
+
+.heroMarkLeft {
+  left: 58%;
+  top: 34%;
+  width: 2.4rem;
+  height: 2.4rem;
+  animation: driftLeft 5s ease-in-out infinite;
+}
+
+.heroMarkRight {
+  left: 93%;
+  top: 40%;
+  width: 2.4rem;
+  height: 2.4rem;
+  animation: driftRight 5s ease-in-out infinite;
+}
+
+.heroMark::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.heroMark::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.socialIcon {
+  display: flex;
+  height: 3rem;
+  width: 3rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.9rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+}
+
+.socialIconBlue {
+  background: #1478db;
+}
+
+.socialIconDark {
+  background: #000;
+}
+
+@keyframes driftLeft {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(0.6rem, -0.55rem, 0) rotate(8deg);
+  }
+}
+
+@keyframes driftRight {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate3d(-0.75rem, 0.35rem, 0) rotate(-10deg);
+  }
+}
+
+@keyframes linePulse {
+  0%,
+  100% {
+    transform: scaleX(0.95) translateX(0);
+    opacity: 0.78;
+  }
+
+  50% {
+    transform: scaleX(1.05) translateX(0.4rem);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroLine {
+    left: 63%;
+    top: 44%;
+    width: 10rem;
+  }
+
+  .heroMarkLeft {
+    left: 57%;
+    top: 35%;
+  }
+
+  .heroMarkRight {
+    left: 89%;
+    top: 41%;
+  }
+}
+
+@media (max-width: 640px) {
+  .heroLine {
+    left: 51%;
+    top: 50%;
+    width: 6rem;
+  }
+
+  .heroMark::before,
+  .heroMark::after {
+    height: 2.1rem;
+  }
+
+  .heroMarkLeft {
+    left: 42%;
+    top: 45%;
+  }
+
+  .heroMarkRight {
+    left: 82%;
+    top: 49%;
+  }
+}

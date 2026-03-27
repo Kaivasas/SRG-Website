@@ -178,7 +178,7 @@ export default function Navbar() {
             </li>
 
             <li><Link href="/works" className="hover:text-blue-400 transition">Works</Link></li>
-            <li><Link href="/#products" className="hover:text-blue-400 transition">Product</Link></li>
+            <li><Link href="/products" className="hover:text-blue-400 transition">Product</Link></li>
             <li><Link href="/contact" className="hover:text-blue-400 transition">Contact</Link></li>
           </ul>
           <div className="text-sm font-bold bg-white text-gray-900 px-6 py-2.5 rounded-full hover:bg-blue-500 hover:text-white transition cursor-pointer shadow-lg">
