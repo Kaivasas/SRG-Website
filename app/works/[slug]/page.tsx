@@ -3,7 +3,7 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 
 // 1. Import Components ที่เราเพิ่งหั่นไว้มาประกอบกัน
-import WorkHero from "@/app/components/works/WorkHero";
+import WorkHero from "@/app/components/works/WorkDetailHero";
 import BeforeAfterSlider from "@/app/components/works/BeforeAfterSlider";
 import Scrollytelling from "@/app/components/works/Scrollytelling";
 import WorkGallery from "@/app/components/works/WorkGallery";
