@@ -56,7 +56,7 @@ export default function WorkDetailPage({ params }: { params: Promise<{ slug: str
             <Link href="/works" className="text-sm font-bold tracking-widest uppercase text-gray-500 hover:text-[#F48120] transition-colors mb-8 inline-flex items-center gap-2">
               &larr; Back to Works
             </Link>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-400">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-[0.9] tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-white to-[#004965]">
               {work.title}
             </h1>
             <p className="text-xl md:text-2xl text-gray-400 font-light leading-relaxed border-l-4 border-[#004965] pl-6">
