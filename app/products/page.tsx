@@ -38,38 +38,48 @@ export default function ProductsPage() {
               <Link
                 key={product.slug}
                 href={`/products/${product.slug}`}
-                className="group relative flex min-h-[350px] overflow-hidden bg-[#f4f4f4] p-5 text-black transition duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] sm:min-h-[380px] sm:p-6"
+                className="group relative flex min-h-[350px] overflow-hidden bg-[#f4f4f4] text-black transition duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] sm:min-h-[380px]"
               >
-                <div className="flex h-full w-full flex-col">
-                  <div>
-                    <p className="text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none tracking-[-0.04em]">
+                <div
+                  className="absolute inset-0 transition duration-700 group-hover:scale-[1.03]"
+                  style={{ backgroundImage: product.cover }}
+                />
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_34%)] opacity-90 transition duration-700 group-hover:opacity-100" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.02)_40%,rgba(0,0,0,0.28)_100%)]" />
+
+                <div className="relative flex h-full w-full flex-col p-5 sm:p-6">
+                  <div className="relative z-10">
+                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-white/72">
+                      {product.eyebrow}
+                    </p>
+                    <p className="mt-3 text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none tracking-[-0.04em] text-white">
                       {product.title}
                     </p>
-                    <p className="mt-2 max-w-[18rem] text-xs text-black/55 sm:text-sm">
+                    <p className="mt-2 max-w-[18rem] text-xs text-white/76 sm:text-sm">
                       {product.subtitle}
                     </p>
                   </div>
 
-                  <div className="relative mt-8 flex flex-1 items-center justify-center overflow-hidden">
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${product.gradient} opacity-80 transition duration-500 group-hover:scale-105`}
-                    />
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.85),transparent_48%)] opacity-90" />
-                    <span className="relative text-[4.5rem] font-extralight leading-none tracking-[-0.08em] transition duration-500 group-hover:scale-90 group-hover:opacity-30 sm:text-[5.5rem]">
-                      X
-                    </span>
-                    <span className="absolute left-4 top-4 text-[0.65rem] uppercase tracking-[0.3em] text-black/35">
+                  <div className="relative flex flex-1 items-center justify-center">
+                    <div className="absolute inset-x-0 top-0 flex items-start justify-between text-[0.65rem] uppercase tracking-[0.3em] text-white/58">
                       0{index + 1}
-                    </span>
+                      <span>{product.year}</span>
+                    </div>
+                    <div className="grid w-full max-w-[18rem] grid-cols-2 gap-3 opacity-90 transition duration-500 group-hover:scale-[0.98] group-hover:opacity-55">
+                      <div className="h-24 rounded-[1.25rem] border border-white/24 bg-white/14 backdrop-blur-[2px]" />
+                      <div className="mt-10 h-28 rounded-[1.25rem] border border-white/18 bg-black/18" />
+                      <div className="-mt-6 h-20 rounded-[1.25rem] border border-white/16 bg-white/10" />
+                      <div className="h-16 rounded-[999px] border border-white/14 bg-white/8" />
+                    </div>
                   </div>
 
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 translate-y-full bg-white/88 p-5 backdrop-blur-sm transition duration-500 group-hover:translate-y-0">
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full bg-white/88 p-5 backdrop-blur-sm transition duration-500 group-hover:translate-y-0">
                     <p className="text-sm leading-relaxed text-black/72">
                       {product.description}
                     </p>
                     <div className="mt-4 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.24em] text-black/45">
-                      <span>{product.category}</span>
-                      <span>Open Project</span>
+                      <span>{product.client}</span>
+                      <span>{product.status}</span>
                     </div>
                   </div>
                 </div>
@@ -79,23 +89,5 @@ export default function ProductsPage() {
         </div>
       </section>
     </main>
-  );
-}
-
-function SocialIcon({
-  label,
-  dark = false,
-}: {
-  label: string;
-  dark?: boolean;
-}) {
-  return (
-    <span
-      className={`${styles.socialIcon} ${
-        dark ? styles.socialIconDark : styles.socialIconBlue
-      }`}
-    >
-      {label}
-    </span>
   );
 }
