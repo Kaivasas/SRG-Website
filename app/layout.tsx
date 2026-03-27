@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 // 1. นำเข้า Navbar ที่เราเพิ่งสร้าง (เปลี่ยน path ให้ตรงกับที่คุณเซฟไฟล์ไว้)
-import Navbar from "./components/Navbar"; 
-import Footer from "./components/Footer";
+import Navbar from "./components/ui/Navbar"; 
+import Footer from "./components/ui/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
