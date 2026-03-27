@@ -1,11 +1,17 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 export default function Navbar() {
   const lastScrollY = useRef(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/studio')) {
+    return null;
+  }
 
   useEffect(() => {
     const handleScroll = () => {
