@@ -1,6 +1,13 @@
+"use client";
+
 import React from 'react';
+import { usePathname } from 'next/navigation';
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith('/studio')) {
+    return null;
+  }
   return (
     <footer className="bg-[#004965] text-white py-20 px-10 md:px-24 flex flex-col md:flex-row justify-between border-t border-[#003850]">
       <div className="mb-12 md:mb-0">
@@ -29,8 +36,8 @@ export default function Footer() {
         </a>
         <p className="text-sm leading-relaxed text-gray-400">
           Sustain Republix Group Co.,Ltd.<br />
-          888 5th floor, VGR Building,<br/>
-          Samrong Nuea, Mueang Samut Prakan District,<br/>
+          888 5th floor, VGR Building,<br />
+          Samrong Nuea, Mueang Samut Prakan District,<br />
           Samut Prakan 10270
         </p>
       </div>
