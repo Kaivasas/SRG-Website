@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "./components/ui/Navbar"; // ตรวจสอบ Path ให้ตรงกับไฟล์ของคุณ
+import Footer from "./components/ui/Footer";
 import { client } from "@/sanity/lib/client"; // นำเข้าตัวดึงข้อมูล Sanity
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ export default async function RootLayout({
         {/* 🟢 2. โยนข้อมูล services ไปให้ Navbar */}
         <Navbar services={services} />
         {children}
+        <Footer />
       </body>
     </html>
   );
