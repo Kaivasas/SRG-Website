@@ -1,93 +1,119 @@
 import Link from "next/link";
 import { products } from "./data";
 import styles from "./page.module.css";
+import Reveal from "./Reveal";
 
 export default function ProductsPage() {
   return (
-    <main className="bg-[#d9d9d9] text-black">
-      <section className="mx-auto flex min-h-[68vh] w-full max-w-[1400px] items-center px-6 pb-16 pt-28 sm:px-10 lg:px-20">
-        <div className="max-w-[980px]">
-          <div className="relative inline-block">
-            <h1 className="text-[clamp(4rem,10vw,8rem)] font-light leading-[0.92] tracking-[-0.06em]">
-              <span className="block">Pure Intent</span>
-              <span className="relative block">
-                Exceptional Craft
-                <span
-                  className={`${styles.heroMark} ${styles.heroMarkLeft}`}
-                  aria-hidden="true"
-                />
-                <span
-                  className={`${styles.heroMark} ${styles.heroMarkRight}`}
-                  aria-hidden="true"
-                />
-                <span className={styles.heroLine} aria-hidden="true" />
-              </span>
+    <main className={styles.pageShell}>
+      <Reveal className={`${styles.reveal} relative mx-auto flex min-h-[78vh] w-full max-w-[1400px] items-center px-6 pb-20 pt-32 sm:px-10 lg:px-20`}>
+        <div className="max-w-[1050px]">
+          <span className={styles.kicker}>Innovation Portfolio</span>
+          <div className="relative mt-6 inline-block">
+            <h1 className="text-[clamp(4rem,10vw,8.2rem)] font-black uppercase leading-[0.9] tracking-[-0.08em] text-white drop-shadow-[0_10px_40px_rgba(0,0,0,0.28)]">
+              <span className="block">Future-Ready</span>
+              <span className="block">Product Systems</span>
             </h1>
           </div>
-          <p className="mt-5 max-w-[940px] text-[clamp(1.05rem,2vw,1.2rem)] leading-relaxed text-black/80">
-            A curated selection of technical challenges solved and visions
-            brought to life.
+          <p className="mt-6 max-w-[860px] text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-white/72">
+            Explore a curated line-up of digital products shaped for real-world
+            growth, sustainable operations, and more expressive brand
+            experiences.
           </p>
+
+          <div className="mt-10 flex flex-wrap gap-4">
+            <Link href="/contact" className={styles.primaryButton}>
+              Start a Project
+            </Link>
+            <a href="#products-grid" className={styles.secondaryButton}>
+              Browse Products
+            </a>
+          </div>
         </div>
-      </section>
+      </Reveal>
 
-      <section className="mx-auto w-full max-w-[1400px] px-6 pb-24 sm:px-10 lg:px-20">
-        <div className="bg-[#d4d4d4] p-5 sm:p-8 lg:p-12">
-          <div className="grid gap-5 md:grid-cols-2 lg:gap-8">
+      <Reveal
+        delayMs={80}
+        className={`${styles.reveal} relative mx-auto w-full max-w-[1400px] px-6 pb-24 sm:px-10 lg:px-20`}
+      >
+        <section
+        id="products-grid"
+        className="relative"
+      >
+        <div className={styles.panelShell}>
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div>
+              <span className={styles.sectionEyebrow}>Selected Solutions</span>
+              <h2 className="mt-3 text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase tracking-[-0.06em] text-white">
+                Built To Move Brands Forward
+              </h2>
+            </div>
+            <p className="max-w-[34rem] border-l-2 border-[#F48120] pl-4 text-base leading-relaxed text-white/64">
+              Every product is presented as a launch-ready concept with clearer
+              positioning, stronger storytelling, and a more premium visual
+              rhythm that matches the rest of the site.
+            </p>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
             {products.map((product, index) => (
-              <Link
+              <Reveal
                 key={product.slug}
-                href={`/products/${product.slug}`}
-                className="group relative flex min-h-[350px] overflow-hidden bg-[#f4f4f4] text-black transition duration-500 ease-out hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(0,0,0,0.12)] sm:min-h-[380px]"
+                className={styles.productCard}
+                delayMs={index * 90}
               >
-                <div
-                  className="absolute inset-0 transition duration-700 group-hover:scale-[1.03]"
-                  style={{ backgroundImage: product.cover }}
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.18),transparent_34%)] opacity-90 transition duration-700 group-hover:opacity-100" />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.12)_0%,rgba(255,255,255,0.02)_40%,rgba(0,0,0,0.28)_100%)]" />
-
-                <div className="relative flex h-full w-full flex-col p-5 sm:p-6">
-                  <div className="relative z-10">
-                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-white/72">
-                      {product.eyebrow}
-                    </p>
-                    <p className="mt-3 text-[clamp(1.4rem,2.2vw,2rem)] font-medium leading-none tracking-[-0.04em] text-white">
-                      {product.title}
-                    </p>
-                    <p className="mt-2 max-w-[18rem] text-xs text-white/76 sm:text-sm">
-                      {product.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="relative flex flex-1 items-center justify-center">
-                    <div className="absolute inset-x-0 top-0 flex items-start justify-between text-[0.65rem] uppercase tracking-[0.3em] text-white/58">
-                      0{index + 1}
-                      <span>{product.year}</span>
+                <Link href={`/products/${product.slug}`} className="block h-full w-full">
+                  <div className={styles.cardNoise} />
+                  <div
+                    className={styles.cardBackdrop}
+                    style={{ backgroundImage: product.cover }}
+                  />
+                  <div className={styles.cardOverlay} />
+                  <div className={styles.cardInner}>
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#FAD337]">
+                          {product.eyebrow}
+                        </p>
+                        <h3 className="mt-3 text-[clamp(1.7rem,3vw,2.4rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
+                          {product.title}
+                        </h3>
+                      </div>
+                      <span className="text-xs uppercase tracking-[0.28em] text-white/48">
+                        0{index + 1}
+                      </span>
                     </div>
-                    <div className="grid w-full max-w-[18rem] grid-cols-2 gap-3 opacity-90 transition duration-500 group-hover:scale-[0.98] group-hover:opacity-55">
-                      <div className="h-24 rounded-[1.25rem] border border-white/24 bg-white/14 backdrop-blur-[2px]" />
-                      <div className="mt-10 h-28 rounded-[1.25rem] border border-white/18 bg-black/18" />
-                      <div className="-mt-6 h-20 rounded-[1.25rem] border border-white/16 bg-white/10" />
-                      <div className="h-16 rounded-[999px] border border-white/14 bg-white/8" />
-                    </div>
-                  </div>
 
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 translate-y-full bg-white/88 p-5 backdrop-blur-sm transition duration-500 group-hover:translate-y-0">
-                    <p className="text-sm leading-relaxed text-black/72">
+                    <p className="mt-4 max-w-[28rem] text-sm leading-relaxed text-white/70 sm:text-base">
                       {product.description}
                     </p>
-                    <div className="mt-4 flex items-center justify-between gap-3 text-xs uppercase tracking-[0.24em] text-black/45">
-                      <span>{product.client}</span>
-                      <span>{product.status}</span>
+
+                    <div className="mt-8 grid flex-1 grid-cols-2 gap-3 sm:max-w-[20rem]">
+                      <div className={styles.mockTileLarge} />
+                      <div className={styles.mockTileOffset} />
+                      <div className={styles.mockTileWide} />
+                      <div className={styles.mockTilePill} />
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-white/12 pt-5">
+                      <div className="flex flex-wrap gap-2">
+                        <span className={styles.metaChip}>{product.client}</span>
+                        <span className={styles.metaChip}>{product.status}</span>
+                        <span className={styles.metaChipAccent}>{product.year}</span>
+                      </div>
+                      <span className={styles.cardLink}>
+                        View Case Study
+                        <span aria-hidden="true">+</span>
+                      </span>
                     </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              </Reveal>
             ))}
           </div>
         </div>
-      </section>
+        </section>
+      </Reveal>
     </main>
   );
 }

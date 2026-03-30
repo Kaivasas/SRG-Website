@@ -1,148 +1,235 @@
-.heroMark,
-.heroLine {
-  position: absolute;
-  opacity: 0.92;
+.pageShell {
+  position: relative;
+  min-height: 100vh;
+  overflow: clip;
+  background:
+    radial-gradient(circle at top left, rgba(244, 129, 32, 0.1), transparent 28%),
+    radial-gradient(circle at 82% 15%, rgba(0, 90, 114, 0.14), transparent 24%),
+    linear-gradient(180deg, #031018 0%, #022533 34%, #003045 68%, #003951 100%);
 }
 
-.heroLine {
-  left: 64%;
-  top: 43%;
-  width: min(25vw, 20rem);
-  height: 1.5px;
-  background: rgba(0, 0, 0, 0.85);
-  transform-origin: left center;
-  animation: linePulse 5s ease-in-out infinite;
-}
-
-.heroMark::before,
-.heroMark::after {
+.pageShell::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 1.5px;
-  height: 3.2rem;
-  background: rgba(0, 0, 0, 0.85);
-  transform-origin: center;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.18), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.14)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.02), transparent 48%);
+  pointer-events: none;
 }
 
-.heroMarkLeft {
-  left: 58%;
-  top: 34%;
-  width: 2.4rem;
-  height: 2.4rem;
-  animation: driftLeft 5s ease-in-out infinite;
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
 }
 
-.heroMarkRight {
-  left: 93%;
-  top: 40%;
-  width: 2.4rem;
-  height: 2.4rem;
-  animation: driftRight 5s ease-in-out infinite;
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.heroMark::before {
-  transform: translate(-50%, -50%) rotate(45deg);
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.7rem 1rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: #fad337;
 }
 
-.heroMark::after {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
-
-.socialIcon {
-  display: flex;
-  height: 3rem;
-  width: 3rem;
+.primaryButton,
+.secondaryButton {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.9rem;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1;
-  color: #fff;
+  min-width: 13rem;
+  border-radius: 999px;
+  padding: 1rem 1.5rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition:
+    transform 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease;
 }
 
-.socialIconBlue {
-  background: #1478db;
+.primaryButton {
+  background: linear-gradient(90deg, #f48120, #fad337);
+  color: #003951;
 }
 
-.socialIconDark {
-  background: #000;
+.secondaryButton {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.86);
 }
 
-@keyframes driftLeft {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate3d(0.6rem, -0.55rem, 0) rotate(8deg);
-  }
+.primaryButton:hover,
+.secondaryButton:hover {
+  transform: translateY(-2px);
 }
 
-@keyframes driftRight {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-
-  50% {
-    transform: translate3d(-0.75rem, 0.35rem, 0) rotate(-10deg);
-  }
+.panelShell {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    rgba(3, 25, 35, 0.58);
+  padding: 1.5rem;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
 }
 
-@keyframes linePulse {
-  0%,
-  100% {
-    transform: scaleX(0.95) translateX(0);
-    opacity: 0.78;
-  }
-
-  50% {
-    transform: scaleX(1.05) translateX(0.4rem);
-    opacity: 1;
-  }
+.sectionEyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #f48120;
 }
 
-@media (max-width: 1024px) {
-  .heroLine {
-    left: 63%;
-    top: 44%;
-    width: 10rem;
-  }
+.productCard {
+  position: relative;
+  display: flex;
+  min-height: 31rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+}
 
-  .heroMarkLeft {
-    left: 57%;
-    top: 35%;
-  }
+.productCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(250, 211, 55, 0.26);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.2);
+}
 
-  .heroMarkRight {
-    left: 89%;
-    top: 41%;
-  }
+.cardNoise,
+.cardBackdrop,
+.cardOverlay {
+  position: absolute;
+  inset: 0;
+}
+
+.cardNoise {
+  opacity: 0.1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.cardBackdrop {
+  background-size: cover;
+  background-position: center;
+  transition: transform 600ms ease;
+}
+
+.productCard:hover .cardBackdrop {
+  transform: scale(1.06);
+}
+
+.cardOverlay {
+  background:
+    radial-gradient(circle at top left, rgba(250, 211, 55, 0.08), transparent 30%),
+    linear-gradient(180deg, rgba(0, 57, 81, 0.22), rgba(0, 0, 0, 0.28));
+}
+
+.cardInner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.mockTileLarge,
+.mockTileOffset,
+.mockTileWide,
+.mockTilePill {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mockTileLarge {
+  height: 6rem;
+  border-radius: 1.4rem;
+}
+
+.mockTileOffset {
+  height: 7rem;
+  margin-top: 2rem;
+  border-radius: 1.4rem;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.mockTileWide {
+  height: 5rem;
+  margin-top: -1rem;
+  border-radius: 1.4rem;
+}
+
+.mockTilePill {
+  height: 4rem;
+  border-radius: 999px;
+}
+
+.metaChip,
+.metaChipAccent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.metaChip {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.metaChipAccent {
+  background: rgba(250, 211, 55, 0.12);
+  color: #fad337;
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #f48120;
 }
 
 @media (max-width: 640px) {
-  .heroLine {
-    left: 51%;
-    top: 50%;
-    width: 6rem;
+  .panelShell {
+    padding: 1rem;
   }
 
-  .heroMark::before,
-  .heroMark::after {
-    height: 2.1rem;
-  }
-
-  .heroMarkLeft {
-    left: 42%;
-    top: 45%;
-  }
-
-  .heroMarkRight {
-    left: 82%;
-    top: 49%;
+  .productCard {
+    min-height: 28rem;
   }
 }

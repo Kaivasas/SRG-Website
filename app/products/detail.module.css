@@ -1,0 +1,218 @@
+.pageShell {
+  position: relative;
+  min-height: 100vh;
+  overflow: clip;
+  background:
+    radial-gradient(circle at top left, rgba(0, 90, 114, 0.1), transparent 26%),
+    radial-gradient(circle at 85% 12%, rgba(244, 129, 32, 0.1), transparent 24%),
+    linear-gradient(180deg, #020d14 0%, #022331 32%, #003045 70%, #003951 100%);
+}
+
+.pageShell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.16)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.018), transparent 48%);
+  pointer-events: none;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
+}
+
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glassPanel,
+.storyPanel,
+.logoStrip,
+.ctaPanel {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    rgba(3, 25, 35, 0.6);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.64);
+  transition: color 180ms ease;
+}
+
+.backLink:hover {
+  color: #fad337;
+}
+
+.heroMedia,
+.storyMedia,
+.videoFrame,
+.featureVisual,
+.relatedVisual {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.heroMedia::after,
+.storyMedia::after,
+.featureVisual::after,
+.relatedVisual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(250, 211, 55, 0.12), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(0, 0, 0, 0.26));
+}
+
+.heroMediaInner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 23rem);
+}
+
+.floatingCard,
+.floatingCardOffset,
+.floatingCardWide,
+.floatingPill {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.floatingCard {
+  height: 7rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.floatingCardOffset {
+  height: 9rem;
+  margin-top: 2.5rem;
+  border-radius: 1.5rem;
+  background: rgba(0, 0, 0, 0.14);
+}
+
+.floatingCardWide {
+  height: 5.5rem;
+  margin-top: -1.2rem;
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.floatingPill {
+  height: 4.4rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.metaChip,
+.metaAccent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.metaChip {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.metaAccent {
+  background: rgba(250, 211, 55, 0.12);
+  color: #fad337;
+}
+
+.label {
+  color: #f48120;
+}
+
+.quoteBar {
+  border-left: 3px solid #f48120;
+}
+
+.featureCard,
+.relatedCard {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(2, 17, 24, 0.7);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.featureCard:hover,
+.relatedCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(250, 211, 55, 0.24);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
+}
+
+.logoTile {
+  display: flex;
+  min-height: 10rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)),
+    rgba(255, 255, 255, 0.04);
+  transition: transform 220ms ease;
+}
+
+.logoTile:hover {
+  transform: translateY(-4px);
+}
+
+.ctaButton {
+  display: inline-flex;
+  min-width: 18rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f48120, #fad337);
+  padding: 1rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #003951;
+  transition:
+    transform 180ms ease,
+    filter 180ms ease;
+}
+
+.ctaButton:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
