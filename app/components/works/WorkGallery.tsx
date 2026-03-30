@@ -1,4 +1,6 @@
 import React from "react";
+// 🌟 1. เพิ่ม Import Image
+import Image from "next/image";
 
 export default function WorkGallery({ gallery, title }: { gallery: string[]; title: string }) {
   if (!gallery || gallery.length === 0) return null;
@@ -19,9 +21,17 @@ export default function WorkGallery({ gallery, title }: { gallery: string[]; tit
           return (
             <div
               key={`gallery-${index}`}
-              className={`${isWide || isOrphan ? 'col-span-1 md:col-span-2 aspect-video' : 'col-span-1 aspect-square md:aspect-[4/3]'} bg-[#0a0f16] rounded-xl overflow-hidden border border-white/5 shadow-lg`}
+              // 🌟 2. เติมคำว่า 'relative' เข้าไปในคลาสนี้ เพื่อไม่ให้ Image fill ล้นออกนอกกรอบ
+              className={`relative ${isWide || isOrphan ? 'col-span-1 md:col-span-2 aspect-video' : 'col-span-1 aspect-square md:aspect-[4/3]'} bg-[#0a0f16] rounded-xl overflow-hidden border border-white/5 shadow-lg`}
             >
-              <img src={image} alt={`${title} Gallery ${index + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-[1500ms] ease-out" />
+              {/* 🌟 3. เปลี่ยน img เป็น Image */}
+              <Image 
+                src={image} 
+                alt={`${title} Gallery ${index + 1}`} 
+                fill={true}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover hover:scale-105 transition-transform duration-[1500ms] ease-out" 
+              />
             </div>
           );
         })}

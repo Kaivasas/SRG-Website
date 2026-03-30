@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 export default function Scrollytelling({ sections }: { sections: any[] }) {
   const [activeSection, setActiveSection] = useState(0);
@@ -114,8 +115,17 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
       <div className="sticky top-0 left-0 w-full h-screen flex flex-col md:flex-row gap-12 items-center justify-center px-6 md:px-12 max-w-[1920px] mx-auto z-10 overflow-hidden">
         <div className="w-full md:w-1/2 aspect-square md:aspect-[4/3] relative rounded-xl overflow-hidden shadow-2xl bg-[#0a0f16] border border-white/10 pointer-events-none">
           {sections.map((section: any, index: number) => (
-            <img key={`img-${index}`} src={section.image} alt={section.title} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[600ms] ease-in-out ${index === activeSection ? 'opacity-100' : 'opacity-0'}`} />
-          ))}
+            <Image 
+              key={`img-${index}`} 
+              src={section.image} 
+              alt={section.title || `Scrollytelling image ${index + 1}`} 
+              // ใส่ fill เพื่อให้รูปขยายเต็ม relative container ด้านบน
+              fill={true}
+              // ใส่ sizes: มือถือเต็มจอ (100vw), คอมครึ่งจอ (50vw)
+              sizes="(max-width: 768px) 100vw, 50vw"
+              // คลาสเดิมเป๊ะๆ แค่เอา w-full h-full ออกเพราะ fill จัดการให้แล้ว
+              className={`absolute inset-0 object-cover transition-opacity duration-[600ms] ease-in-out ${index === activeSection ? 'opacity-100' : 'opacity-0'}`} />
+            ))}
         </div>
         <div className="w-full md:w-1/2 relative h-[60vh] md:h-[70vh] flex flex-col justify-center">
           <div className="relative h-20 md:h-28 w-full mb-6 pointer-events-none">

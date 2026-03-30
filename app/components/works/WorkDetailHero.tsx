@@ -1,18 +1,21 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function WorkHero({ work }: { work: any }) {
   if (!work) return null;
 
   return (
     <section className="min-h-screen flex items-center pt-24 pb-12 px-6 md:px-12 max-w-[1920px] mx-auto relative overflow-hidden bg-[#050505]">
-      
+
       {/* ส่วนพื้นหลัง: ภาพ grayscale จางๆ + Gradient (แบบเดิมที่น้องชอบ) */}
       <div className="absolute inset-0 z-0">
         {work.heroMedia && (
-          <img
+          <Image
             src={work.heroMedia}
             alt=""
+            fill={true}
+            sizes="100vw"
             className="w-full h-full object-cover grayscale opacity-[0.07]"
           />
         )}
@@ -23,7 +26,7 @@ export default function WorkHero({ work }: { work: any }) {
 
         {/* ฝั่งซ้าย: เนื้อหา */}
         <div className="w-full md:w-5/12 flex flex-col justify-center relative z-10">
-          
+
           {/* 🌟 ส่วนลายน้ำ (Watermark): แก้โจทย์ 3 ข้อรวด 🌟
               - [โจทย์ 1] `whitespace-nowrap`: ยาวเป็นเส้นเดียว ไม่ตัดคำ
               - [โจทย์ 2] `left-[20%]`: ขยับไปทางขวาของถังครอบ
@@ -72,7 +75,12 @@ export default function WorkHero({ work }: { work: any }) {
         {/* ฝั่งขวา: รูปภาพ (โครงสร้างเดิมของน้องเป๊ะๆ) */}
         <div className="w-full md:w-7/12 aspect-[4/3] md:aspect-video bg-gray-900 rounded-lg overflow-hidden relative shadow-2xl z-10">
           {work.heroMedia ? (
-            <img src={work.heroMedia} alt={work.title} className="w-full h-full object-cover" />
+            <Image src={work.heroMedia} 
+            alt={work.title} 
+            fill={true} 
+            priority={true} 
+            sizes="(max-width: 768px) 100vw, 58vw" 
+            className="w-full h-full object-cover" />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-600">Video / Image Placeholder</div>
           )}
