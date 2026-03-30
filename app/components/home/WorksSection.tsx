@@ -1,6 +1,6 @@
 "use client"
-
 import React, { useEffect, useRef, useState } from "react"
+import Reveal from "@/app/components/Reveal";
 
 export default function WorksSection() {
     const projectSectionRef = useRef<HTMLDivElement>(null);
@@ -33,12 +33,16 @@ export default function WorksSection() {
             <div className="sticky top-0 h-svh flex flex-col justify-center overflow-hidden ">
 
                 <div className="pl-[10vw] mb-12 relative z-20 flex flex-col pr-[10vw]">
-                    <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tight drop-shadow-lg leading-none">
-                        Our Works
-                    </h2>
-                    <p className="text-blue-500 text-sm md:text-base mt-4 font-bold tracking-widest uppercase">
-                        Selected Projects
-                    </p>
+                    <Reveal delayMs={0}>
+                        <h2 className="text-5xl md:text-7xl font-black text-white uppercase tracking-tight drop-shadow-lg leading-none">
+                            Our Works
+                        </h2>
+                    </Reveal>
+                    <Reveal delayMs={150}>
+                        <p className="text-blue-500 text-sm md:text-base mt-4 font-bold tracking-widest uppercase">
+                            Selected Projects
+                        </p>
+                    </Reveal>
                 </div>
 
                 <div
