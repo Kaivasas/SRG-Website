@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 export default function WhyChooseUs({ service }: { service: any }) {
+  if (!service.benefits || service.benefits.length === 0) return null;
   const whySectionRef = useRef<HTMLDivElement>(null);
   const [whyScrollProgress, setWhyScrollProgress] = useState(0);
 
@@ -33,6 +34,7 @@ export default function WhyChooseUs({ service }: { service: any }) {
         </div>
         <div className="grow w-full px-6 md:px-[10vw] relative z-20 pb-12">
           {service.benefits.map((benefit: any, index: number) => {
+            const autoNumber = String(index + 1).padStart(2, '0');
             const translateX = index <= activeCardIndex ? "0%" : "150vw";
             return (
               <div
@@ -41,7 +43,9 @@ export default function WhyChooseUs({ service }: { service: any }) {
                 style={{ transform: `translateX(${translateX})`, zIndex: index }}
               >
                 <div className="w-full md:w-[45%] flex flex-col justify-center shrink-0">
-                  <span className="text-6xl md:text-[8rem] font-black text-white/10 mb-6 leading-none tracking-tight drop-shadow-md">{benefit.id}</span>
+                  <span className="text-6xl md:text-[8rem] font-black text-white/10 mb-6 leading-none tracking-tight drop-shadow-md">
+                    {autoNumber} {/* ✅ เปลี่ยนเป็นตัวนี้แทนครับ */}
+                  </span>
                   <h4 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight tracking-tight drop-shadow-md">{benefit.title}</h4>
                   <p className="text-white/80 text-lg md:text-xl leading-relaxed font-light border-l-4 border-blue-500 pl-6">{benefit.desc}</p>
                 </div>

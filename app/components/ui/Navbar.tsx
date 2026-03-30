@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
-export default function Navbar() {
+export default function Navbar({ services = [] }: { services?: any[] }) {
   const lastScrollY = useRef(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
   const pathname = usePathname();
@@ -28,6 +28,13 @@ export default function Navbar() {
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navColumns = [
+    ['Digital Marketing', 'Event Organization'], // คอลัมน์ที่ 1
+    ['Live Streaming', 'Commercial'],            // คอลัมน์ที่ 2
+    ['Business Strategies', 'Creator'],          // คอลัมน์ที่ 3
+    ['Design', 'Media']                          // คอลัมน์ที่ 4
+  ];
 
   return (
     <nav
@@ -75,7 +82,7 @@ export default function Navbar() {
 
                     {/* แบ่งเนื้อหาเป็น 4 คอลัมน์ และเว้นช่องไฟให้ดูโปร่งสบายตาขึ้น (gap-12) */}
                     <div className="grid grid-cols-4 gap-12 normal-case tracking-normal">
-
+                    
                       {/* คอลัมน์ที่ 1 */}
                       <div className="flex flex-col gap-8">
                         <div>
