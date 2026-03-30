@@ -129,13 +129,22 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
             {sections.map((section: any, index: number) => (
               <div key={`box-wrapper-${index}`} className={`absolute inset-0 transition-opacity duration-[600ms] ease-in-out ${index === activeSection ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'}`}>
                 <div ref={el => { if (el) contentRefs.current[index] = el; }} className="absolute top-0 left-0 w-full p-8 md:p-12 will-change-transform">
-                  <ul className="space-y-6 md:space-y-8 border-l-2 border-[#F48120] pl-6 md:pl-8">
-                    {section.content?.map((item: any, i: number) => (
-                      <li key={i} className="text-xl md:text-2xl lg:text-3xl text-gray-200 font-light leading-relaxed drop-shadow-md">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+
+                  {/* 🌟 เปลี่ยนจาก <ul> เป็น <div> ธรรมดา โดยยังคงเส้นส้มด้านซ้ายไว้ */}
+                  <div className="border-l-2 border-[#F48120] pl-6 md:pl-8">
+
+                    {/* 🌟 พระเอกของเรา: แสดงผลข้อความยาวๆ 
+                        - เราไม่ต้องใช้ logic complex ในการ split '\n' อีกแล้ว 
+                        - ดึง section.content มาโชว์ตรงๆ ได้เลย
+                        - ใส่คลาส whitespace-pre-line เพื่อจัดการเรื่องขึ้นบรรทัดใหม่และการ Wrap ข้อความ
+                    */}
+                    {section.content && (
+                      <p className="whitespace-pre-line max-w-full break-words text-xl md:text-2xl lg:text-1xl text-gray-200 font-light leading-relaxed drop-shadow-md">
+                        {section.content}
+                      </p>
+                    )}
+
+                  </div>
                 </div>
               </div>
             ))}
