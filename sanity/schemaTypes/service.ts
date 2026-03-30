@@ -7,7 +7,7 @@ export default defineType({
   fields: [
     defineField({ name: 'title', title: 'ชื่อบริการ (เช่น Website, Facebook)', type: 'string' }),
     defineField({ name: 'slug', title: 'URL Slug (เช่น website, facebook)', type: 'slug', options: { source: 'title', maxLength: 96 } }),
-    
+
     // 🌟 1. เพิ่มฟิลด์ Category (หัวข้อใหญ่) ให้ตรงกับที่มีใน Navbar
     defineField({
       name: 'category',
@@ -31,7 +31,7 @@ export default defineType({
     defineField({ name: 'subtitle', title: 'หัวข้อย่อย (Subtitle)', type: 'string' }),
     defineField({ name: 'description', title: 'รายละเอียด (Description)', type: 'text' }),
     defineField({ name: 'heroImage', title: 'รูปภาพ Hero', type: 'image', options: { hotspot: true } }),
-    
+
     // 🌟 2. ส่วน Why Choose Us (ลบฟิลด์ id ออก)
     defineField({ name: 'whyTitle', title: 'หัวข้อ Why Choose Us', type: 'string' }),
     defineField({
@@ -47,7 +47,6 @@ export default defineType({
         ]
       }]
     }),
-
     // 🌟 3. ส่วน Workflow (ลบฟิลด์ step ออก)
     defineField({
       name: 'workflow',
@@ -56,11 +55,27 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          // ลบ { name: 'step' } ออกไปแล้ว
           { name: 'title', title: 'หัวข้อ', type: 'string' },
           { name: 'desc', title: 'คำอธิบาย', type: 'text' },
-          { name: 'color', title: 'สีตัวเลข (เช่น text-blue-500)', type: 'string' },
-          { name: 'top', title: 'ระยะห่างด้านบน (เช่น top-[20vh])', type: 'string' },
+
+          // 🟢 เอา color แบบ Radio มาใส่ไว้ "ข้างใน" fields ของ workflow ตรงนี้ครับ
+          defineField({
+            name: 'color',
+            title: 'สีตัวเลข (Number Color)',
+            description: 'เลือกสีที่ต้องการให้แสดงตรงตัวเลขขั้นตอน',
+            type: 'string',
+            options: {
+              list: [
+                { title: '⚪ สีขาว (Clean White)', value: 'text-white' },
+                { title: '🟢 สีเขียว (Sustain Green)', value: 'text-green-500' },
+                { title: '🔵 สีฟ้า (Ocean Blue)', value: 'text-blue-500' },
+                { title: '🟡 สีทอง (Premium Gold)', value: 'text-yellow-500' },
+              ],
+              layout: 'radio',
+            },
+            initialValue: 'text-white',
+          }),
+
           { name: 'isDark', title: 'พื้นหลังสีเข้มหรือไม่?', type: 'boolean', initialValue: false }
         ]
       }]

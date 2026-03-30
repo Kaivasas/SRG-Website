@@ -19,7 +19,8 @@ export default function Workflow({ service }: { service: any }) {
               // 💡 Senior Tip: ปกติ Sanity จะส่ง _key มาให้ใน array ทุกตัว 
               // ถ้าตอนดึงข้อมูล (Query) เราดึง _key มาด้วย ให้เปลี่ยนเป็น key={item._key} จะดีกับ Performance ของ React มากกว่าใช้ index ครับ
               key={index} 
-              className={`sticky ${item.top} ${item.isDark ? 'bg-black/60' : 'bg-white/5'} backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:bg-white/10 hover:border-white/30`}
+              className={`sticky ${item.isDark ? 'bg-black/60' : 'bg-white/5'} backdrop-blur-xl border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-3xl p-10 md:p-16 mb-8 flex items-center gap-8 transition-all hover:bg-white/10 hover:border-white/30`}
+              style={{ top: `calc(15vh + ${index * 3}rem)` }}
             >
               {/* 🌟 นำ stepNumber มาแสดงผลแทน item.step ที่เราลบไปแล้ว */}
               <span className={`text-6xl font-black ${item.color}`}>
