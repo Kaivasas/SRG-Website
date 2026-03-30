@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProductBySlug, products } from "../data";
 import styles from "../detail.module.css";
+import Reveal from "../Reveal";
 
 export function generateStaticParams() {
   return products.map((product) => ({ slug: product.slug }));
@@ -23,16 +24,6 @@ export default async function ProductDetailPage({
 
   return (
     <main className={`${styles.pageShell} px-6 pb-20 pt-28 text-white sm:px-10 lg:px-20`}>
-      <div className={styles.backdrop}>
-        <video autoPlay loop muted playsInline className={styles.videoLayer}>
-          <source
-            src="/assets/7020050_Abstract_Background_3840x2160.mp4"
-            type="video/mp4"
-          />
-        </video>
-        <div className={styles.videoTint} />
-      </div>
-
       <div className="relative z-10 mx-auto max-w-[1240px]">
         <Link
           href="/products"
@@ -41,6 +32,9 @@ export default async function ProductDetailPage({
           Back to products
         </Link>
 
+        <Reveal
+          className={styles.reveal}
+        >
         <section
           className={`${styles.glassPanel} mt-10 grid gap-8 px-6 py-8 lg:grid-cols-[1fr_0.92fr] lg:items-center lg:px-10 lg:py-10`}
         >
@@ -81,7 +75,9 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal className={styles.reveal} delayMs={60}>
         <section className={`${styles.storyPanel} mt-10 px-6 py-6 lg:px-8 lg:py-8`}>
           <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
             <div className="border border-white/10 bg-white/6 p-4 backdrop-blur-sm">
@@ -132,7 +128,9 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal className={styles.reveal} delayMs={80}>
         <section className="mt-12">
           <h2 className="text-[clamp(2.4rem,5.4vw,4.6rem)] font-black uppercase leading-[0.92] tracking-[-0.07em] text-white">
             Why teams choose this product
@@ -158,7 +156,9 @@ export default async function ProductDetailPage({
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal className={styles.reveal} delayMs={100}>
         <section className="mt-12">
           <h2 className="text-[clamp(2.2rem,5vw,4.4rem)] font-black uppercase leading-[0.92] tracking-[-0.07em] text-white">
             Certifications and readiness
@@ -178,7 +178,9 @@ export default async function ProductDetailPage({
             </div>
           </div>
         </section>
+        </Reveal>
 
+        <Reveal className={styles.reveal} delayMs={120}>
         <section className="mt-12">
           <div className="grid gap-6 md:grid-cols-3">
             {relatedProducts.map((item) => (
@@ -203,7 +205,9 @@ export default async function ProductDetailPage({
             ))}
           </div>
         </section>
+        </Reveal>
 
+        <Reveal className={styles.reveal} delayMs={140}>
         <section className={`${styles.ctaPanel} mt-16 px-6 py-14 text-center sm:px-10`}>
           <h2 className="text-[clamp(2.8rem,7vw,5.4rem)] font-black uppercase leading-[0.92] tracking-[-0.08em] text-white">
             Ready to build something better?
@@ -218,6 +222,7 @@ export default async function ProductDetailPage({
             </Link>
           </div>
         </section>
+        </Reveal>
       </div>
     </main>
   );

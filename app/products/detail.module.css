@@ -1,36 +1,34 @@
 .pageShell {
   position: relative;
   min-height: 100vh;
-  overflow: hidden;
+  overflow: clip;
   background:
-    radial-gradient(circle at top left, rgba(0, 90, 114, 0.22), transparent 28%),
-    radial-gradient(circle at 85% 12%, rgba(244, 129, 32, 0.18), transparent 28%),
-    linear-gradient(180deg, #021118 0%, #003951 40%, #004965 100%);
+    radial-gradient(circle at top left, rgba(0, 90, 114, 0.1), transparent 26%),
+    radial-gradient(circle at 85% 12%, rgba(244, 129, 32, 0.1), transparent 24%),
+    linear-gradient(180deg, #020d14 0%, #022331 32%, #003045 70%, #003951 100%);
 }
 
-.backdrop {
+.pageShell::before {
+  content: "";
   position: absolute;
   inset: 0;
-  z-index: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.16)),
+    radial-gradient(circle at center, rgba(255, 255, 255, 0.018), transparent 48%);
   pointer-events: none;
-  overflow: hidden;
 }
 
-.videoLayer {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.14;
-  filter: saturate(0.9) blur(2px);
-  transform: scale(1.04);
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms ease,
+    transform 700ms ease;
 }
 
-.videoTint {
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(2, 17, 24, 0.72), rgba(0, 73, 101, 0.86)),
-    radial-gradient(circle at center top, rgba(250, 211, 55, 0.06), transparent 36%);
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .glassPanel,
@@ -41,10 +39,9 @@
   z-index: 1;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04)),
-    rgba(3, 25, 35, 0.74);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
-  backdrop-filter: blur(16px);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03)),
+    rgba(3, 25, 35, 0.6);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
 }
 
 .backLink {
@@ -100,14 +97,12 @@
 .floatingCardWide,
 .floatingPill {
   border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(6px);
 }
 
 .floatingCard {
   height: 7rem;
   border-radius: 1.5rem;
   background: rgba(255, 255, 255, 0.12);
-  animation: drift 7s ease-in-out infinite;
 }
 
 .floatingCardOffset {
@@ -115,7 +110,6 @@
   margin-top: 2.5rem;
   border-radius: 1.5rem;
   background: rgba(0, 0, 0, 0.14);
-  animation: drift 8s ease-in-out infinite reverse;
 }
 
 .floatingCardWide {
@@ -123,14 +117,12 @@
   margin-top: -1.2rem;
   border-radius: 1.5rem;
   background: rgba(255, 255, 255, 0.1);
-  animation: drift 9s ease-in-out infinite;
 }
 
 .floatingPill {
   height: 4.4rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
-  animation: drift 6s ease-in-out infinite reverse;
 }
 
 .metaChip,
@@ -181,9 +173,9 @@
 
 .featureCard:hover,
 .relatedCard:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: rgba(250, 211, 55, 0.24);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18);
 }
 
 .logoTile {
@@ -223,15 +215,4 @@
 .ctaButton:hover {
   transform: translateY(-2px);
   filter: brightness(1.04);
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-9px);
-  }
 }
