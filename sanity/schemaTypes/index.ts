@@ -4,8 +4,9 @@ import { type SchemaTypeDefinition } from 'sanity'
 import work from './work'
 import product from './product'
 import service from './service'
+import logobrand from './clientLogo'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   // 2. จับใส่ Array ตรงนี้
-  types: [work, product, service],
+  types: [work, product, service, logobrand],
 }
