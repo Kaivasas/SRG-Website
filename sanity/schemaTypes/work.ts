@@ -83,9 +83,10 @@ export default defineType({
             { name: 'title', title: 'หัวข้อ (เช่น Challenge, Solution)', type: 'string' },
             { 
               name: 'content', 
-              title: 'เนื้อหา (แต่ละบรรทัดคือ 1 Bullet)', 
-              type: 'array', 
-              of: [{ type: 'string' }] 
+              // 🌟 เปลี่ยนคำอธิบายให้แอดมินเข้าใจง่ายขึ้น
+              title: 'เนื้อหา (พิมพ์ยาวๆ ได้เลย กด Enter เพื่อขึ้นบรรทัดใหม่)', 
+              // 🌟 เปลี่ยนจาก array เป็น text
+              type: 'text', 
             },
             { name: 'image', title: 'รูปภาพประกอบด้านซ้าย', type: 'image' },
           ],

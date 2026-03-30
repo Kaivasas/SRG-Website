@@ -6,13 +6,15 @@ import WorksHero from "@/app/components/works/WorksListHero";
 import WorksGrid from "@/app/components/works/WorksGrid";
 
 export default async function WorksPage() {
-  
+
   // ดึงข้อมูลจาก Sanity
   const query = `*[_type == "work"] | order(_createdAt desc) {
     title,
     "slug": slug.current,
     "thumbnail": thumbnail.asset->url,
-    tags
+    tags,
+    client,
+    year,
   }`;
 
   const works = await client.fetch(query);
