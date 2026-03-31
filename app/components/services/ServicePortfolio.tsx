@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image"; // 🌟 1. นำเข้า Image
 
 export default function ServicePortfolio({ service }: { service: any }) {
   if (!service.portfolios || service.portfolios.length === 0) return null;
@@ -10,7 +11,16 @@ export default function ServicePortfolio({ service }: { service: any }) {
         {service.portfolios.map((port: any, index: number) => (
           <Link href={`/works/${port.slug}`} key={`${port._id}-${index}`} className="w-full group cursor-pointer rounded-2xl bg-white/5 backdrop-blur-xl p-6 border border-white/10 transition hover:bg-white/10 hover:border-blue-500/50 flex flex-col shadow-inner">
             <div className="aspect-video bg-black/50 mb-6 overflow-hidden relative rounded-xl shrink-0">
-              <img src={port.image} alt={port.title} className="w-full h-full object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 group-hover:opacity-100" />
+              
+              {/* 🌟 2. เปลี่ยน img เป็น Image */}
+              <Image 
+                src={port.image} 
+                alt={port.title} 
+                fill={true}
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover grayscale opacity-80 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 group-hover:opacity-100" 
+              />
+              
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
                 <span className="bg-blue-600 text-white px-6 py-2 rounded-full font-bold uppercase tracking-widest text-sm shadow-xl">View Details</span>

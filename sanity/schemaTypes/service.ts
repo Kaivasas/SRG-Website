@@ -8,7 +8,6 @@ export default defineType({
     defineField({ name: 'title', title: 'ชื่อบริการ (เช่น Website, Facebook)', type: 'string' }),
     defineField({ name: 'slug', title: 'URL Slug (เช่น website, facebook)', type: 'slug', options: { source: 'title', maxLength: 96 } }),
 
-    // 🌟 1. เพิ่มฟิลด์ Category (หัวข้อใหญ่) ให้ตรงกับที่มีใน Navbar
     defineField({
       name: 'category',
       title: 'หมวดหมู่บริการ (Category)',
@@ -25,15 +24,16 @@ export default defineType({
           { title: 'Media', value: 'Media' }
         ]
       },
-      validation: (Rule) => Rule.required(), // บังคับว่าต้องเลือกหมวดหมู่
+      validation: (Rule) => Rule.required(), 
     }),
 
     defineField({ name: 'subtitle', title: 'หัวข้อย่อย (Subtitle)', type: 'string' }),
     defineField({ name: 'description', title: 'รายละเอียด (Description)', type: 'text' }),
     defineField({ name: 'heroImage', title: 'รูปภาพ Hero', type: 'image', options: { hotspot: true } }),
 
-    // 🌟 2. ส่วน Why Choose Us (ลบฟิลด์ id ออก)
     defineField({ name: 'whyTitle', title: 'หัวข้อ Why Choose Us', type: 'string' }),
+    
+    // 🌟 1. อัปเดตส่วน Why Choose Us ตรงนี้ครับ
     defineField({
       name: 'benefits',
       title: 'ข้อดี (Benefits)',
@@ -41,13 +41,15 @@ export default defineType({
       of: [{
         type: 'object',
         fields: [
-          // ลบ { name: 'id' } ออกไปแล้ว ระบบหน้าเว็บจะนับเลขให้เอง
           { name: 'title', title: 'หัวข้อ', type: 'string' },
-          { name: 'desc', title: 'คำอธิบาย', type: 'text' }
+          { name: 'desc', title: 'คำอธิบาย', type: 'text' },
+          // 🌟 เพิ่มฟิลด์อัปโหลดรูปภาพตรงนี้
+          { name: 'image', title: 'รูปภาพประกอบ (Image)', type: 'image', options: { hotspot: true } }
         ]
       }]
     }),
-    // 🌟 3. ส่วน Workflow (ลบฟิลด์ step ออก)
+    
+    // ส่วน Workflow (คงเดิม)
     defineField({
       name: 'workflow',
       title: 'ขั้นตอนการทำงาน (Workflow)',
@@ -57,8 +59,6 @@ export default defineType({
         fields: [
           { name: 'title', title: 'หัวข้อ', type: 'string' },
           { name: 'desc', title: 'คำอธิบาย', type: 'text' },
-
-          // 🟢 เอา color แบบ Radio มาใส่ไว้ "ข้างใน" fields ของ workflow ตรงนี้ครับ
           defineField({
             name: 'color',
             title: 'สีตัวเลข (Number Color)',
@@ -75,7 +75,6 @@ export default defineType({
             },
             initialValue: 'text-white',
           }),
-
           { name: 'isDark', title: 'พื้นหลังสีเข้มหรือไม่?', type: 'boolean', initialValue: false }
         ]
       }]
