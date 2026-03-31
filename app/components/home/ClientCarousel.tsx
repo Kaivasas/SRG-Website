@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
+// 🌟 1. นำเข้า Image จาก next/image
+import Image from "next/image";
 
 // รับ Props เป็นข้อมูล clients ที่ดึงมาจาก Sanity
 export default function ClientCarousel({ clients }: { clients: any[] }) {
@@ -29,12 +31,18 @@ export default function ClientCarousel({ clients }: { clients: any[] }) {
       <div className="w-full max-w-5xl bg-white/10 p-10 border border-white/20 rounded-3xl mb-8 backdrop-blur-sm shadow-xl min-h-40 flex items-center justify-center">
         <div key={currentIndex} className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-items-center animate-pulse-short">
           {currentClients.map((client) => (
+            // 🌟 คอนเทนเนอร์นี้มี relative อยู่แล้ว Image fill เลยทำงานได้สมบูรณ์
             <div key={client._id} className="w-32 h-16 flex items-center justify-center text-white/40 font-bold text-sm relative group">
               {client.logo ? (
-                <img
+                // 🌟 2. เปลี่ยนเป็น <Image>
+                <Image
                   src={client.logo}
-                  alt={client.name}
-                  className="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 drop-shadow-sm"
+                  alt={client.name || "Client Logo"}
+                  fill={true}
+                  // โลโก้กว้างสุดแค่ 32 (128px) เลยฟิกซ์ sizes เล็กๆ ไว้ได้เลย ประหยัดเน็ตมาก
+                  sizes="128px"
+                  // ย้าย class เดิมมาใส่ที่นี่ ยกเว้น max-w/max-h เพราะ fill คุมให้แล้ว
+                  className="object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 drop-shadow-sm"
                 />
               ) : (
                 <span className="tracking-widest uppercase">{client.name}</span>

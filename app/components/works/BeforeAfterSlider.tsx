@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Image from "next/image";
 
 export default function BeforeAfterSlider({ beforeAfter }: { beforeAfter: any }) {
   const [sliderPos, setSliderPos] = useState(50);
@@ -12,11 +13,22 @@ export default function BeforeAfterSlider({ beforeAfter }: { beforeAfter: any })
         <h2 className="text-3xl font-bold uppercase tracking-widest text-[#FAD337]">Transformation</h2>
       </div>
       <div className="relative w-full aspect-video bg-gray-900 rounded-xl overflow-hidden cursor-ew-resize select-none border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-        <img src={beforeAfter.after} alt="After" className="absolute inset-0 w-full h-full object-cover" draggable="false" />
-        <img
-          src={beforeAfter.before} alt="Before"
-          className="absolute inset-0 w-full h-full object-cover grayscale"
-          style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }} draggable="false"
+        <Image 
+          src={beforeAfter.after} 
+          alt="After" 
+          fill={true}
+          sizes="(max-width: 1280px) 100vw, 1280px"
+          className="object-cover" 
+          draggable="false" 
+        />
+        <Image
+          src={beforeAfter.before} 
+          alt="Before"
+          fill={true}
+          sizes="(max-width: 1280px) 100vw, 1280px"
+          className="object-cover grayscale"
+          style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }} 
+          draggable="false"
         />
         <input
           type="range" min="0" max="100" value={sliderPos}
