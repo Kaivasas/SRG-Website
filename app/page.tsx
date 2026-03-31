@@ -37,18 +37,31 @@ export default async function Home() {
     "thumbnail": thumbnail.asset->url
   }`;
 
+  // 🌟 1. เพิ่มคำสั่ง GROQ ตรงนี้
+  const testimonialQuery = `*[_type == "testimonial"] | order(_createdAt desc)[0...10] {
+    name,
+    position,
+    company,
+    quote,
+    "avatar": avatar.asset->url,
+    "companyLogo": companyLogo.asset->url
+  }`;
+
   let fetchedServices = [];
   let fetchedWorks = [];
+  let fetchedTestimonials = []; // 🌟 2. ตัวแปรเก็บรีวิว
 
   try {
     // 🌟 3. ดึงข้อมูล 2 อย่างพร้อมกันผ่าน Promise.all เพื่อความรวดเร็ว
-    const [servicesData, worksData] = await Promise.all([
+    const [servicesData, worksData, testimonialsData] = await Promise.all([
       client.fetch(serviceQuery),
-      client.fetch(worksQuery)
+      client.fetch(worksQuery),
+      client.fetch(testimonialQuery),
     ]);
     
     fetchedServices = servicesData;
     fetchedWorks = worksData;
+    fetchedTestimonials = testimonialsData;
   } catch (error) {
     console.error("Failed to fetch data for Home page:", error);
   }
@@ -65,7 +78,7 @@ export default async function Home() {
       {/* 🌟 4. ส่งข้อมูลที่ดึงมาให้ WorksSection */}
       <WorksSection worksData={fetchedWorks} />
       
-      <TestimonialSection />
+      <TestimonialSection testimonialsData={fetchedTestimonials} />
       <CtaSection />
     </div>
   );
