@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-// 1. นำเข้า Navbar ที่เราเพิ่งสร้าง (เปลี่ยน path ให้ตรงกับที่คุณเซฟไฟล์ไว้)
-import Navbar from "./components/ui/Navbar"; 
+import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
+import TransitionLoader from "./components/ui/TransitionLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <TransitionLoader />
         <Navbar />
-        {/* เนื้อหาของแต่ละหน้าจะมาแทรกตรง {children} นี้ */}
-        {children} 
+        {children}
         <Footer />
       </body>
     </html>
