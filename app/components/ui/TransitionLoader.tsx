@@ -17,6 +17,11 @@ export default function TransitionLoader() {
   const initialLoadHandledRef = useRef(false);
 
   useEffect(() => {
+    if (pathname.startsWith("/studio")) {
+      setVisible(false);
+      return;
+    }
+
     if (initialLoadHandledRef.current) return;
     initialLoadHandledRef.current = true;
 
@@ -33,6 +38,10 @@ export default function TransitionLoader() {
   }, [pathname]);
 
   useEffect(() => {
+    if (pathname.startsWith("/studio")) {
+      return;
+    }
+
     const handleClick = (event: MouseEvent) => {
       if (event.defaultPrevented) return;
       if (event.button !== 0) return;
@@ -93,6 +102,12 @@ export default function TransitionLoader() {
   }, [pathname, router]);
 
   useEffect(() => {
+    if (pathname.startsWith("/studio")) {
+      setVisible(false);
+      pendingHrefRef.current = null;
+      return;
+    }
+
     if (!pendingHrefRef.current) return;
 
     exitTimerRef.current = window.setTimeout(() => {
