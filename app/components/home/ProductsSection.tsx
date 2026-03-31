@@ -1,5 +1,7 @@
 import React from "react";
 import Reveal from "@/app/components/Reveal";
+// 🌟 1. นำเข้า Image
+import Image from "next/image";
 
 export default function ProductsSection() {
   return (
@@ -7,7 +9,6 @@ export default function ProductsSection() {
       <div className="max-w-7xl mx-auto px-6">
 
         {/* หัวข้อ Section */}
-
         <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
           <Reveal delayMs={0}>
             <div>
@@ -38,7 +39,14 @@ export default function ProductsSection() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" alt="AI Avatar" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                <Image 
+                  src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80" 
+                  alt="AI Avatar" 
+                  fill={true}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                />
               </div>
             </div>
           </Reveal>
@@ -59,7 +67,14 @@ export default function ProductsSection() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" alt="Photo Booth" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                <Image 
+                  src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80" 
+                  alt="Photo Booth" 
+                  fill={true}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                />
               </div>
             </div>
           </Reveal>
@@ -80,7 +95,14 @@ export default function ProductsSection() {
                 </div>
               </div>
               <div className="w-full md:w-1/2 relative bg-gray-900 min-h-75 overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" alt="Platform" className="absolute inset-0 w-full h-full object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+                {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                <Image 
+                  src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?w=800&q=80" 
+                  alt="Platform" 
+                  fill={true}
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                />
               </div>
             </div>
           </Reveal>

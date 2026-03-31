@@ -1,5 +1,6 @@
 import React from "react";
 import Reveal from "@/app/components/Reveal";
+import Image from "next/image"; // 🌟 1. นำเข้า Image
 
 export default function ServiceSection() {
   return (
@@ -28,13 +29,14 @@ export default function ServiceSection() {
                 </div>
                 <div className="w-full md:w-1/2 h-64 md:h-80 rounded-3xl overflow-hidden relative group shadow-2xl">
                   <div className="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition duration-500 z-10"></div>
-                  <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Marketing" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                  {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                  <Image src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80" alt="Marketing" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-110 transition duration-700" />
                 </div>
               </div>
             </Reveal>
           </div>
 
-          {/* Premium Card 2 (แก้โครงสร้างแล้ว + ปรับ delay เป็น 200) */}
+          {/* Premium Card 2 */}
           <div className="sticky top-[18vh]">
             <Reveal delayMs={0}>
               <div className="bg-gradient-to-br from-[#001f2b]/95 to-black/95 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(0,73,101,0.5)]">
@@ -46,13 +48,14 @@ export default function ServiceSection() {
                 </div>
                 <div className="w-full md:w-1/2 h-64 md:h-80 rounded-3xl overflow-hidden relative group shadow-2xl">
                   <div className="absolute inset-0 bg-blue-500/20 group-hover:bg-transparent transition duration-500 z-10"></div>
-                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Development" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                  {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                  <Image src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&q=80" alt="Development" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-110 transition duration-700" />
                 </div>
               </div>
             </Reveal>
           </div>
 
-          {/* Premium Card 3 (แก้โครงสร้างแล้ว + ปรับ delay เป็น 300) */}
+          {/* Premium Card 3 */}
           <div className="sticky top-[21vh]">
             <Reveal delayMs={0}>
               <div className="bg-gradient-to-br from-black to-gray-900 backdrop-blur-xl text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col md:flex-row justify-between items-center shadow-[0_0_50px_rgba(0,0,0,0.3)] border border-white/10 transition-all duration-500 hover:border-white/20 hover:shadow-[0_0_60px_rgba(255,255,255,0.1)]">
@@ -64,7 +67,8 @@ export default function ServiceSection() {
                 </div>
                 <div className="w-full md:w-1/2 h-64 md:h-80 rounded-3xl overflow-hidden relative group shadow-2xl">
                   <div className="absolute inset-0 bg-gray-500/20 group-hover:bg-transparent transition duration-500 z-10"></div>
-                  <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt="Strategy" className="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+                  {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                  <Image src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=800&q=80" alt="Strategy" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover group-hover:scale-110 transition duration-700" />
                 </div>
               </div>
             </Reveal>

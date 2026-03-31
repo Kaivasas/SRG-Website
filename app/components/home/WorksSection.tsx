@@ -1,6 +1,7 @@
 "use client"
 import React, { useEffect, useRef, useState } from "react"
 import Reveal from "@/app/components/Reveal";
+import Image from "next/image"; // 🌟 1. นำเข้า Image
 
 export default function WorksSection() {
     const projectSectionRef = useRef<HTMLDivElement>(null);
@@ -8,8 +9,6 @@ export default function WorksSection() {
 
     useEffect(() => {
         const handleScroll = () => {
-
-            // Logic ของ Project Section (คงเดิม)
             if (projectSectionRef.current) {
                 const { top, height } = projectSectionRef.current.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
@@ -23,10 +22,6 @@ export default function WorksSection() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    {/* ------------------------------------------------------------- */ }
-    {/* Works Section */ }
-    {/* ------------------------------------------------------------- */ }
-    {/* อันนี้คงความสูง h-[300vh] ไว้เหมือนเดิมเพราะต้องใช้ทำพื้นที่สำหรับการเลื่อน (Scroll) */ }
     return (
         <section id="works" ref={projectSectionRef} className="h-[300vh] relative z-10 bg-transparent">
 
@@ -52,7 +47,8 @@ export default function WorksSection() {
                     {/* Project Card 1 */}
                     <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
                         <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
-                            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Project 1" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                            {/* 🌟 2. เปลี่ยน img เป็น Image */}
+                            <Image src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80" alt="Project 1" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                             <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                         <div>
@@ -67,7 +63,7 @@ export default function WorksSection() {
                     {/* Project Card 2 */}
                     <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
                         <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Project 2" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                            <Image src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80" alt="Project 2" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                             <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                         <div>
@@ -82,7 +78,7 @@ export default function WorksSection() {
                     {/* Project Card 3 */}
                     <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
                         <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
-                            <img src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?w=800&q=80" alt="Project 3" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                            <Image src="https://images.unsplash.com/photo-1563986768494-4dee2763ff0f?w=800&q=80" alt="Project 3" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                             <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                         <div>
@@ -97,7 +93,7 @@ export default function WorksSection() {
                     {/* Project Card 4 */}
                     <div className="min-w-[320px] md:min-w-105 shrink-0 group cursor-pointer">
                         <div className="aspect-video bg-gray-900 mb-6 overflow-hidden relative border border-white/10 shadow-lg rounded-2xl">
-                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Project 4" className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
+                            <Image src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80" alt="Project 4" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
                             <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                         <div>
