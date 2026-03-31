@@ -1,5 +1,5 @@
 import React from "react";
-import { client } from "@/sanity/lib/client"; // 🌟 1. นำเข้า client ของ Sanity (เช็ค path ให้ตรงกับโปรเจกต์ของน้องด้วยนะครับ)
+import { client } from "@/sanity/lib/client";
 
 // Import Components ของคุณทั้งหมด
 import BlurredBackground from "./components/home/BlurredBackground";
@@ -11,11 +11,10 @@ import WorksSection from "./components/home/WorksSection";
 import TestimonialSection from "./components/home/TestimonialSection";
 import CtaSection from "./components/home/CtaSection";
 
-// 🌟 2. เปลี่ยนเป็น async function เพื่อให้สามารถใช้ await ดึงข้อมูลได้
 export default async function Home() {
   
-  // 🌟 3. คำสั่ง GROQ: ดึงเอา Service "ตัวแรกสุด" ของ 3 หมวดหมู่นี้ออกมา (จะได้ Array 3 ตัวพอดี)
-  const query = `[
+  // 1. ดึงข้อมูล Services สำหรับ ServiceSection (ของเดิมที่คุณมีอยู่แล้ว)
+  const serviceQuery = `[
     *[_type == "service" && category == "Digital Marketing"] | order(_createdAt asc)[0],
     *[_type == "service" && category == "Business Strategies"] | order(_createdAt asc)[0],
     *[_type == "service" && category == "Commercial"] | order(_createdAt asc)[0]
@@ -27,32 +26,47 @@ export default async function Home() {
     "image": heroImage.asset->url
   }`;
 
-  // 🌟 4. ใช้ try...catch เพื่อดัก Error กรณี Sanity มีปัญหา เว็บเราจะได้ไม่พัง (จอขาว)
+  // 🌟 2. คำสั่ง GROQ ใหม่! ดึงผลงาน 4 ชิ้นล่าสุด
+  // order(_createdAt desc) = เรียงจากใหม่ไปเก่า
+  // [0...4] = เอาลำดับที่ 0 ถึง 3 (รวม 4 ชิ้น)
+  const worksQuery = `*[_type == "work"] | order(_createdAt desc)[0...4] {
+    title,
+    "slug": slug.current,
+    client,
+    year,
+    "thumbnail": thumbnail.asset->url
+  }`;
+
   let fetchedServices = [];
+  let fetchedWorks = [];
+
   try {
-    fetchedServices = await client.fetch(query);
+    // 🌟 3. ดึงข้อมูล 2 อย่างพร้อมกันผ่าน Promise.all เพื่อความรวดเร็ว
+    const [servicesData, worksData] = await Promise.all([
+      client.fetch(serviceQuery),
+      client.fetch(worksQuery)
+    ]);
+    
+    fetchedServices = servicesData;
+    fetchedWorks = worksData;
   } catch (error) {
-    console.error("Failed to fetch featured services:", error);
+    console.error("Failed to fetch data for Home page:", error);
   }
 
   return (
     <div className="relative min-h-screen text-gray-900 font-sans">
-
-      {/* 1. Video Background */}
       <BlurredBackground />
 
-      {/* 2. Sections อื่นๆ วางต่อกันได้ตามปกติเลย */}
       <HeroSection />
       <ClientSection />
-      
-      {/* 🌟 5. ส่งข้อมูลที่ดึงมา (fetchedServices) เข้าไปใน ServiceSection ของเรา */}
       <ServiceSection servicesData={fetchedServices} />
-      
       <ProductsSection />
-      <WorksSection />
+      
+      {/* 🌟 4. ส่งข้อมูลที่ดึงมาให้ WorksSection */}
+      <WorksSection worksData={fetchedWorks} />
+      
       <TestimonialSection />
       <CtaSection />
-
     </div>
   );
 }
