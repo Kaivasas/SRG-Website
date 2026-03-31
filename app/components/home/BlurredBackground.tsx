@@ -26,10 +26,15 @@ export default function BlurredBackground() {
         loop
         muted
         playsInline
+        // 🌟 เพิ่ม preload="auto" เพื่อให้เบราว์เซอร์เตรียมโหลดวิดีโอทันที
+        preload="auto"
         className="w-full h-full object-cover opacity-40 scale-105"
         style={{ filter: `blur(${bgBlur}px)`, transition: 'filter 0.1s ease-out' }}
       >
-        <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774496170/7020050_Abstract_Background_3840x2160_lzpmkg.mp4" type="video/mp4" />
+        {/* 🌟 Senior Trick: เติม f_auto,q_auto เข้าไปใน URL ของ Cloudinary 
+            ระบบจะแปลงเป็น WebM หรือรูปแบบที่เบาที่สุดให้เบราว์เซอร์อัตโนมัติ 
+        */}
+        <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/f_auto,q_auto/v1774496170/7020050_Abstract_Background_3840x2160_lzpmkg.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0 bg-black/40 mix-blend-multiply"></div>
     </div>
