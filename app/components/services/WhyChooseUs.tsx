@@ -1,99 +1,67 @@
-"use client";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 export default function WhyChooseUs({ service }: { service: any }) {
   if (!service.benefits || service.benefits.length === 0) return null;
-  const whySectionRef = useRef<HTMLDivElement>(null);
-  const [whyScrollProgress, setWhyScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (whySectionRef.current) {
-        const { top, height } = whySectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const progress = -top / (height - windowHeight);
-        setWhyScrollProgress(Math.min(Math.max(progress, 0), 1));
-      }
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const totalCards = service.benefits.length;
-  let activeCardIndex = Math.floor(whyScrollProgress * totalCards);
-  if (activeCardIndex >= totalCards) activeCardIndex = totalCards - 1;
-
-  // ฟังก์ชันจัดการเงาเพื่อไม่ให้เกิดการสะสม
-  const getCardShadow = (index: number) => {
-    if (index === activeCardIndex) {
-      return "shadow-[0_15px_50px_-5px_rgba(0,0,0,0.4)]";
-    }
-    if (index < activeCardIndex) {
-      return "shadow-none"; // ซ่อนเงาใบที่โดนทับ
-    }
-    return "shadow-[0_15px_50px_-5px_rgba(0,0,0,0.4)]";
-  };
 
   return (
-    <section ref={whySectionRef} className="relative bg-transparent" style={{ height: `${totalCards * 100}vh` }}>
-      <div className="sticky top-0 h-screen flex flex-col pt-32 pb-16 overflow-hidden">
-        
-        <div className="w-full px-6 md:px-[10vw] mb-12 shrink-0 relative z-10">
-          <h2 className="text-3xl md:text-5xl font-light text-white/60 drop-shadow-lg">{service.whyTitle}</h2>
+    // 🌟 1. ลด padding ลงให้พอดีกับ Hero Section
+    <section className="py-20 md:py-32 px-6 max-w-7xl mx-auto relative z-10">
+      
+      {/* 🌟 2. ใช้ Flex แบบแถว เพื่อแบ่งฝั่งซ้าย-ขวา */}
+      <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
+
+        {/* 🌟 3. ฝั่งซ้าย: หัวข้อแบบ Sticky เกาะติดหน้าจอตอนเลื่อน (เฉพาะจอคอม) */}
+        <div className="w-full lg:w-1/3 lg:sticky lg:top-40">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-8 h-[1px] bg-blue-500"></div>
+            <span className="text-blue-500 uppercase tracking-widest text-xs font-bold">
+              Why Choose Us
+            </span>
+          </div>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-white leading-[1.1]">
+            {service.whyTitle}
+          </h2>
         </div>
 
-        <div className="grow w-full px-6 md:px-[10vw] relative z-20 pb-12">
+        {/* 🌟 4. ฝั่งขวา: รายการข้อดีเรียงต่อกันแบบคลีนๆ ปล่อยโล่งๆ ให้ดูแพง */}
+        <div className="w-full lg:w-2/3 flex flex-col gap-16 md:gap-24">
           {service.benefits.map((benefit: any, index: number) => {
             const autoNumber = String(index + 1).padStart(2, '0');
-            
-            // 🌟 แก้ไข: แยกระบุสถานะให้ชัดเจนไปเลยว่าใบไหน Active, ใบไหนโดนทับ
-            const isActive = index === activeCardIndex;
-            const isStacked = index < activeCardIndex;
-
-            // ✅ แกับั๊กการ์ดหาย: ถ้า Active หรือ โดนทับอยู่ ให้ translateX เป็น 0%
-            const translateX = isActive || isStacked ? "0%" : "150vw";
-            const scale = isStacked ? (index === activeCardIndex - 1 ? 0.98 : 0.95) : 1;
-            const opacity = isStacked ? (index === activeCardIndex - 1 ? 1 : 0.5) : 1;
 
             return (
-              <div
-                key={index}
-                className={`absolute inset-x-6 md:inset-x-[10vw] top-0 bottom-12 
-                          bg-white/5 backdrop-blur-3xl rounded-[2rem] p-8 md:p-16 
-                          flex flex-col md:flex-row items-stretch gap-12 
-                          border border-white/10 
-                          transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform
-                          ${getCardShadow(index)}`}
-                style={{ 
-                  transform: `translateX(${translateX}) scale(${scale})`, 
-                  zIndex: index,
-                  opacity: opacity
-                }}
-              >
-                <div className="w-full md:w-[45%] flex flex-col justify-center shrink-0">
-                  <span className="text-6xl md:text-[8rem] font-black text-white/10 mb-6 leading-none tracking-tight drop-shadow-md">
-                    {autoNumber}
+              <div key={index} className="flex flex-col md:flex-row gap-8 md:gap-12 group">
+                
+                {/* ข้อมูล */}
+                <div className="w-full md:w-1/2 flex flex-col justify-start">
+                  <span className="text-5xl md:text-6xl font-black text-white/10 mb-4 tracking-tighter">
+                    {autoNumber}.
                   </span>
-                  <h4 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight tracking-tight drop-shadow-md">{benefit.title}</h4>
-                  <p className="text-white/80 text-lg md:text-xl leading-relaxed font-light border-l-4 border-blue-500 pl-6">{benefit.desc}</p>
+                  <h3 className="text-2xl md:text-3xl font-bold mb-4 text-white tracking-tight">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-white/50 font-light leading-relaxed">
+                    {benefit.desc}
+                  </p>
                 </div>
 
-                <div className="grow w-full md:w-[55%] h-60 md:h-auto bg-black/50 rounded-3xl overflow-hidden relative border border-white/5 shadow-inner">
+                {/* รูปภาพ (สไตล์ดิบๆ คมๆ ขอบเหลี่ยม เข้ากับ Hero) */}
+                <div className="w-full md:w-1/2 aspect-[4/3] bg-[#0a0a0a] relative overflow-hidden border border-white/10 group-hover:border-white/30 transition-colors duration-500">
                   <Image 
-                    src={benefit.image || `https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=1000&q=80&sig=${index}`} 
+                    src={benefit.image || `https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80&sig=${index}`} 
                     alt={benefit.title} 
                     fill={true}
-                    sizes="(max-width: 768px) 100vw, 55vw"
-                    className="object-cover" 
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    // คงกิมมิค Grayscale แบบเดียวกับ Hero ไว้ให้คุมโทน
+                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-[1s] ease-[cubic-bezier(0.25,1,0.5,1)] scale-110 group-hover:scale-100" 
                   />
-                  <div className="absolute inset-0 bg-blue-900/10 mix-blend-multiply opacity-50"></div>
                 </div>
+                
               </div>
             );
           })}
         </div>
+
       </div>
     </section>
   );
