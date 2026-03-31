@@ -1,34 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import Reveal from "@/app/components/Reveal";
 import Image from "next/image";
 
 export default function TestimonialSection({ testimonialsData = [] }: { testimonialsData?: any[] }) {
     
-    // 🌟 1. จำกัดแค่ 10 การ์ด
-    const baseData = testimonialsData.slice(0, 10);
-    
-    // 🌟 2. ทำ Infinite Loop Trick (โคลนให้มีอย่างน้อย 5 การ์ดเสมอ เพื่อให้อนิเมชั่นสมูท)
-    let displayData = [...baseData];
-    if (baseData.length > 1 && baseData.length < 5) {
-        while (displayData.length < 5) {
-            displayData = [...displayData, ...baseData];
+    // 🌟 1. Performance Optimize: ใช้ useMemo เพื่อไม่ให้ React คำนวณ Array ใหม่ทุกครั้งที่กดเลื่อน
+    const { baseData, displayData } = useMemo(() => {
+        const base = testimonialsData.slice(0, 10);
+        let display = [...base];
+        
+        // โคลนการ์ดให้มีอย่างน้อย 5 ใบเฉพาะตอนที่ข้อมูลโหลดมาครั้งแรกเท่านั้น
+        if (base.length > 1 && base.length < 5) {
+            while (display.length < 5) {
+                display = [...display, ...base];
+            }
         }
-    }
+        return { baseData: base, displayData: display };
+    }, [testimonialsData]); // คำนวณใหม่เฉพาะตอนที่ข้อมูลจาก Database เปลี่ยนแปลง
 
-    // ใช้ State นับจำนวนครั้งที่กดเลื่อน (ติดลบได้ เป็นร้อยได้) เพื่อให้สมการคำนวณวงกลมทำงาน
     const [count, setCount] = useState(0);
+
+    // 🌟 2. Performance Optimize: ใช้ useCallback เพื่อจำ Function ไว้ใน Memory ไม่ต้องสร้างใหม่ทุก Render
+    const nextSlide = useCallback(() => setCount(prev => prev + 1), []);
+    const prevSlide = useCallback(() => setCount(prev => prev - 1), []);
 
     if (!baseData || baseData.length === 0) return null;
 
     const total = displayData.length;
-    // หา Index จริงๆ ที่กำลังโชว์อยู่ตรงกลาง
     const activeIndex = ((count % total) + total) % total;
-    // หา Index ของจุดไข่ปลา (Dots) ด้านล่าง
     const originalActiveIndex = ((count % baseData.length) + baseData.length) % baseData.length;
-
-    const nextSlide = () => setCount(prev => prev + 1);
-    const prevSlide = () => setCount(prev => prev - 1);
 
     return (
         <section className="py-16 md:py-20 relative z-10 flex flex-col items-center overflow-hidden">
@@ -40,10 +41,8 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
 
             <Reveal delayMs={200} className="w-full relative flex justify-center items-center">
                 
-                {/* Container หลัก (ซ่อนส่วนที่ล้นออกนอกจอ) */}
                 <div className="relative w-full h-[450px] md:h-[500px] flex justify-center items-center max-w-[1440px]">
                     
-                    {/* 🌟 3. ปุ่มลูกศรซ้าย (จับชิดการ์ดตรงกลางด้วย left-1/2 และดันออก) */}
                     {baseData.length > 1 && (
                         <button 
                             onClick={prevSlide}
@@ -53,38 +52,36 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
                         </button>
                     )}
 
-                    {/* 🌟 4. วนลูป Render การ์ด (ใช้ CSS Transform จัดการอนิเมชั่นทั้งหมด) */}
                     {displayData.map((current, i) => {
                         let diff = i - activeIndex;
 
-                        // คณิตศาสตร์คำนวณตำแหน่งแบบวงกลม
                         if (diff > total / 2) diff -= total;
                         else if (diff < -total / 2) diff += total;
 
-                        // ป้องกันการ์ดกระตุกกรณีเลขคู่
                         if (total % 2 === 0 && diff === -(total / 2)) {
                             diff += total; 
                         }
 
                         const isCenter = diff === 0;
 
-                        // คลาสคุมตำแหน่ง (เลื่อนซ้าย-ขวา)
+                        // ย้าย Logic การกำหนด Class มาไว้ตรงนี้ให้โค้ดดูคลีนขึ้น
                         let translateXClass = "translate-x-0";
-                        if (diff === 1) translateXClass = "translate-x-[110%] md:translate-x-[115%]"; // อยู่ขวา
-                        else if (diff === -1) translateXClass = "-translate-x-[110%] md:-translate-x-[115%]"; // อยู่ซ้าย
-                        else if (diff > 1) translateXClass = "translate-x-[200%] md:translate-x-[230%]"; // ซ่อนขวา
-                        else if (diff < -1) translateXClass = "-translate-x-[200%] md:-translate-x-[230%]"; // ซ่อนซ้าย
+                        if (diff === 1) translateXClass = "translate-x-[110%] md:translate-x-[115%]";
+                        else if (diff === -1) translateXClass = "-translate-x-[110%] md:-translate-x-[115%]";
+                        else if (diff > 1) translateXClass = "translate-x-[200%] md:translate-x-[230%]";
+                        else if (diff < -1) translateXClass = "-translate-x-[200%] md:-translate-x-[230%]";
 
-                        // คลาสคุมขนาด, ความโปร่งใส, และ Layer
+                        // 🌟 3. ปรับปรุง CSS: ถ้าการ์ดถูกซ่อนอยู่ (opacity-0) ให้เพิ่ม invisible เข้าไปด้วยเพื่อป้องกันการกดโดนโดยบังเอิญ
+                        const visibilityClass = Math.abs(diff) > 1 ? "opacity-0 invisible" : "opacity-100 visible";
                         let scaleClass = isCenter ? "scale-100" : "scale-[0.85]";
-                        let opacityClass = isCenter ? "opacity-100" : (Math.abs(diff) === 1 ? "opacity-40" : "opacity-0");
+                        let finalOpacityClass = isCenter ? "opacity-100" : (Math.abs(diff) === 1 ? "opacity-40" : visibilityClass);
                         let zIndexClass = isCenter ? "z-20" : (Math.abs(diff) === 1 ? "z-10" : "z-0");
                         let pointerEvents = isCenter ? "pointer-events-auto" : "pointer-events-none";
 
                         return (
                             <div
                                 key={i}
-                                className={`absolute bg-white w-[300px] md:w-[500px] shrink-0 p-8 md:p-12 flex flex-col items-center text-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-3xl border border-gray-100 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform ${translateXClass} ${scaleClass} ${opacityClass} ${zIndexClass} ${pointerEvents}`}
+                                className={`absolute bg-white w-[300px] md:w-[500px] shrink-0 p-8 md:p-12 flex flex-col items-center text-center shadow-[0_20px_50px_rgba(0,0,0,0.3)] rounded-3xl border border-gray-100 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] will-change-transform ${translateXClass} ${scaleClass} ${finalOpacityClass} ${zIndexClass} ${pointerEvents}`}
                             >
                                 
                                 <div className="absolute -top-10 w-20 h-20 md:-top-12 md:w-24 md:h-24 rounded-full border-4 border-white shadow-xl overflow-hidden bg-gray-200">
@@ -93,6 +90,8 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
                                       alt={current.name || "Customer Avatar"} 
                                       fill 
                                       sizes="96px" 
+                                      // 🌟 4. เพิ่ม loading="lazy" (ถึง Next.js จะทำให้อัตโนมัติ แต่การใส่ไว้ช่วยให้มั่นใจได้มากขึ้น)
+                                      loading="lazy"
                                       className="object-cover" 
                                     />
                                 </div>
@@ -104,6 +103,7 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
                                             alt="Company Logo" 
                                             width={120} 
                                             height={40} 
+                                            loading="lazy"
                                             className="max-h-full w-auto opacity-60 object-contain" 
                                         />
                                     )}
@@ -125,7 +125,6 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
                         );
                     })}
 
-                    {/* 🌟 5. ปุ่มลูกศรขวา (จับชิดการ์ดตรงกลางด้วย right-1/2 และดันออก) */}
                     {baseData.length > 1 && (
                         <button 
                             onClick={nextSlide}
@@ -136,14 +135,12 @@ export default function TestimonialSection({ testimonialsData = [] }: { testimon
                     )}
                 </div>
 
-                {/* จุดไข่ปลา (Dots Pagination) - คำนวณตามข้อมูลออริจินัล */}
                 {baseData.length > 1 && (
                     <div className="absolute -bottom-8 flex gap-2 z-30">
                         {baseData.map((_, idx) => (
                             <button 
                                 key={idx}
                                 onClick={() => {
-                                    // กระโดดไปยังการ์ดที่คลิกได้ทันที
                                     const diff = idx - originalActiveIndex;
                                     setCount(prev => prev + diff);
                                 }}
