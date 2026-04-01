@@ -43,8 +43,21 @@ export default function WorkHero({ work }: { work: any }) {
               &larr; Back to Works
             </Link>
 
-            <h1 className="text-4xl md:text-5xl lg:text-7xl font-black uppercase leading-tight tracking-tighter mb-8 text-transparent bg-clip-text bg-gradient-to-br from-white to-[#004965] break-words py-2">
-              {work.title}
+            <h1
+              className={`
+                font-black uppercase leading-[0.9] tracking-tighter mb-8 
+                text-transparent bg-clip-text bg-gradient-to-br from-white to-[#004965] py-2
+                ${(work.title?.length || 0) > 30 ? "text-3xl md:text-5xl lg:text-6xl" : "text-5xl md:text-6xl lg:text-[80px]"}
+              `}
+            >
+              {/* 🌟 แยกคำด้วยช่องว่าง แล้วหุ้มแต่ละคำให้เป็นก้อนที่ห้ามโดนตัด (Unbreakable Block) */}
+              {(work.title || "").split(" ").map((word: string, index: number, arr: string[]) => (
+                <span key={index}>
+                  <span className="inline-block whitespace-nowrap">{word}</span>
+                  {/* ใส่ช่องว่างคืนกลับไปหลังคำ (ยกเว้นคำสุดท้าย) */}
+                  {index < arr.length - 1 && " "}
+                </span>
+              ))}
             </h1>
 
             {/* Client / Year */}
