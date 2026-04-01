@@ -1,43 +1,25 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 function normalizeContent(content: unknown): string[] {
   if (Array.isArray(content)) {
     return content
       .map((item) => {
-        if (typeof item === "string") {
-          return item.trim();
-        }
-
+        if (typeof item === "string") return item.trim();
         if (item && typeof item === "object") {
-          const maybeBlock = item as {
-            text?: string;
-            children?: Array<{ text?: string }>;
-          };
-
-          if (typeof maybeBlock.text === "string") {
-            return maybeBlock.text.trim();
-          }
-
+          const maybeBlock = item as { text?: string; children?: Array<{ text?: string }> };
+          if (typeof maybeBlock.text === "string") return maybeBlock.text.trim();
           if (Array.isArray(maybeBlock.children)) {
-            return maybeBlock.children
-              .map((child) => child?.text?.trim() ?? "")
-              .filter(Boolean)
-              .join(" ")
-              .trim();
+            return maybeBlock.children.map((child) => child?.text?.trim() ?? "").filter(Boolean).join(" ").trim();
           }
         }
-
         return "";
       })
       .filter(Boolean);
   }
-
-  if (typeof content === "string" && content.trim()) {
-    return [content.trim()];
-  }
-
+  if (typeof content === "string" && content.trim()) return [content.trim()];
   return [];
 }
 
@@ -46,8 +28,9 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const contentRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const slideHeightsRef = useRef<number[]>([]);
-  const maxScrollsRef = useRef<number[]>([]);
+
+  const sectionScrollHeights = useRef<number[]>([]);
+  const maxTranslateY = useRef<number[]>([]);
 
   useEffect(() => {
     if (!sections || sections.length === 0) return;
@@ -55,97 +38,80 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
     const calculateHeights = () => {
       if (!boxRef.current || !containerRef.current) return;
 
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const boxH = boxRef.current.clientHeight;
-      let total = 0;
+      const vh = window.innerHeight;
+      const boxHeight = boxRef.current.clientHeight;
+      let totalScrollHeight = 0;
       const hArray: number[] = [];
       const mArray: number[] = [];
-      const enterBuffer = vh * 0.2;
 
-      sections.forEach((_: any, i: number) => {
-        const ref = contentRefs.current[i];
-        const sHeight = ref ? ref.scrollHeight : boxH;
-        const maxS = Math.max(0, sHeight - boxH);
-        mArray.push(maxS);
+      sections.forEach((_, i) => {
+        const contentEl = contentRefs.current[i];
+        const contentHeight = contentEl ? contentEl.scrollHeight : boxHeight;
+        const maxScroll = Math.max(0, contentHeight - boxHeight + 80); 
+        mArray.push(maxScroll);
 
-        const isLast = i === sections.length - 1;
-        const exitBuffer = isLast ? 0 : vh * 0.1;
-        const allocated = Math.max(vh * 0.5, enterBuffer + maxS + exitBuffer);
-        hArray.push(allocated);
-        total += allocated;
+        const scrollDistanceForThisSection = (vh * 0.8) + maxScroll;
+        hArray.push(scrollDistanceForThisSection);
+        totalScrollHeight += scrollDistanceForThisSection;
       });
 
-      containerRef.current.style.height = `${total + vh}px`;
-      slideHeightsRef.current = hArray;
-      maxScrollsRef.current = mArray;
-      handleScroll();
+      containerRef.current.style.height = `${totalScrollHeight + vh}px`;
+      sectionScrollHeights.current = hArray;
+      maxTranslateY.current = mArray;
+
+      handleScroll(); 
     };
 
     const handleScroll = () => {
-      if (!containerRef.current || slideHeightsRef.current.length === 0) return;
+      if (!containerRef.current || sectionScrollHeights.current.length === 0) return;
 
       const { top } = containerRef.current.getBoundingClientRect();
-      const scrolled = Math.max(0, -top);
+      const scrolled = Math.max(0, -top); 
 
-      if (scrolled === 0) {
-        setActiveSection(0);
-        contentRefs.current.forEach((ref) => {
-          if (ref) ref.style.transform = "translateY(0px)";
-        });
-        return;
-      }
-
-      let cumSum = 0;
-      let currentIndex = 0;
+      let accumulatedScroll = 0;
+      let currentIdx = 0;
       let localScrolled = 0;
 
-      for (let i = 0; i < slideHeightsRef.current.length; i++) {
-        const h = slideHeightsRef.current[i];
-        if (scrolled >= cumSum && scrolled < cumSum + h) {
-          currentIndex = i;
-          localScrolled = scrolled - cumSum;
+      for (let i = 0; i < sectionScrollHeights.current.length; i++) {
+        const sectionH = sectionScrollHeights.current[i];
+        if (scrolled >= accumulatedScroll && scrolled < accumulatedScroll + sectionH) {
+          currentIdx = i;
+          localScrolled = scrolled - accumulatedScroll;
           break;
         }
-        cumSum += h;
-        if (i === slideHeightsRef.current.length - 1 && scrolled >= cumSum) {
-          currentIndex = i;
-          localScrolled = scrolled - (cumSum - h);
+        accumulatedScroll += sectionH;
+        if (i === sectionScrollHeights.current.length - 1 && scrolled >= accumulatedScroll) {
+          currentIdx = i;
+          localScrolled = scrolled - (accumulatedScroll - sectionH);
         }
       }
 
-      setActiveSection(currentIndex);
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const enterBuffer = vh * 0.2;
+      setActiveSection(currentIdx);
+
+      const maxScrollForCurrent = maxTranslateY.current[currentIdx];
+      const startScrollBuffer = window.innerHeight * 0.3; 
+      let translateY = 0;
+
+      if (localScrolled > startScrollBuffer) {
+        translateY = localScrolled - startScrollBuffer;
+        if (translateY > maxScrollForCurrent) translateY = maxScrollForCurrent; 
+      }
 
       contentRefs.current.forEach((ref, i) => {
         if (!ref) return;
-        const maxS = maxScrollsRef.current[i];
-        if (i === currentIndex) {
-          let y = 0;
-          if (localScrolled < enterBuffer) {
-            y = 0;
-          } else if (localScrolled < enterBuffer + maxS) {
-            y = localScrolled - enterBuffer;
-          } else {
-            y = maxS;
-          }
-          ref.style.transform = `translateY(${-y}px)`;
-        } else if (i < currentIndex) {
-          ref.style.transform = `translateY(${-maxS}px)`;
+        if (i === currentIdx) {
+          ref.style.transform = `translateY(-${translateY}px)`;
+        } else if (i < currentIdx) {
+          ref.style.transform = `translateY(-${maxTranslateY.current[i]}px)`; 
         } else {
-          ref.style.transform = "translateY(0px)";
+          ref.style.transform = `translateY(0px)`;
         }
       });
     };
 
-    const resizeObserver = new ResizeObserver(() => {
-      requestAnimationFrame(() => calculateHeights());
-    });
-
+    const resizeObserver = new ResizeObserver(() => requestAnimationFrame(() => calculateHeights()));
     if (boxRef.current) resizeObserver.observe(boxRef.current);
-    contentRefs.current.forEach((ref) => {
-      if (ref) resizeObserver.observe(ref);
-    });
+    contentRefs.current.forEach((ref) => { if (ref) resizeObserver.observe(ref); });
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     const initialTimer = setTimeout(calculateHeights, 200);
@@ -160,40 +126,69 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
   if (!sections || sections.length === 0) return null;
 
   return (
-    <section ref={containerRef} className="relative w-full">
-      <div className="sticky left-0 top-0 z-10 mx-auto flex h-screen w-full max-w-[1920px] flex-col items-center justify-center gap-12 overflow-hidden px-6 md:flex-row md:px-12">
-        <div className="pointer-events-none relative aspect-square w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0f16] shadow-2xl md:aspect-[4/3] md:w-1/2">
+    <section ref={containerRef} className="relative w-full border-t border-white/10 bg-[#050505]">
+      
+      <div className="sticky left-0 top-0 z-10 mx-auto flex h-screen w-full max-w-7xl flex-col items-center justify-center gap-12 overflow-hidden px-6 md:flex-row lg:gap-20 md:px-12 group">
+
+        {/* ================= ฝั่งซ้าย: รูปภาพ ================= */}
+        {/* 🌟 1. ใช้ aspect-video (16:9) และ md:w-2/5 (กินพื้นที่ 40%) */}
+        <div className="pointer-events-none relative aspect-video w-full md:w-2/5 overflow-hidden rounded-md border border-white/10 bg-[#0a0f16] shadow-2xl">
           {sections.map((section: any, index: number) => (
-            <img
-              key={`img-${index}`}
-              src={section.image}
-              alt={section.title}
-              className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-[600ms] ease-in-out ${
-                index === activeSection ? "opacity-100" : "opacity-0"
-              }`}
-            />
+            <div
+              key={`img-wrap-${index}`}
+              className={`absolute inset-0 transition-all duration-[1000ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${index === activeSection ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+            >
+              <Image
+                src={section.image}
+                alt={section.title}
+                fill
+                priority={index === 0}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                className={`object-cover transition-all duration-[1500ms] ease-out grayscale group-hover:grayscale-0 ${index === activeSection ? "scale-100" : "scale-110"
+                  }`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent group-hover:opacity-0 transition-opacity duration-1000"></div>
+            </div>
           ))}
         </div>
 
-        <div className="relative flex h-[60vh] w-full flex-col justify-center md:h-[70vh] md:w-1/2">
-          <div className="pointer-events-none relative mb-6 h-20 w-full md:h-28">
-            {sections.map((section: any, index: number) => (
-              <h2
-                key={`title-${index}`}
-                className={`absolute inset-0 text-5xl font-black uppercase tracking-tighter text-[#004965] drop-shadow-md transition-all duration-[600ms] ease-[cubic-bezier(0.25,1,0.5,1)] md:text-7xl lg:text-[5.5rem] ${
-                  index === activeSection
-                    ? "translate-y-0 opacity-100"
-                    : "pointer-events-none translate-y-4 opacity-0"
-                }`}
-              >
-                {section.title}
-              </h2>
-            ))}
+        {/* ================= ฝั่งขวา: หัวข้อ + กล่องเนื้อหา ================= */}
+        {/* 🌟 2. ใช้ md:w-3/5 (กินพื้นที่ 60% ที่เหลือ) ให้ข้อความกางออกได้เต็มที่ */}
+        <div className="relative flex h-[50vh] w-full flex-col justify-center md:h-[70vh] md:w-3/5">
+
+          {/* หัวข้อ */}
+          <div className="relative mb-10 h-24 w-full shrink-0 md:h-32">
+            {sections.map((section: any, index: number) => {
+               const autoNumber = String(index + 1).padStart(2, '0');
+               return (
+                <div
+                  key={`title-${index}`}
+                  className={`absolute inset-0 flex flex-col justify-center transition-all duration-[800ms] ease-[cubic-bezier(0.25,1,0.5,1)] ${index === activeSection
+                      ? "translate-y-0 opacity-100 pointer-events-auto"
+                      : "translate-y-8 opacity-0 pointer-events-none"
+                    }`}
+                >
+                  <div className="flex items-center gap-4 mb-3">
+                    <span className="text-[#F48120] font-bold tracking-[0.2em] text-sm">{autoNumber}</span>
+                    <div className="w-12 h-[1px] bg-white/20"></div>
+                  </div>
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500 pb-2">
+                    {section.title}
+                  </h2>
+                </div>
+              );
+            })}
           </div>
 
+          {/* กล่องเนื้อหา */}
           <div
             ref={boxRef}
-            className="relative flex-1 overflow-hidden rounded-3xl border border-white/20 bg-gradient-to-br from-[#001f2b] to-[#050505] shadow-[0_0_30px_rgba(0,73,101,0.3)]"
+            className="relative flex-1 overflow-hidden border-l border-white/10"
+            style={{
+              maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)'
+            }}
           >
             {sections.map((section: any, index: number) => {
               const contentItems = normalizeContent(section.content);
@@ -201,41 +196,37 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
               return (
                 <div
                   key={`box-wrapper-${index}`}
-                  className={`absolute inset-0 transition-opacity duration-[600ms] ease-in-out ${
-                    index === activeSection
+                  className={`absolute inset-0 w-full transition-opacity duration-[800ms] ease-in-out ${index === activeSection
                       ? "z-10 opacity-100"
                       : "pointer-events-none z-0 opacity-0"
-                  }`}
+                    }`}
                 >
                   <div
-                    ref={(el) => {
-                      if (el) contentRefs.current[index] = el;
-                    }}
-                    className="absolute left-0 top-0 w-full p-8 will-change-transform md:p-12"
+                    ref={(el) => { if (el) contentRefs.current[index] = el; }}
+                    className="absolute left-0 top-0 w-full pl-6 md:pl-10 will-change-transform pb-24"
                   >
                     {contentItems.length > 0 ? (
-                      <ul className="space-y-6 border-l-2 border-[#F48120] pl-6 md:space-y-8 md:pl-8">
+                      <ul className="space-y-6 md:space-y-8">
                         {contentItems.map((item: string, i: number) => (
                           <li
                             key={i}
-                            className="text-xl font-light leading-relaxed text-gray-200 drop-shadow-md md:text-2xl lg:text-3xl"
+                            className="text-lg font-light leading-[1.8] text-white/70 md:text-xl lg:text-2xl break-words whitespace-pre-line"
                           >
                             {item}
                           </li>
                         ))}
                       </ul>
                     ) : (
-                      <div className="border-l-2 border-white/15 pl-6 md:pl-8">
-                        <p className="text-lg text-gray-400 md:text-xl">
-                          No story details available for this section yet.
-                        </p>
-                      </div>
+                      <p className="text-lg font-light text-white/40">
+                        No details available.
+                      </p>
                     )}
                   </div>
                 </div>
               );
             })}
           </div>
+
         </div>
       </div>
     </section>
