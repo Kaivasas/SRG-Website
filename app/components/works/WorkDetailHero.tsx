@@ -65,22 +65,24 @@ export default function WorkHero({ work }: { work: any }) {
               </div>
             )}
 
-            {/* Description (ไม่มี .map แล้ว แก้ Error เด็ดขาด) */}
-            <p className="whitespace-pre-line text-lg md:text-xl text-gray-400 font-light leading-relaxed">
-              {work.shortDesc || work.description}
-            </p>
+            {/* 🌟 แสดงเฉพาะ shortDesc ใน Hero เพื่อความกระชับ */}
+            {work.shortDesc && (
+              <p className="whitespace-pre-line text-lg md:text-xl text-gray-400 font-light leading-relaxed">
+                {work.shortDesc}
+              </p>
+            )}
           </div>
         </div>
 
         {/* ฝั่งขวา: รูปภาพ (โครงสร้างเดิมของน้องเป๊ะๆ) */}
         <div className="w-full md:w-7/12 aspect-[4/3] md:aspect-video bg-gray-900 rounded-lg overflow-hidden relative shadow-2xl z-10">
           {work.heroMedia ? (
-            <Image src={work.heroMedia} 
-            alt={work.title} 
-            fill={true} 
-            priority={true} 
-            sizes="(max-width: 768px) 100vw, 58vw" 
-            className="w-full h-full object-cover" />
+            <Image src={work.heroMedia}
+              alt={work.title}
+              fill={true}
+              priority={true}
+              sizes="(max-width: 768px) 100vw, 58vw"
+              className="w-full h-full object-cover" />
           ) : (
             <div className="flex items-center justify-center h-full text-gray-600">Video / Image Placeholder</div>
           )}

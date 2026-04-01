@@ -4,6 +4,7 @@ import Link from "next/link";
 
 // 1. Import Components ที่เราเพิ่งหั่นไว้มาประกอบกัน
 import WorkHero from "@/app/components/works/WorkDetailHero";
+import WorkDescription from "@/app/components/works/WorkDescription";
 import BeforeAfterSlider from "@/app/components/works/BeforeAfterSlider";
 import Scrollytelling from "@/app/components/works/Scrollytelling";
 import WorkGallery from "@/app/components/works/WorkGallery";
@@ -45,6 +46,9 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#F48120] selection:text-white pb-0">
       
       <WorkHero work={work} />
+
+      {/* 🌟 2. เลื่อนลงมาเจอ Description หรูๆ เน้น Typography นำสายตา */}
+      <WorkDescription description={work.description} />
       
       <BeforeAfterSlider beforeAfter={work.beforeAfter} />
       
