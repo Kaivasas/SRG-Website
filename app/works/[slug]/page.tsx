@@ -42,23 +42,27 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   }
 
   // 2. ประกอบร่าง! (โค้ดคลีนขึ้นแบบ 1000%)
+// ... โค้ดดึงข้อมูลด้านบนเหมือนเดิม ...
+
+  // 2. ประกอบร่าง! (เรียงลำดับตาม Storytelling Arc)
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#F48120] selection:text-white pb-0">
       
+      {/* 1. The Context: Hook สายตาและปูเรื่องราว */}
       <WorkHero work={work} />
-
-      {/* 🌟 2. เลื่อนลงมาเจอ Description หรูๆ เน้น Typography นำสายตา */}
       <WorkDescription description={work.description} />
       
-      <BeforeAfterSlider beforeAfter={work.beforeAfter} />
-      
+      {/* 2. The Journey: เล่ากระบวนการทำงาน ท่าไม้ตายของ Agency */}
       <Scrollytelling sections={work.stickySections} />
       
+      {/* 3. The Visual Proof: โชว์ความเปลี่ยนแปลงและผลงาน */}
+      <BeforeAfterSlider beforeAfter={work.beforeAfter} />
       <WorkGallery gallery={work.gallery} title={work.title} />
       
+      {/* 4. The Impact: หมัดฮุกด้วยตัวเลขสถิติความสำเร็จ */}
       <WorkMetrics metrics={work.metrics} />
 
-      {/* ปุ่ม View All Works ด้านล่างสุด */}
+      {/* 5. The Next Step: Call to action */}
       <div className="py-24 text-center relative z-20 bg-[#050505]">
         <Link href="/works" className="inline-block border border-white/20 px-12 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-white hover:text-black transition-colors">
           View All Works
