@@ -27,9 +27,9 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     "motionVideoUrl": motionVideo.asset->url
   }`;
 
-  // 🌟 2. เปลี่ยน cover เป็น thumbnail สำหรับโปรเจกต์ที่เกี่ยวข้องด้านล่าง
-  // 🌟 เพิ่ม year กับ status เข้าไปใน query
-  const relatedQuery = `*[_type == "product" && slug.current != $slug][0...3] {
+  // 🌟 2. ดึงข้อมูล Product "ทั้งหมด" ออกมา (ดึงมาเฉพาะฟิลด์ที่จำเป็น เพื่อให้โหลดไว)
+  // แนะนำให้ใส่ | order(_createdAt desc) เพื่อให้โปรเจกต์ใหม่ล่าสุดอยู่บนสุดเสมอ
+  const allProductsQuery = `*[_type == "product"] | order(_createdAt desc) {
     title,
     "slug": slug.current,
     category,
@@ -38,12 +38,34 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     thumbnail
   }`;
 
-  const [product, relatedProducts] = await Promise.all([
+  // ยิงคำสั่งดึงข้อมูลพร้อมกัน
+  const [product, allProducts] = await Promise.all([
     client.fetch(productQuery, { slug }),
-    client.fetch(relatedQuery, { slug })
+    client.fetch(allProductsQuery)
   ]);
 
   if (!product) notFound();
+
+  // 🌟 3. ลอจิกการคำนวณหา Related Products (หน้า 2 หลัง 1 แบบวงกลม)
+  let relatedProducts = [];
+  const currentIndex = allProducts.findIndex((p: any) => p.slug === slug);
+
+  // ดักบั๊ก: ถ้าทั้งเว็บมีโปรเจกต์แค่ 4 ชิ้นหรือน้อยกว่า ก็แค่ดึงอันที่เหลือมาโชว์ทั้งหมด (ไม่ต้องวนลูปให้เมื่อย)
+  if (allProducts.length <= 4) {
+    relatedProducts = allProducts.filter((p: any) => p.slug !== slug);
+  }
+  // ถ้ามีมากกว่า 4 ชิ้น ให้ใช้เวทมนตร์ Circular Array
+  else if (currentIndex !== -1) {
+    const len = allProducts.length;
+
+    // สูตร (index + ความยาว) % ความยาว คือท่ามาตรฐานในการวนลูปไม่ให้ Array ติดลบหรือเกินขอบเขต
+    const prev2 = allProducts[(currentIndex - 2 + len) % len]; // ย้อนหลัง 2 อัน
+    const prev1 = allProducts[(currentIndex - 1 + len) % len]; // ย้อนหลัง 1 อัน
+    const next1 = allProducts[(currentIndex + 1) % len];       // ถัดไป 1 อัน
+
+    // จับยัดลง Array เรียงตามลำดับที่เราต้องการ
+    relatedProducts = [prev2, prev1, next1];
+  }
 
   return (
     <main className={`${pageShellClass} px-6 pb-20 pt-28 text-white sm:px-10 lg:px-20`}>
