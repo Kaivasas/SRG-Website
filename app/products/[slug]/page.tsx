@@ -21,12 +21,18 @@ export async function generateStaticParams() {
 export default async function ProductDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
 
-  const productQuery = `*[_type == "product" && slug.current == $slug][0]`;
+  // 🌟 1. ดึงข้อมูลทั้งหมด (...) และเจาะเอา URL ของวิดีโอออกมาโดยเฉพาะ
+  const productQuery = `*[_type == "product" && slug.current == $slug][0] {
+    ...,
+    "motionVideoUrl": motionVideo.asset->url
+  }`;
+  
+  // 🌟 2. เปลี่ยน cover เป็น thumbnail สำหรับโปรเจกต์ที่เกี่ยวข้องด้านล่าง
   const relatedQuery = `*[_type == "product" && slug.current != $slug][0...3] {
     title,
     "slug": slug.current,
     category,
-    cover
+    thumbnail
   }`;
 
   const [product, relatedProducts] = await Promise.all([
@@ -46,7 +52,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         {/* เรียกใช้งาน Components */}
         <ProductHero product={product} />
         <ProductStory product={product} />
-        <ProductBenefits benefits={product.benefits} cover={product.cover} />
+        
+        {/* 🌟 3. เอา cover ออกจาก Props เพราะเดี๋ยวเราจะไปใช้รูปแยกของแต่ละ Benefit แทน */}
+        <ProductBenefits benefits={product.benefits} />
+        
         <ProductCertifications certifications={product.certifications} />
         <RelatedProducts products={relatedProducts} />
         <ProductCTA />

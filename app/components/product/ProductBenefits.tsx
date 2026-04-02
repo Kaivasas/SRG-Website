@@ -2,7 +2,7 @@ import Image from "next/image";
 import Reveal from "../Reveal";
 import { urlFor } from "@/sanity/lib/image";
 
-export default function ProductBenefits({ benefits, cover }: { benefits: any[], cover: any }) {
+export default function ProductBenefits({ benefits }: { benefits: any[] }) {
   if (!benefits?.length) return null;
 
   return (
@@ -14,14 +14,17 @@ export default function ProductBenefits({ benefits, cover }: { benefits: any[], 
         <div className="mt-6 grid gap-5 md:grid-cols-3">
           {benefits.map((benefit: any, index: number) => (
             <article key={index} className="overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]">
+              
               <div className="relative flex h-36 items-center justify-center overflow-hidden after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']">
-                {cover && (
-                  <Image src={urlFor(cover).url()} alt="Benefit background" fill className="object-cover absolute inset-0 z-0" />
+                {/* 🌟 ดึงรูปภาพแยกของแต่ละ benefit มาแสดง */}
+                {benefit.image && (
+                  <Image src={urlFor(benefit.image).url()} alt={benefit.title || "Benefit background"} fill className="object-cover absolute inset-0 z-0" />
                 )}
                 <span className="relative z-10 text-[3.6rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
                   0{index + 1}
                 </span>
               </div>
+
               <h3 className="mt-5 text-[clamp(1.5rem,2.5vw,2rem)] font-bold leading-tight tracking-[-0.04em] text-white">
                 {benefit.title}
               </h3>
