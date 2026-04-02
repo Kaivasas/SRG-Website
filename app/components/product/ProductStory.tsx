@@ -11,8 +11,8 @@ export default function ProductStory({ product }: { product: any }) {
         <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
           <div className="border border-white/10 bg-white/5 p-4">
             <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px]">
-              {product.cover && (
-                <Image src={urlFor(product.cover).url()} alt="Cover image" fill className="object-cover" />
+              {product.storyImage && (
+                <Image src={urlFor(product.storyImage).url()} alt="Cover image" fill className="object-cover" />
               )}
             </div>
           </div>
