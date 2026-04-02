@@ -74,7 +74,7 @@ export const product = defineType({
       type: 'text',
       rows: 3,
     }),
-    
+
     // 🌟 1. ภาพ Thumbnail (หน้ารวม)
     defineField({
       name: 'thumbnail',
@@ -135,12 +135,6 @@ export const product = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({
-      name: 'metrics',
-      title: 'Metrics',
-      type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
       name: 'storyTitle',
       title: 'Story Title',
       type: 'string',
@@ -152,7 +146,7 @@ export const product = defineType({
       of: [{ type: 'text' }],
       description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
     }),
-    
+
     // 🌟 5. เพิ่ม Image เข้าไปในแต่ละ Benefit
     defineField({
       name: 'benefits',
@@ -189,6 +183,12 @@ export const product = defineType({
     defineField({
       name: 'certifications',
       title: 'Certifications',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'metrics',
+      title: 'Metrics',
       type: 'array',
       of: [{ type: 'string' }],
     }),

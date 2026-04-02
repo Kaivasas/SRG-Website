@@ -8,41 +8,55 @@ export default function ProductStory({ product }: { product: any }) {
   return (
     <Reveal className="mt-10" delayMs={60}>
       <section className={`${glassPanelClass} px-6 py-6 lg:px-8 lg:py-8`}>
-        <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
+        {/* 🌟 เช็คเงื่อนไขก่อนว่ามี storyTitle, story หรือ quote ไหม ถ้าไม่มีเลยจะได้ไม่ต้องโชว์ให้เว็บแหว่ง */}
+        {(product.storyTitle || product.story?.length > 0 || product.quote) && (
+          <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start relative">
+            
+            {/* 🌟 อัปเกรด 1: ใส่ lg:sticky และ lg:top-32 ให้รูปภาพเลื่อนตามเนื้อหาฝั่งขวาเวลาข้อความยาวๆ */}
+            <div className="border border-white/10 bg-white/5 p-4 lg:sticky lg:top-32">
+              <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px]">
+                {product.storyImage ? (
+                  <Image src={urlFor(product.storyImage).url()} alt="Story image" fill className="object-cover" />
+                ) : (
+                  // เผื่อแอดมินลืมใส่รูป ให้แสดงกล่องสีเทาๆ ป้องกันเว็บพัง
+                  <div className="absolute inset-0 bg-white/5 flex items-center justify-center text-white/20 text-sm">
+                    No image provided
+                  </div>
+                )}
+              </div>
+            </div>
 
-          <div className="border border-white/10 bg-white/5 p-4">
-            <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px]">
-              {/* 🌟 ใช้ storyImage */}
-              {product.storyImage && (
-                <Image src={urlFor(product.storyImage).url()} alt="Story image" fill className="object-cover" />
+            {/* ฝั่งเนื้อหา */}
+            <div className="flex flex-col h-full min-h-full pb-4">
+              {product.storyTitle && (
+                <p className="text-[clamp(1.5rem,3.2vw,2.1rem)] font-bold leading-tight tracking-[-0.05em] text-white break-words">
+                  {product.storyTitle}
+                </p>
+              )}
+              
+              {/* 🌟 อัปเกรด 2: ใส่ break-words และ whitespace-pre-wrap ให้รองรับการตัดคำและเว้นบรรทัดแบบยืดหยุ่น */}
+              <div className="mt-4 space-y-4 text-base leading-relaxed text-white/72 break-words">
+                {product.story?.map((paragraph: string, i: number) => (
+                  <p key={i} className="whitespace-pre-wrap">{paragraph}</p>
+                ))}
+              </div>
+
+              {product.quote && (
+                <div className="mt-8 border-l-[3px] border-[#F48120] pl-5 break-words">
+                  <p className="text-sm uppercase tracking-[0.28em] text-[#F48120]">Project Note</p>
+                  <p className="mt-4 max-w-[34rem] text-xl leading-relaxed text-white/84 whitespace-pre-wrap">
+                    "{product.quote}"
+                  </p>
+                </div>
               )}
             </div>
           </div>
+        )}
 
-          <div>
-            <p className="text-[clamp(1.5rem,3.2vw,2.1rem)] font-bold leading-tight tracking-[-0.05em] text-white">
-              {product.storyTitle}
-            </p>
-            <div className="mt-4 space-y-4 text-base leading-relaxed text-white/72">
-              {product.story?.map((paragraph: string, i: number) => (
-                <p key={i}>{paragraph}</p>
-              ))}
-            </div>
-
-            {product.quote && (
-              <div className="mt-8 border-l-[3px] border-[#F48120] pl-5">
-                <p className="text-sm uppercase tracking-[0.28em] text-[#F48120]">Project Note</p>
-                <p className="mt-4 max-w-[34rem] text-xl leading-relaxed text-white/84">"{product.quote}"</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* 🌟 ส่วนวิดีโอ */}
+        {/* ส่วนวิดีโอ (โชว์เฉพาะถ้ามี URL วิดีโอส่งมา) */}
         {product.motionVideoUrl && (
           <div className="mt-8 border border-white/10 bg-white/5 p-4">
             <div className="relative overflow-hidden">
-              {/* 🌟 ย้าย src มาไว้ที่ <video> โดยตรง และเอา <source> ออก */}
               <video
                 src={product.motionVideoUrl}
                 autoPlay
