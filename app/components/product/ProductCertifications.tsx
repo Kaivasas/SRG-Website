@@ -12,15 +12,26 @@ export default function ProductCertifications({ certifications }: { certificatio
           Certifications and readiness
         </h2>
         <div className={`${glassPanelClass} mt-6 p-6`}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          
+          {/* 🌟 1. เปลี่ยนเป็น flex, flex-wrap และ justify-center เพื่อให้ดันเข้าตรงกลางเสมอ */}
+          <div className="flex flex-wrap justify-center gap-4">
+            
             {certifications.map((item: string, index: number) => (
-              <div key={index} className="flex min-h-[10rem] flex-col items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(255,255,255,0.04)] text-center transition duration-300 hover:-translate-y-1">
+              <div 
+                key={index} 
+                // 🌟 2. ใช้ flex-1 ขยายเต็มที่ แต่จำกัดความกว้างสูงสุดไว้ที่ 320px
+                className="flex-1 basis-[240px] max-w-[320px] flex min-h-[10rem] flex-col items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(255,255,255,0.04)] text-center transition duration-300 hover:-translate-y-1 p-4"
+              >
                 <span className="text-[3rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
                   0{index + 1}
                 </span>
-                <p className="mt-4 text-sm uppercase tracking-[0.24em] text-white/72">{item}</p>
+                {/* 🌟 3. ใส่ break-words กันเหนียวเผื่อพิมพ์คำยาวเกิน */}
+                <p className="mt-4 text-sm uppercase tracking-[0.24em] text-white/72 break-words w-full">
+                  {item}
+                </p>
               </div>
             ))}
+
           </div>
         </div>
       </section>
