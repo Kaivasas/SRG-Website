@@ -17,10 +17,22 @@ export default function ProductHero({ product }: { product: any }) {
             {product.title}
           </h1>
           <p className="mt-5 max-w-[34rem] text-lg leading-relaxed text-white/72">{product.subtitle}</p>
-          <div className="mt-8 flex flex-wrap gap-3">
-            {product.client && <span className={metaChipClass}>{product.client}</span>}
-            {product.status && <span className={metaChipClass}>{product.status}</span>}
-            {product.year && <span className={metaAccentClass}>{product.year}</span>}
+          <div className="flex flex-wrap gap-2">
+            {product.client && (
+              <span className={metaChipClass}>
+                <span className="text-white/40 mr-2 font-normal">CLIENT</span> {product.client}
+              </span>
+            )}
+            {product.status && (
+              <span className={metaChipClass}>
+                <span className="text-white/40 mr-2 font-normal">STATUS</span> {product.status}
+              </span>
+            )}
+            {product.year && (
+              <span className={metaAccentClass}>
+                <span className="text-[#FAD337]/60 mr-2 font-normal">YEAR</span> {product.year}
+              </span>
+            )}
           </div>
         </div>
 
@@ -31,16 +43,6 @@ export default function ProductHero({ product }: { product: any }) {
             )}
             <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
               {product.eyebrow}
-            </div>
-            <div className="absolute right-6 top-6 z-10 text-[0.72rem] uppercase tracking-[0.3em] text-white/68">
-              {product.year}
-            </div>
-            
-            <div className="relative z-10 grid w-full max-w-[23rem] grid-cols-2 gap-4">
-              <div className={`${floatingTileClass} h-28 rounded-[1.5rem]`} />
-              <div className={`${floatingTileClass} mt-10 h-36 rounded-[1.5rem] bg-black/15`} />
-              <div className={`${floatingTileClass} -mt-5 h-24 rounded-[1.5rem]`} />
-              <div className={`${floatingTileClass} h-20 rounded-full`} />
             </div>
           </div>
         </div>
