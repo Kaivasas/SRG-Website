@@ -33,8 +33,8 @@ export default function ProductHero({ product }: { product: any }) {
 
         <div className="border border-white/10 bg-white/5 p-5 sm:p-8">
           <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden sm:min-h-[360px] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']">
-            {product.cover && (
-              <Image src={urlFor(product.cover).url()} alt={product.title} fill className="object-cover absolute inset-0 z-0" />
+            {product.heroImage && (
+              <Image src={urlFor(product.heroImage).url()} alt={product.title} fill className="object-cover absolute inset-0 z-0" />
             )}
             <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
               {product.eyebrow}

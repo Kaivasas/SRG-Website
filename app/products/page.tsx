@@ -36,7 +36,7 @@ export default async function ProductsPage() {
     description,
     status,
     year,
-    cover
+    thumbnail,
   }`;
 
   // 🌟 ดึงข้อมูลเข้าตัวแปร products
