@@ -1,80 +1,166 @@
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const product = defineType({
   name: 'product',
-  title: 'Product', // ชื่อเมนูที่จะไปโผล่ในหน้า Admin
+  title: 'Product',
   type: 'document',
   fields: [
-    // 1. ข้อมูลพื้นฐาน (อ้างอิงจากภาพที่ 2 และ 3)
     defineField({
-      name: 'name',
-      title: 'ชื่อผลิตภัณฑ์',
+      name: 'title',
+      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'URL Slug (เช่น /product/item-name)',
+      title: 'Slug',
       type: 'slug',
-      options: { source: 'name', maxLength: 96 },
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'category',
-      title: 'ประเภทผลิตภัณฑ์',
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'ข้อความสั้นๆ ที่อยู่เหนือ Title (เช่น Control Tower Platform)',
+    }),
+    defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
       type: 'string',
     }),
     defineField({
-      name: 'mainImage',
-      title: 'รูปภาพหลัก (โชว์หน้าหน้ารวมและหน้าแรกของ Detail)',
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+    }),
+    defineField({
+      name: 'client',
+      title: 'Client',
+      type: 'string',
+    }),
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Launched', value: 'Launched' },
+          { title: 'In Market', value: 'In Market' },
+          { title: 'Pilot', value: 'Pilot' },
+          { title: 'Rolling Out', value: 'Rolling Out' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'longDescription',
+      title: 'Long Description',
+      type: 'text',
+      rows: 5,
+    }),
+    defineField({
+      name: 'quote',
+      title: 'Quote',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'cover',
+      title: 'Cover Image',
       type: 'image',
-      options: { hotspot: true }, // ให้ Admin เลือกจุดโฟกัสรูปได้
-    }),
-
-    // 2. ส่วนบอกเล่าที่มาของสินค้า (อ้างอิงจากภาพที่ 4)
-    defineField({
-      name: 'storyText',
-      title: 'บอกเล่าที่มาของสินค้า',
-      type: 'text', // ใช้ 'text' สำหรับข้อความยาวๆ หรือเปลี่ยนเป็น 'array' (of block) ถ้าอยากให้จัด Formate ตัวหนา/เอียงได้
+      options: {
+        hotspot: true, // เปิดใช้งาน hotspot ให้แอดมินเลือกจุดโฟกัสของรูปได้ (แนะนำให้เปิดไว้ครับ)
+      },
     }),
     defineField({
-      name: 'storyImages',
-      title: 'รูปภาพประกอบที่มาของสินค้า',
+      name: 'gradient',
+      title: 'Background Theme',
+      type: 'string',
+      description: 'เลือกโทนสีพื้นหลังสำหรับผลงานนี้',
+      options: {
+        list: [
+          { title: 'Silver Theme (โทนสว่าง)', value: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]' },
+          { title: 'Warm Sand (โทนอบอุ่น)', value: 'from-[#fafafa] via-[#e9e9e9] to-[#d3d3d3]' },
+          { title: 'Dark Slate (โทนมืด)', value: 'from-[#111111] via-[#1a1a1a] to-[#222222]' },
+        ],
+        layout: 'radio', // เปลี่ยนให้เป็นปุ่มกดเลือกง่ายๆ แทน Dropdown
+      },
+      initialValue: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]', // ค่าเริ่มต้น
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
       type: 'array',
-      of: [{ type: 'image' }],
+      of: [{ type: 'string' }],
     }),
-
-    // 3. ทำไมจึงต้องเลือกผลิตภัณฑ์นี้ (อ้างอิงจากภาพที่ 5)
     defineField({
-      name: 'features',
-      title: 'คุณสมบัติ / ประโยชน์ (ทำไมถึงต้องเลือก)',
+      name: 'metrics',
+      title: 'Metrics',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'storyTitle',
+      title: 'Story Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'story',
+      title: 'Story Paragraphs',
+      type: 'array',
+      of: [{ type: 'text' }],
+      description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
+    }),
+    defineField({
+      name: 'benefits',
+      title: 'Benefits',
       type: 'array',
       of: [
-        {
+        defineField({
+          name: 'benefitItem',
+          title: 'Benefit Item',
           type: 'object',
           fields: [
-            { name: 'icon', title: 'รูปภาพ/ไอคอน', type: 'image' },
-            { name: 'title', title: 'หัวข้อคุณสมบัติ', type: 'string' },
-            { name: 'description', title: 'คำอธิบายสั้นๆ', type: 'text' },
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 3,
+            }),
           ],
-        },
+        }),
       ],
     }),
-
-    // 4. การรับรองผลิตภัณฑ์ (อ้างอิงจากภาพที่ 6 - ส่วนบน)
     defineField({
       name: 'certifications',
-      title: 'โลโก้การรับรองผลิตภัณฑ์',
+      title: 'Certifications',
       type: 'array',
-      of: [{ type: 'image' }],
-    }),
-
-    // 5. สินค้าที่เกี่ยวข้อง (อ้างอิงจากภาพที่ 6 - ส่วนล่าง)
-    defineField({
-      name: 'relatedProducts',
-      title: 'ผลิตภัณฑ์อื่นๆ ที่เกี่ยวข้อง',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'product' }] }], // ดึงข้อมูล Product ตัวอื่นมาเชื่อมโยงกันได้เลย
+      of: [{ type: 'string' }],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'client',
+    },
+  },
 })
