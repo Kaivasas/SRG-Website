@@ -34,7 +34,6 @@ export default async function ProductsPage() {
     "slug": slug.current,
     eyebrow,
     description,
-    client,
     status,
     year,
     cover
@@ -107,9 +106,9 @@ export default async function ProductsPage() {
                     <div className="absolute inset-0 opacity-10 [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:28px_28px]" />
 
                     {/* 🌟 เปลี่ยนมาโชว์รูปภาพที่อัปโหลดจาก Sanity แทน CSS แบบเดิม */}
-                    {product.cover && (
+                    {product.thumbnail && (
                       <Image
-                        src={urlFor(product.cover).url()}
+                        src={urlFor(product.thumbnail).url()}
                         alt={product.title || "Product cover"}
                         fill
                         className="absolute inset-0 object-cover transition duration-700 group-hover:scale-[1.06]"
@@ -142,11 +141,6 @@ export default async function ProductsPage() {
                       <div className="mt-auto flex flex-wrap items-center justify-between gap-4 border-t border-white/12 pt-5">
                         {/* 🌟 เพิ่ม Label กำกับด้านหน้า และใส่เงื่อนไขเช็คว่าถ้าไม่มีข้อมูลก็ไม่ต้องโชว์กรอบ */}
                         <div className="flex flex-wrap gap-2">
-                          {product.client && (
-                            <span className={metaChipClass}>
-                              <span className="text-white/40 mr-2 font-normal">CLIENT</span> {product.client}
-                            </span>
-                          )}
                           {product.status && (
                             <span className={metaChipClass}>
                               <span className="text-white/40 mr-2 font-normal">STATUS</span> {product.status}

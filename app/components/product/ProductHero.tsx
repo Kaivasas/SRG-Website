@@ -18,11 +18,6 @@ export default function ProductHero({ product }: { product: any }) {
           </h1>
           <p className="mt-5 max-w-[34rem] text-lg leading-relaxed text-white/72">{product.subtitle}</p>
           <div className="flex flex-wrap gap-2">
-            {product.client && (
-              <span className={metaChipClass}>
-                <span className="text-white/40 mr-2 font-normal">CLIENT</span> {product.client}
-              </span>
-            )}
             {product.status && (
               <span className={metaChipClass}>
                 <span className="text-white/40 mr-2 font-normal">STATUS</span> {product.status}

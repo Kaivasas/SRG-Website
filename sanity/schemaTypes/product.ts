@@ -37,11 +37,7 @@ export const product = defineType({
       title: 'Category',
       type: 'string',
     }),
-    defineField({
-      name: 'client',
-      title: 'Client',
-      type: 'string',
-    }),
+    // 🌟 ลบ Client ออกไปแล้วครับ
     defineField({
       name: 'year',
       title: 'Year',
@@ -78,14 +74,45 @@ export const product = defineType({
       type: 'text',
       rows: 3,
     }),
+    
+    // 🌟 1. ภาพ Thumbnail (หน้ารวม)
     defineField({
-      name: 'cover',
-      title: 'Cover Image',
+      name: 'thumbnail',
+      title: 'Thumbnail Image',
       type: 'image',
-      options: {
-        hotspot: true, // เปิดใช้งาน hotspot ให้แอดมินเลือกจุดโฟกัสของรูปได้ (แนะนำให้เปิดไว้ครับ)
-      },
+      description: 'ภาพปกขนาดเล็กสำหรับการ์ดในหน้า Products รวม',
+      options: { hotspot: true },
     }),
+
+    // 🌟 2. ภาพ Hero (หน้า Detail)
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image (Detail Page)',
+      type: 'image',
+      description: 'ภาพปกขนาดใหญ่ด้านบนสุดของหน้า Product Detail',
+      options: { hotspot: true },
+    }),
+
+    // 🌟 3. ภาพประกอบ Storytelling
+    defineField({
+      name: 'storyImage',
+      title: 'Storytelling Image',
+      type: 'image',
+      description: 'ภาพประกอบในส่วนของเรื่องราว (Story)',
+      options: { hotspot: true },
+    }),
+
+    // 🌟 4. วิดีโอ Motion Preview
+    defineField({
+      name: 'motionVideo',
+      title: 'Product Motion Preview (Video)',
+      type: 'file', // ใช้ file สำหรับรองรับการอัปโหลดวิดีโอ
+      description: 'อัปโหลดไฟล์วิดีโอพรีวิว (แนะนำไฟล์ .mp4 ขนาดไม่ใหญ่เกินไป)',
+      options: {
+        accept: 'video/*' // จำกัดให้เลือกได้เฉพาะไฟล์วิดีโอ
+      }
+    }),
+
     defineField({
       name: 'gradient',
       title: 'Background Theme',
@@ -97,9 +124,9 @@ export const product = defineType({
           { title: 'Warm Sand (โทนอบอุ่น)', value: 'from-[#fafafa] via-[#e9e9e9] to-[#d3d3d3]' },
           { title: 'Dark Slate (โทนมืด)', value: 'from-[#111111] via-[#1a1a1a] to-[#222222]' },
         ],
-        layout: 'radio', // เปลี่ยนให้เป็นปุ่มกดเลือกง่ายๆ แทน Dropdown
+        layout: 'radio',
       },
-      initialValue: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]', // ค่าเริ่มต้น
+      initialValue: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]',
     }),
     defineField({
       name: 'tags',
@@ -125,6 +152,8 @@ export const product = defineType({
       of: [{ type: 'text' }],
       description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
     }),
+    
+    // 🌟 5. เพิ่ม Image เข้าไปในแต่ละ Benefit
     defineField({
       name: 'benefits',
       title: 'Benefits',
@@ -135,6 +164,13 @@ export const product = defineType({
           title: 'Benefit Item',
           type: 'object',
           fields: [
+            defineField({
+              name: 'image',
+              title: 'Background Image',
+              type: 'image',
+              description: 'รูปภาพพื้นหลังสำหรับข้อดีข้อนี้',
+              options: { hotspot: true },
+            }),
             defineField({
               name: 'title',
               title: 'Title',
@@ -160,7 +196,8 @@ export const product = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'client',
+      subtitle: 'category', // 🌟 เปลี่ยนจาก client เป็น category เพื่อไม่ให้ Error
+      media: 'thumbnail', // 🌟 โชว์ Thumbnail ในหน้าจัดการของ Sanity
     },
   },
 })
