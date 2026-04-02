@@ -190,7 +190,27 @@ export const product = defineType({
       name: 'metrics',
       title: 'Metrics',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [
+        defineField({
+          name: 'metricItem',
+          title: 'Metric Item',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'คำอธิบายสถิตินั้นๆ (เช่น Active Users, Return on Investment)',
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+              description: 'ตัวเลขหรือสถิติหลัก (เช่น 100x, 5%)',
+            }),
+          ],
+        }),
+      ],
     }),
   ],
   preview: {
