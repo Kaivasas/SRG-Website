@@ -26,12 +26,15 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     ...,
     "motionVideoUrl": motionVideo.asset->url
   }`;
-  
+
   // 🌟 2. เปลี่ยน cover เป็น thumbnail สำหรับโปรเจกต์ที่เกี่ยวข้องด้านล่าง
+  // 🌟 เพิ่ม year กับ status เข้าไปใน query
   const relatedQuery = `*[_type == "product" && slug.current != $slug][0...3] {
     title,
     "slug": slug.current,
     category,
+    year,
+    status,
     thumbnail
   }`;
 
@@ -52,14 +55,14 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
         {/* เรียกใช้งาน Components */}
         <ProductHero product={product} />
         <ProductStory product={product} />
-        
+
         {/* 🌟 3. เอา cover ออกจาก Props เพราะเดี๋ยวเราจะไปใช้รูปแยกของแต่ละ Benefit แทน */}
         <ProductBenefits benefits={product.benefits} />
-        
+
         <ProductCertifications certifications={product.certifications} />
         <RelatedProducts products={relatedProducts} />
         <ProductCTA />
-        
+
       </div>
     </main>
   );
