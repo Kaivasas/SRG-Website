@@ -1,80 +1,223 @@
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const product = defineType({
   name: 'product',
-  title: 'Product', // ชื่อเมนูที่จะไปโผล่ในหน้า Admin
+  title: 'Product',
   type: 'document',
   fields: [
-    // 1. ข้อมูลพื้นฐาน (อ้างอิงจากภาพที่ 2 และ 3)
     defineField({
-      name: 'name',
-      title: 'ชื่อผลิตภัณฑ์',
+      name: 'title',
+      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'slug',
-      title: 'URL Slug (เช่น /product/item-name)',
+      title: 'Slug',
       type: 'slug',
-      options: { source: 'name', maxLength: 96 },
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'category',
-      title: 'ประเภทผลิตภัณฑ์',
+      name: 'eyebrow',
+      title: 'Eyebrow',
+      type: 'string',
+      description: 'ข้อความสั้นๆ ที่อยู่เหนือ Title (เช่น Control Tower Platform)',
+    }),
+    defineField({
+      name: 'subtitle',
+      title: 'Subtitle',
       type: 'string',
     }),
     defineField({
-      name: 'mainImage',
-      title: 'รูปภาพหลัก (โชว์หน้าหน้ารวมและหน้าแรกของ Detail)',
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+    }),
+    // 🌟 ลบ Client ออกไปแล้วครับ
+    defineField({
+      name: 'year',
+      title: 'Year',
+      type: 'string',
+    }),
+    defineField({
+      name: 'status',
+      title: 'Status',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Launched', value: 'Launched' },
+          { title: 'In Market', value: 'In Market' },
+          { title: 'Pilot', value: 'Pilot' },
+          { title: 'Rolling Out', value: 'Rolling Out' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'description',
+      title: 'Description',
+      type: 'text',
+      rows: 3,
+    }),
+    defineField({
+      name: 'longDescription',
+      title: 'Long Description',
+      type: 'text',
+      rows: 5,
+    }),
+    defineField({
+      name: 'quote',
+      title: 'Quote',
+      type: 'text',
+      rows: 3,
+    }),
+
+    // 🌟 1. ภาพ Thumbnail (หน้ารวม)
+    defineField({
+      name: 'thumbnail',
+      title: 'Thumbnail Image',
       type: 'image',
-      options: { hotspot: true }, // ให้ Admin เลือกจุดโฟกัสรูปได้
+      description: 'ภาพปกขนาดเล็กสำหรับการ์ดในหน้า Products รวม',
+      options: { hotspot: true },
     }),
 
-    // 2. ส่วนบอกเล่าที่มาของสินค้า (อ้างอิงจากภาพที่ 4)
+    // 🌟 2. ภาพ Hero (หน้า Detail)
     defineField({
-      name: 'storyText',
-      title: 'บอกเล่าที่มาของสินค้า',
-      type: 'text', // ใช้ 'text' สำหรับข้อความยาวๆ หรือเปลี่ยนเป็น 'array' (of block) ถ้าอยากให้จัด Formate ตัวหนา/เอียงได้
+      name: 'heroImage',
+      title: 'Hero Image (Detail Page)',
+      type: 'image',
+      description: 'ภาพปกขนาดใหญ่ด้านบนสุดของหน้า Product Detail',
+      options: { hotspot: true },
+    }),
+
+    // 🌟 3. ภาพประกอบ Storytelling
+    defineField({
+      name: 'storyImage',
+      title: 'Storytelling Image',
+      type: 'image',
+      description: 'ภาพประกอบในส่วนของเรื่องราว (Story)',
+      options: { hotspot: true },
+    }),
+
+    // 🌟 4. วิดีโอ Motion Preview
+    defineField({
+      name: 'motionVideo',
+      title: 'Product Motion Preview (Video)',
+      type: 'file', // ใช้ file สำหรับรองรับการอัปโหลดวิดีโอ
+      description: 'อัปโหลดไฟล์วิดีโอพรีวิว (แนะนำไฟล์ .mp4 ขนาดไม่ใหญ่เกินไป)',
+      options: {
+        accept: 'video/*' // จำกัดให้เลือกได้เฉพาะไฟล์วิดีโอ
+      }
+    }),
+
+    defineField({
+      name: 'gradient',
+      title: 'Background Theme',
+      type: 'string',
+      description: 'เลือกโทนสีพื้นหลังสำหรับผลงานนี้',
+      options: {
+        list: [
+          { title: 'Silver Theme (โทนสว่าง)', value: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]' },
+          { title: 'Warm Sand (โทนอบอุ่น)', value: 'from-[#fafafa] via-[#e9e9e9] to-[#d3d3d3]' },
+          { title: 'Dark Slate (โทนมืด)', value: 'from-[#111111] via-[#1a1a1a] to-[#222222]' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'from-[#fcfcfc] via-[#ececec] to-[#d8d8d8]',
     }),
     defineField({
-      name: 'storyImages',
-      title: 'รูปภาพประกอบที่มาของสินค้า',
+      name: 'tags',
+      title: 'Tags',
       type: 'array',
-      of: [{ type: 'image' }],
+      of: [{ type: 'string' }],
+    }),
+    defineField({
+      name: 'storyTitle',
+      title: 'Story Title',
+      type: 'string',
+    }),
+    defineField({
+      name: 'story',
+      title: 'Story Paragraphs',
+      type: 'array',
+      of: [{ type: 'text' }],
+      description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
     }),
 
-    // 3. ทำไมจึงต้องเลือกผลิตภัณฑ์นี้ (อ้างอิงจากภาพที่ 5)
+    // 🌟 5. เพิ่ม Image เข้าไปในแต่ละ Benefit
     defineField({
-      name: 'features',
-      title: 'คุณสมบัติ / ประโยชน์ (ทำไมถึงต้องเลือก)',
+      name: 'benefits',
+      title: 'Benefits',
       type: 'array',
       of: [
-        {
+        defineField({
+          name: 'benefitItem',
+          title: 'Benefit Item',
           type: 'object',
           fields: [
-            { name: 'icon', title: 'รูปภาพ/ไอคอน', type: 'image' },
-            { name: 'title', title: 'หัวข้อคุณสมบัติ', type: 'string' },
-            { name: 'description', title: 'คำอธิบายสั้นๆ', type: 'text' },
+            defineField({
+              name: 'image',
+              title: 'Background Image',
+              type: 'image',
+              description: 'รูปภาพพื้นหลังสำหรับข้อดีข้อนี้',
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: 'title',
+              title: 'Title',
+              type: 'string',
+            }),
+            defineField({
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              rows: 3,
+            }),
           ],
-        },
+        }),
       ],
     }),
-
-    // 4. การรับรองผลิตภัณฑ์ (อ้างอิงจากภาพที่ 6 - ส่วนบน)
     defineField({
       name: 'certifications',
-      title: 'โลโก้การรับรองผลิตภัณฑ์',
+      title: 'Certifications',
       type: 'array',
-      of: [{ type: 'image' }],
+      of: [{ type: 'string' }],
     }),
-
-    // 5. สินค้าที่เกี่ยวข้อง (อ้างอิงจากภาพที่ 6 - ส่วนล่าง)
     defineField({
-      name: 'relatedProducts',
-      title: 'ผลิตภัณฑ์อื่นๆ ที่เกี่ยวข้อง',
+      name: 'metrics',
+      title: 'Metrics',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'product' }] }], // ดึงข้อมูล Product ตัวอื่นมาเชื่อมโยงกันได้เลย
+      of: [
+        defineField({
+          name: 'metricItem',
+          title: 'Metric Item',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'label',
+              title: 'Label',
+              type: 'string',
+              description: 'คำอธิบายสถิตินั้นๆ (เช่น Active Users, Return on Investment)',
+            }),
+            defineField({
+              name: 'value',
+              title: 'Value',
+              type: 'string',
+              description: 'ตัวเลขหรือสถิติหลัก (เช่น 100x, 5%)',
+            }),
+          ],
+        }),
+      ],
     }),
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'category', // 🌟 เปลี่ยนจาก client เป็น category เพื่อไม่ให้ Error
+      media: 'thumbnail', // 🌟 โชว์ Thumbnail ในหน้าจัดการของ Sanity
+    },
+  },
 })

@@ -2,7 +2,7 @@ import { type SchemaTypeDefinition } from 'sanity'
 
 // 1. Import ไฟล์ Database ของเราเข้ามา
 import work from './work'
-import product from './product'
+import { product } from './product'
 import service from './service'
 import logobrand from './clientLogo'
 import testimonial from './testimonial'
