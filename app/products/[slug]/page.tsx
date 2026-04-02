@@ -1,7 +1,11 @@
 import Link from "next/link";
+import Image from "next/image"; // 🌟 นำเข้า Image 
 import { notFound } from "next/navigation";
 import Reveal from "../Reveal";
-import { getProductBySlug, products } from "../data";
+
+// 🌟 นำเข้า Sanity Client และ urlFor
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
 
 const pageShellClass =
   "relative min-h-screen overflow-clip bg-[radial-gradient(circle_at_top_left,rgba(0,90,114,0.1),transparent_26%),radial-gradient(circle_at_85%_12%,rgba(244,129,32,0.1),transparent_24%),linear-gradient(180deg,#020d14_0%,#022331_32%,#003045_70%,#003951_100%)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(180deg,rgba(0,0,0,0.22),transparent_18%,transparent_82%,rgba(0,0,0,0.16)),radial-gradient(circle_at_center,rgba(255,255,255,0.018),transparent_48%)] before:content-['']";
@@ -17,8 +21,11 @@ const metaAccentClass =
 
 const floatingTileClass = "border border-white/20 bg-white/10";
 
-export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
+// 🌟 1. ดึง slug ทั้งหมดจาก Sanity เพื่อไปสร้าง Static Pages
+export async function generateStaticParams() {
+  const query = `*[_type == "product"] { "slug": slug.current }`;
+  const slugs = await client.fetch(query);
+  return slugs;
 }
 
 export default async function ProductDetailPage({
@@ -27,13 +34,26 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
 
+  // 🌟 2. ดึงข้อมูล Product ปัจจุบัน และดึง Related Products (3 ตัวที่ไม่ใช่ตัวนี้)
+  const productQuery = `*[_type == "product" && slug.current == $slug][0]`;
+  const relatedQuery = `*[_type == "product" && slug.current != $slug][0...3] {
+    title,
+    "slug": slug.current,
+    category,
+    cover
+  }`;
+
+  // ใช้ Promise.all เพื่อดึงข้อมูลทั้งสองอย่างพร้อมกัน (ประหยัดเวลาโหลด)
+  const [product, relatedProducts] = await Promise.all([
+    client.fetch(productQuery, { slug }),
+    client.fetch(relatedQuery, { slug })
+  ]);
+
+  // ถ้าหา Product ไม่เจอ ให้โยนไปหน้า 404
   if (!product) {
     notFound();
   }
-
-  const relatedProducts = products.filter((item) => item.slug !== product.slug).slice(0, 3);
 
   return (
     <main className={`${pageShellClass} px-6 pb-20 pt-28 text-white sm:px-10 lg:px-20`}>
@@ -58,29 +78,40 @@ export default async function ProductDetailPage({
                 {product.subtitle}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <span className={metaChipClass}>{product.client}</span>
-                <span className={metaChipClass}>{product.status}</span>
-                <span className={metaAccentClass}>{product.year}</span>
+                {product.client && <span className={metaChipClass}>{product.client}</span>}
+                {product.status && <span className={metaChipClass}>{product.status}</span>}
+                {product.year && <span className={metaAccentClass}>{product.year}</span>}
               </div>
             </div>
 
             <div className="border border-white/10 bg-white/5 p-5 sm:p-8">
-              <div
-                className="relative flex min-h-[320px] items-center justify-center overflow-hidden bg-cover bg-center sm:min-h-[360px] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']"
-                style={{ backgroundImage: product.cover }}
-              >
+              {/* 🌟 3. เปลี่ยนการแสดงผลรูป Cover จาก CSS เป็น <Image /> */}
+              <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden sm:min-h-[360px] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']">
+                
+                {product.cover && (
+                  <Image
+                    src={urlFor(product.cover).url()}
+                    alt={product.title}
+                    fill
+                    className="object-cover absolute inset-0 z-0"
+                  />
+                )}
+
                 <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
                   {product.eyebrow}
                 </div>
                 <div className="absolute right-6 top-6 z-10 text-[0.72rem] uppercase tracking-[0.3em] text-white/68">
                   {product.year}
                 </div>
+                
+                {/* นี่คือกล่องสี่เหลี่ยมตกแต่ง ที่ถามไปก่อนหน้านี้ครับ ถ้าไม่ชอบลบออกได้นะ */}
                 <div className="relative z-10 grid w-full max-w-[23rem] grid-cols-2 gap-4">
                   <div className={`${floatingTileClass} h-28 rounded-[1.5rem]`} />
                   <div className={`${floatingTileClass} mt-10 h-36 rounded-[1.5rem] bg-black/15`} />
                   <div className={`${floatingTileClass} -mt-5 h-24 rounded-[1.5rem]`} />
                   <div className={`${floatingTileClass} h-20 rounded-full`} />
                 </div>
+
               </div>
             </div>
           </section>
@@ -90,10 +121,17 @@ export default async function ProductDetailPage({
           <section className={`${glassPanelClass} px-6 py-6 lg:px-8 lg:py-8`}>
             <div className="grid gap-6 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
               <div className="border border-white/10 bg-white/5 p-4">
-                <div
-                  className="min-h-[260px] bg-cover bg-center sm:min-h-[320px]"
-                  style={{ backgroundImage: product.cover }}
-                />
+                {/* 🌟 เปลี่ยนมาใช้ <Image /> อีกจุดนึง */}
+                <div className="relative min-h-[260px] overflow-hidden sm:min-h-[320px]">
+                  {product.cover && (
+                    <Image
+                      src={urlFor(product.cover).url()}
+                      alt="Cover image"
+                      fill
+                      className="object-cover"
+                    />
+                  )}
+                </div>
               </div>
 
               <div>
@@ -101,18 +139,22 @@ export default async function ProductDetailPage({
                   {product.storyTitle}
                 </p>
                 <div className="mt-4 space-y-4 text-base leading-relaxed text-white/72">
-                  {product.story.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                  {/* ใส่ ?. เพื่อกันพังถ้าแอดมินไม่ได้กรอก story */}
+                  {product.story?.map((paragraph: string, i: number) => (
+                    <p key={i}>{paragraph}</p>
                   ))}
                 </div>
-                <div className="mt-8 border-l-[3px] border-[#F48120] pl-5">
-                  <p className="text-sm uppercase tracking-[0.28em] text-[#F48120]">
-                    Project Note
-                  </p>
-                  <p className="mt-4 max-w-[34rem] text-xl leading-relaxed text-white/84">
-                    "{product.quote}"
-                  </p>
-                </div>
+                
+                {product.quote && (
+                  <div className="mt-8 border-l-[3px] border-[#F48120] pl-5">
+                    <p className="text-sm uppercase tracking-[0.28em] text-[#F48120]">
+                      Project Note
+                    </p>
+                    <p className="mt-4 max-w-[34rem] text-xl leading-relaxed text-white/84">
+                      "{product.quote}"
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -145,15 +187,21 @@ export default async function ProductDetailPage({
               Why teams choose this product
             </h2>
             <div className="mt-6 grid gap-5 md:grid-cols-3">
-              {product.benefits.map((benefit, index) => (
+              {product.benefits?.map((benefit: any, index: number) => (
                 <article
-                  key={benefit.title}
+                  key={index}
                   className="overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]"
                 >
-                  <div
-                    className="relative flex h-36 items-center justify-center overflow-hidden bg-cover bg-center after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']"
-                    style={{ backgroundImage: product.cover }}
-                  >
+                  {/* 🌟 ใช้ <Image /> แทน CSS Gradient */}
+                  <div className="relative flex h-36 items-center justify-center overflow-hidden after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']">
+                    {product.cover && (
+                      <Image
+                        src={urlFor(product.cover).url()}
+                        alt="Benefit background"
+                        fill
+                        className="object-cover absolute inset-0 z-0"
+                      />
+                    )}
                     <span className="relative z-10 text-[3.6rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
                       0{index + 1}
                     </span>
@@ -177,9 +225,9 @@ export default async function ProductDetailPage({
             </h2>
             <div className={`${glassPanelClass} mt-6 p-6`}>
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {product.certifications.map((item, index) => (
+                {product.certifications?.map((item: string, index: number) => (
                   <div
-                    key={item}
+                    key={index}
                     className="flex min-h-[10rem] flex-col items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(255,255,255,0.04)] text-center transition duration-300 hover:-translate-y-1"
                   >
                     <span className="text-[3rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
@@ -198,16 +246,23 @@ export default async function ProductDetailPage({
         <Reveal className="mt-12" delayMs={120}>
           <section>
             <div className="grid gap-6 md:grid-cols-3">
-              {relatedProducts.map((item) => (
+              {relatedProducts?.map((item: any) => (
                 <Link
                   key={item.slug}
                   href={`/products/${item.slug}`}
                   className="group overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]"
                 >
-                  <div
-                    className="min-h-[220px] bg-cover bg-center"
-                    style={{ backgroundImage: item.cover }}
-                  />
+                  {/* 🌟 ใช้ <Image /> สำหรับรูปโปรเจกต์ที่เกี่ยวข้อง */}
+                  <div className="relative min-h-[220px] overflow-hidden">
+                    {item.cover && (
+                      <Image
+                        src={urlFor(item.cover).url()}
+                        alt={item.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
                   <div className="pt-4">
                     <p className="text-[1.9rem] font-bold leading-none tracking-[-0.05em] text-white">
                       {item.title}
@@ -222,6 +277,7 @@ export default async function ProductDetailPage({
           </section>
         </Reveal>
 
+        {/* ส่วน Contact Us ด้านล่างคงเดิม */}
         <Reveal className="mt-16" delayMs={140}>
           <section className={`${glassPanelClass} px-6 py-14 text-center sm:px-10`}>
             <h2 className="text-[clamp(2.8rem,7vw,5.4rem)] font-black uppercase leading-[0.92] tracking-[-0.08em] text-white">
