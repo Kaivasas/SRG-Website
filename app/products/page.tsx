@@ -39,9 +39,14 @@ export default async function ProductsPage() {
     thumbnail,
   }`;
 
-  // 🌟 ดึงข้อมูลเข้าตัวแปร products
-  const products = await client.fetch(query);
-
+  try {
+    // 🌟 ดึงข้อมูลเข้าตัวแปร products
+    const products = await client.fetch(query);
+  } catch (error) {
+    console.error("🔥 Error fetching products page:", error);
+    // ถ้าอยากให้ปลอดภัยสุดๆ อาจจะ return หน้า Error UI ตรงนี้ก็ได้
+    // หรือปล่อยให้ products เป็น array ว่าง [] แล้วหน้าเว็บก็แค่ไม่มีการ์ดโชว์ขึ้นมาครับ
+  }
   return (
     <main className="relative min-h-screen overflow-clip bg-[radial-gradient(circle_at_top_left,rgba(244,129,32,0.1),transparent_28%),radial-gradient(circle_at_82%_15%,rgba(0,90,114,0.14),transparent_24%),linear-gradient(180deg,#031018_0%,#022533_34%,#003045_68%,#003951_100%)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(180deg,rgba(0,0,0,0.18),transparent_18%,transparent_82%,rgba(0,0,0,0.14)),radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent_48%)] before:content-['']">
       {/* ... (ส่วน Header ด้านบนเหมือนเดิม ไม่มีการเปลี่ยนแปลง) ... */}
