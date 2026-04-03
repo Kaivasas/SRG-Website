@@ -9,15 +9,17 @@ import { urlFor } from "@/sanity/lib/image";
 
 // 🌟 เปลี่ยน Component ให้เป็น async เพื่อ Fetch ข้อมูล
 export default async function ProductsSection() {
-  
-  // 🌟 ดึงข้อมูล Product 3 อันดับล่าสุด
-  const query = `*[_type == "product"] | order(_createdAt desc)[0...3] {
-    title,
-    "slug": slug.current,
-    longDescription,
-    thumbnail
-  }`;
-  
+
+  // 🌟 ใช้ coalesce เพื่อจัดการค่าว่าง (null) ให้เป็น false ก่อนนำไปเรียง
+  // และใช้ _updatedAt เพื่อให้ "แก้ล่าสุด" มีผลต่อลำดับภายในกลุ่ม
+  const query = `*[_type == "product"] | order(coalesce(isFeatured, false) desc, _updatedAt desc)[0...3] {
+  title,
+  "slug": slug.current,
+  description,
+  thumbnail,
+  isFeatured
+}`;
+
   const products = await client.fetch(query);
 
   // สีของลิงก์ที่วนลูปไปเรื่อยๆ (ฟ้า -> ส้ม -> เขียว) เพื่อให้เหมือนดีไซน์เดิม
@@ -45,7 +47,7 @@ export default async function ProductsSection() {
         </div>
 
         <div className="flex flex-col border border-white/10 bg-black shadow-2xl">
-          
+
           {/* 🌟 วนลูปสร้างการ์ด Product อัตโนมัติ */}
           {products.map((product: any, index: number) => {
             // เช็คว่าเป็นเลขคู่หรือคี่ เพื่อสลับ Layout ซ้าย/ขวา
@@ -56,13 +58,13 @@ export default async function ProductsSection() {
               <Reveal key={product.slug} delayMs={index * 100 + 100}>
                 {/* สลับ flex-row และ flex-row-reverse อัตโนมัติ */}
                 <div className={`group flex flex-col items-stretch min-h-100 border-b border-white/10 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                  
+
                   <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative overflow-hidden transition-colors duration-500 hover:bg-white/5">
                     {/* เลขขนาดใหญ่ (01, 02, 03) */}
                     <span className="absolute -left-4 -top-10 text-[10rem] font-black text-white/5 z-0 pointer-events-none transition-transform duration-500 group-hover:scale-110">
                       0{index + 1}
                     </span>
-                    
+
                     <div className="relative z-10">
                       <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white uppercase tracking-wide break-words">
                         {product.title}
@@ -70,10 +72,10 @@ export default async function ProductsSection() {
                       <p className="mb-8 text-gray-400 text-lg leading-relaxed font-light break-words whitespace-pre-wrap">
                         {product.longDescription}
                       </p>
-                      
+
                       {/* ลิงก์ไปยังหน้า Product Detail */}
-                      <Link 
-                        href={`/products/${product.slug}`} 
+                      <Link
+                        href={`/products/${product.slug}`}
                         className={`inline-flex items-center gap-4 font-bold uppercase tracking-wider group/link transition-colors ${colorClass}`}
                       >
                         ดูรายละเอียด <span className="transform group-hover/link:translate-x-2 transition-transform">&rarr;</span>
@@ -84,16 +86,16 @@ export default async function ProductsSection() {
                   <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] md:min-h-75 overflow-hidden">
                     {/* ดึงรูป thumbnail จาก Sanity */}
                     {product.thumbnail && (
-                      <Image 
-                        src={urlFor(product.thumbnail).url()} 
-                        alt={product.title} 
+                      <Image
+                        src={urlFor(product.thumbnail).url()}
+                        alt={product.title}
                         fill={true}
                         sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" 
+                        className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                       />
                     )}
                   </div>
-                  
+
                 </div>
               </Reveal>
             );
@@ -106,7 +108,7 @@ export default async function ProductsSection() {
             View All Products
           </Link>
         </div>
-        
+
       </div>
     </section>
   );
