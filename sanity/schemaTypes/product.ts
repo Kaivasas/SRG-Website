@@ -70,7 +70,7 @@ export const product = defineType({
     }),
     defineField({
       name: 'quote',
-      title: 'Quote',
+      title: 'Project note',
       type: 'text',
       rows: 3,
     }),
@@ -211,6 +211,13 @@ export const product = defineType({
           ],
         }),
       ],
+    }),
+    defineField({
+      name: 'isFeatured',
+      title: '🌟 Show on Homepage (Featured)',
+      type: 'boolean',
+      description: 'เปิดสวิตช์นี้เพื่อปักหมุดผลงานนี้ให้ไปโชว์ที่หน้า Home เป็นอันดับแรกๆ',
+      initialValue: false, // ค่าเริ่มต้นคือปิดไว้
     }),
   ],
   preview: {
