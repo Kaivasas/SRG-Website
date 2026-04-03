@@ -70,7 +70,7 @@ export const product = defineType({
     }),
     defineField({
       name: 'quote',
-      title: 'Quote',
+      title: 'Project note',
       type: 'text',
       rows: 3,
     }),
