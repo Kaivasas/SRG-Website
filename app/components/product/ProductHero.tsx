@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Reveal from "../Reveal";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityProductDetail } from "@/app/types/sanity";
 
 const glassPanelClass = "relative z-10 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03)),rgba(3,25,35,0.6)] shadow-[0_18px_46px_rgba(0,0,0,0.18)]";
 const metaChipClass = "inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-white/72";
 const metaAccentClass = "inline-flex items-center justify-center rounded-full bg-[#FAD337]/12 px-4 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FAD337]";
 const floatingTileClass = "border border-white/20 bg-white/10";
 
-export default function ProductHero({ product }: { product: any }) {
+export default function ProductHero({ product }: { product: SanityProductDetail }) {
   return (
     <Reveal className="mt-10">
       <section className={`${glassPanelClass} grid gap-8 px-6 py-8 lg:grid-cols-[1fr_0.92fr] lg:items-center lg:px-10 lg:py-10`}>
@@ -34,9 +35,9 @@ export default function ProductHero({ product }: { product: any }) {
           )}
 
           {/* 🌟 2. อัปเกรด Metrics Grid ให้รองรับ Value และ Label */}
-          {product.metrics?.length > 0 && (
+          {product.metrics && product.metrics.length > 0 && (
             <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 border-t border-white/10 pt-6">
-              {product.metrics.map((metric: any, index: number) => (
+              {product.metrics.map((metric, index) =>(
                 <div key={index} className="border-l-[3px] border-[#FAD337] pl-4 flex flex-col justify-center">
                   {/* แสดงตัวเลข (Value) ให้ใหญ่และหนา */}
                   <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
