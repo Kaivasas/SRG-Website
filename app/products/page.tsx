@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image"; // 🌟 นำเข้า Image สำหรับโชว์รูปปก
-import Reveal from "./Reveal";
+import Reveal from "@/app/components/Reveal";
 
 // 🌟 นำเข้า Sanity Client และ Image Builder (ปรับ path ให้ตรงกับโฟลเดอร์ในโปรเจกต์คุณนะครับ)
 import { client } from "@/sanity/lib/client";

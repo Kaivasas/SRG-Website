@@ -1,32 +1,20 @@
 import React from "react";
-import { client } from "@/sanity/lib/client";
-import TestimonialCarousel from "./TestimonialCarousel"; // 🌟 ดึงไฟล์ลูกมาใช้
+import { sanityFetchSafe } from "@/app/lib/sanityFetch";
+import type { SanityTestimonial } from "@/app/types/sanity";
+import TestimonialCarousel from "./TestimonialCarousel";
 
-// 🌟 ไฟล์แม่เป็น Server Component ไม่มี "use client" แล้ว!
+const TESTIMONIALS_QUERY = `*[_type == "testimonial"] | order(_createdAt desc)[0...10] {
+  name,
+  position,
+  company,
+  quote,
+  "avatar": avatar.asset->url,
+  "companyLogo": companyLogo.asset->url
+}`;
+
 export default async function TestimonialSection() {
-  
-  // 1. ดึงข้อมูลจาก Sanity
-  const query = `*[_type == "testimonial"] | order(_createdAt desc)[0...10] {
-    name,
-    position,
-    company,
-    quote,
-    "avatar": avatar.asset->url,
-    "companyLogo": companyLogo.asset->url
-  }`;
-try {
-  const testimonials = await client.fetch(query);
-
-  // 2. ถ้าไม่มีข้อมูลก็ซ่อนไปเลย
+  const testimonials = await sanityFetchSafe<SanityTestimonial[]>(TESTIMONIALS_QUERY);
   if (!testimonials || testimonials.length === 0) return null;
 
-  // 3. ส่งข้อมูลไปให้ไฟล์ลูก (Carousel) ทำสไลเดอร์ต่อ
   return <TestimonialCarousel testimonialsData={testimonials} />;
-} catch (error){
-  // 🌟 ถ้า Sanity ล่ม หรือเน็ตหลุด จะเข้าเงื่อนไขนี้
-    console.error("🔥 Sanity Error in TestimonialSection:", error);
-    
-    // คืนค่า null เพื่อให้ Section นี้ซ่อนตัวไปเงียบๆ เว็บส่วนอื่นจะได้ทำงานต่อได้
-    return null; 
-}
 }

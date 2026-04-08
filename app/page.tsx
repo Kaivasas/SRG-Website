@@ -1,16 +1,14 @@
 import React from "react";
 
-// Import Components ของคุณทั้งหมด
 import BlurredBackground from "./components/home/BlurredBackground";
 import HeroSection from "./components/home/HeroSection";
-import ClientSection from "./components/home/ClientSection"; 
+import ClientSection from "./components/home/ClientSection";
 import ServiceSection from "./components/home/ServiceSection";
 import ProductsSection from "./components/home/ProductsSection";
 import WorksSection from "./components/home/WorksSection";
 import TestimonialSection from "./components/home/TestimonialSection";
 import CtaSection from "./components/home/CtaSection";
 
-// 🌟 ไม่ต้องมี async, ไม่มี try-catch, ไม่ต้องส่ง Props อีกต่อไป!
 export default function Home() {
   return (
     <div className="relative min-h-screen text-gray-900 font-sans">

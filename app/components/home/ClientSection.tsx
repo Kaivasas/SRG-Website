@@ -1,36 +1,27 @@
 import React from "react";
-import { client } from "@/sanity/lib/client";
+import { sanityFetchSafe } from "@/app/lib/sanityFetch";
+import type { SanityClientLogo } from "@/app/types/sanity";
 import ClientCarousel from "./ClientCarousel";
 import Reveal from "@/app/components/Reveal";
 
+const CLIENTS_QUERY = `*[_type == "clientLogo"] | order(_createdAt desc) {
+  _id,
+  name,
+  "logo": logo.asset->url
+}`;
+
 export default async function ClientSection() {
-  const query = `*[_type == "clientLogo"] | order(_createdAt desc) {
-    _id,
-    name,
-    "logo": logo.asset->url
-  }`;
-  try {
-    const clients = await client.fetch(query);
+  const clients = await sanityFetchSafe<SanityClientLogo[]>(CLIENTS_QUERY);
+  if (!clients || clients.length === 0) return null;
 
-    return (
-      <section className="py-12 md:py-16 flex flex-col items-center z-10 relative">
-
-        <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-lg tracking-wide">
-          แบรนด์ที่ไว้วางใจกับทางเรา
-        </h2>
-
-
-        {/* 🌟 จุดที่แก้: เติม flex flex-col items-center เข้าไปตรงนี้ครับ */}
-        <Reveal delayMs={200} className="w-full flex flex-col items-center">
-          <ClientCarousel clients={clients} />
-        </Reveal>
-      </section>
-    );
-  } catch (error) {
-    // 🌟 ถ้า Sanity ล่ม หรือเน็ตหลุด จะเข้าเงื่อนไขนี้
-    console.error("🔥 Sanity Error in ClientSection:", error);
-
-    // คืนค่า null เพื่อให้ Section นี้ซ่อนตัวไปเงียบๆ เว็บส่วนอื่นจะได้ทำงานต่อได้
-    return null;
-  }
+  return (
+    <section className="py-12 md:py-16 flex flex-col items-center z-10 relative">
+      <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-lg tracking-wide">
+        แบรนด์ที่ไว้วางใจกับทางเรา
+      </h2>
+      <Reveal delayMs={200} className="w-full flex flex-col items-center">
+        <ClientCarousel clients={clients} />
+      </Reveal>
+    </section>
+  );
 }
