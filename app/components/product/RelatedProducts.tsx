@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import Reveal from "../Reveal";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityProductRelated } from "@/app/types/sanity";
 
-export default function RelatedProducts({ products }: { products: any[] }) {
+export default function RelatedProducts({ products }: { products: SanityProductRelated[] }) {
   if (!products?.length) return null;
 
   return (
@@ -15,7 +16,7 @@ export default function RelatedProducts({ products }: { products: any[] }) {
         </h2>
         
         <div className="grid gap-6 md:grid-cols-3">
-          {products.map((item: any) => (
+          {products.map((item) => (
             <Link key={item.slug} href={`/products/${item.slug}`} className="group overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]">
               <div className="relative min-h-[220px] overflow-hidden">
                 {item.thumbnail && (
