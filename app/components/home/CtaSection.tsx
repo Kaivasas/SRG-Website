@@ -1,5 +1,5 @@
 import React from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import Reveal from "@/app/components/Reveal";
 
 export default function CtaSection() {
@@ -11,7 +11,6 @@ export default function CtaSection() {
             พร้อมที่จะเติบโตไปกับเรา?
           </h2>
         </Reveal>
-
         <p className="text-xl text-gray-300 mb-10 max-w-2xl font-light tracking-wide">
           ร่วมมือไปกับเรา ก้าวไปกับเรา ให้เราเป็นส่วนหนึ่งในการขับเคลื่อนธุรกิจของคุณให้ประสบความสำเร็จ
         </p>
@@ -21,7 +20,6 @@ export default function CtaSection() {
         >
           ติดต่อเราเลยตอนนี้
         </Link>
-        
       </section>
     </div>
   );

@@ -2,13 +2,21 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-type RevealProps = {
+interface RevealProps {
   children: ReactNode;
   className?: string;
   delayMs?: number;
-};
+  threshold?: number;
+  rootMargin?: string;
+}
 
-export default function Reveal({ children, className = "", delayMs = 0 }: RevealProps) {
+export default function Reveal({
+  children,
+  className = "",
+  delayMs = 0,
+  threshold = 0.1,
+  rootMargin = "0px 0px -50px 0px",
+}: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -20,23 +28,19 @@ export default function Reveal({ children, className = "", delayMs = 0 }: Reveal
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // พอเห็นแล้วก็ให้หยุดคำนวณเลย (ประหยัดแรม)
+          observer.disconnect();
         }
       },
-      {
-        threshold: 0.1, 
-        rootMargin: "0px 0px -50px 0px", // ทริกเกอร์ตอนเลื่อนพ้นขอบล่างมานิดนึง
-      }
+      { threshold, rootMargin },
     );
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, []);
+  }, [threshold, rootMargin]);
 
   return (
     <div
       ref={ref}
-      // พระเอกของเราคือบรรทัดนี้: แปลง CSS ของเพื่อนมาเป็น Tailwind Class ให้ใช้ง่ายๆ
       className={`transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       } ${className}`}

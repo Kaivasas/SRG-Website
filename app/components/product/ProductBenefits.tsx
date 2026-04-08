@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Reveal from "../Reveal";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityProductBenefit } from "@/app/types/sanity";
 
-export default function ProductBenefits({ benefits }: { benefits: any[] }) {
+export default function ProductBenefits({ benefits }: { benefits: SanityProductBenefit[] }) {
   if (!benefits?.length) return null;
 
   // 🌟 เทคนิคการคำนวณคลาส Grid แบบ Dynamic
@@ -22,7 +23,7 @@ export default function ProductBenefits({ benefits }: { benefits: any[] }) {
         
         {/* 🌟 เอาตัวแปร gridLayoutClass มาต่อท้ายคลาสเดิม */}
         <div className={`mt-6 grid gap-5 ${gridLayoutClass}`}>
-          {benefits.map((benefit: any, index: number) => (
+          {benefits.map((benefit, index) => (
             <article key={index} className="overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]">
               
               <div className="relative flex h-36 items-center justify-center overflow-hidden after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.12),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.12),rgba(0,0,0,0.26))] after:content-['']">
