@@ -9,7 +9,8 @@ import type { SanityProductCard } from "@/app/types/sanity";
 const PRODUCTS_HOME_QUERY = `*[_type == "product"] | order(coalesce(isFeatured, false) desc, _updatedAt desc)[0...3] {
   title,
   "slug": slug.current,
-  description,
+  subtitle,
+  longDescription,
   thumbnail,
   isFeatured
 }`;

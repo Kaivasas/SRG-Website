@@ -22,22 +22,12 @@ export default function RelatedProducts({ products }: { products: SanityProductR
                 {item.thumbnail && (
                   <Image src={urlFor(item.thumbnail).url()} alt={item.title} fill className="object-cover" />
                 )}
-                {/* 🌟 ป้าย Tag สถานะโปรเจกต์แปะบนรูป */}
-                {item.status && (
-                  <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 px-3 py-1 text-[0.6rem] uppercase tracking-widest text-[#FAD337] rounded-full">
-                    {item.status}
-                  </div>
-                )}
               </div>
               <div className="pt-4 flex justify-between items-end">
                 <div>
                   <p className="text-[1.9rem] font-bold leading-none tracking-[-0.05em] text-white">{item.title}</p>
                   <p className="mt-2 text-sm uppercase tracking-[0.2em] text-white/55">{item.category}</p>
                 </div>
-                {/* 🌟 แสดงปีของผลงาน */}
-                {item.year && (
-                  <span className="text-xs text-white/30 tracking-widest">{item.year}</span>
-                )}
               </div>
             </Link>
           ))}

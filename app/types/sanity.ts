@@ -80,9 +80,17 @@ export interface SanityServiceDetail {
 
 // ─── Products ────────────────────────────────────────────────────
 
-export interface SanityProductBenefit {
+export interface SanityProductCategory {
+  _id: string;
   title: string;
-  description: string;
+  slug: string;
+  description?: string;
+  coverImage?: SanityImageSource;
+  productCount?: number;
+}
+
+export interface SanityProductBadgeItem {
+  name: string;
   image?: SanityImageSource;
 }
 
@@ -91,12 +99,12 @@ export interface SanityProductCard {
   title: string;
   slug: string;
   eyebrow?: string;
-  description?: string;
-  status?: string;
-  year?: string;
+  subtitle?: string;
   thumbnail?: SanityImageSource;
   isFeatured?: boolean;
   longDescription?: string;
+  category?: string;
+  categorySlug?: string;
 }
 
 export interface SanityProductDetail {
@@ -105,30 +113,22 @@ export interface SanityProductDetail {
   subtitle?: string;
   eyebrow?: string;
   category?: string;
-  year?: string;
-  status?: string;
-  description?: string;
+  categorySlug?: string;
   longDescription?: string;
-  quote?: string;
   gradient?: string;
   thumbnail?: SanityImageSource;
   heroImage?: SanityImageSource;
-  storyImage?: SanityImageSource;
   motionVideoUrl?: string;
   tags?: string[];
-  storyTitle?: string;
-  story?: string[];
-  benefits?: SanityProductBenefit[];
-  certifications?: string[];
-  metrics?: MetricItem[];
+  certifications?: SanityProductBadgeItem[];
+  awards?: SanityProductBadgeItem[];
 }
 
 export interface SanityProductRelated {
   title: string;
   slug: string;
   category?: string;
-  year?: string;
-  status?: string;
+  categorySlug?: string;
   thumbnail?: SanityImageSource;
 }
 

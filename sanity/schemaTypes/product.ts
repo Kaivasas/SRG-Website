@@ -33,34 +33,11 @@ export const product = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-    }),
-    // 🌟 ลบ Client ออกไปแล้วครับ
-    defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'string',
-    }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Launched', value: 'Launched' },
-          { title: 'In Market', value: 'In Market' },
-          { title: 'Pilot', value: 'Pilot' },
-          { title: 'Rolling Out', value: 'Rolling Out' },
-        ],
-      },
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 3,
+      name: 'productCategory',
+      title: 'Product Category',
+      type: 'reference',
+      to: [{ type: 'productCategory' }],
+      description: 'เลือกประเภทสินค้าจากเอกสาร Product Category เพื่อให้หน้า Product จัดกลุ่มได้',
     }),
     defineField({
       name: 'longDescription',
@@ -68,13 +45,6 @@ export const product = defineType({
       type: 'text',
       rows: 5,
     }),
-    defineField({
-      name: 'quote',
-      title: 'Project note',
-      type: 'text',
-      rows: 3,
-    }),
-
     // 🌟 1. ภาพ Thumbnail (หน้ารวม)
     defineField({
       name: 'thumbnail',
@@ -93,16 +63,7 @@ export const product = defineType({
       options: { hotspot: true },
     }),
 
-    // 🌟 3. ภาพประกอบ Storytelling
-    defineField({
-      name: 'storyImage',
-      title: 'Storytelling Image',
-      type: 'image',
-      description: 'ภาพประกอบในส่วนของเรื่องราว (Story)',
-      options: { hotspot: true },
-    }),
-
-    // 🌟 4. วิดีโอ Motion Preview
+    // 🌟 3. วิดีโอ Motion Preview
     defineField({
       name: 'motionVideo',
       title: 'Product Motion Preview (Video)',
@@ -135,80 +96,68 @@ export const product = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({
-      name: 'storyTitle',
-      title: 'Story Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'story',
-      title: 'Story Paragraphs',
+      name: 'certifications',
+      title: 'Certifications',
       type: 'array',
-      of: [{ type: 'text' }],
-      description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
-    }),
-
-    // 🌟 5. เพิ่ม Image เข้าไปในแต่ละ Benefit
-    defineField({
-      name: 'benefits',
-      title: 'Benefits',
-      type: 'array',
+      description: 'ไม่จำเป็นต้องใส่ก็ได้ ถ้าไม่ใส่จะไม่แสดง section Certifications บนหน้า Product',
       of: [
         defineField({
-          name: 'benefitItem',
-          title: 'Benefit Item',
+          name: 'certificationItem',
+          title: 'Certification Item',
           type: 'object',
           fields: [
             defineField({
-              name: 'image',
-              title: 'Background Image',
-              type: 'image',
-              description: 'รูปภาพพื้นหลังสำหรับข้อดีข้อนี้',
-              options: { hotspot: true },
-            }),
-            defineField({
-              name: 'title',
-              title: 'Title',
+              name: 'name',
+              title: 'Certificate Name',
               type: 'string',
             }),
             defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'text',
-              rows: 3,
+              name: 'image',
+              title: 'Certificate Image / Logo',
+              type: 'image',
+              description: 'ใส่รูปโลโก้ อย. หรือสัญลักษณ์รับรองที่เกี่ยวกับสินค้านี้',
+              options: { hotspot: true },
             }),
           ],
+          preview: {
+            select: {
+              title: 'name',
+              media: 'image',
+            },
+          },
         }),
       ],
     }),
     defineField({
-      name: 'certifications',
-      title: 'Certifications',
+      name: 'awards',
+      title: 'Awards',
       type: 'array',
-      of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'metrics',
-      title: 'Metrics',
-      type: 'array',
+      description: 'ไม่จำเป็นต้องใส่ก็ได้ ถ้าไม่ใส่จะไม่แสดง section Awards บนหน้า Product',
       of: [
         defineField({
-          name: 'metricItem',
-          title: 'Metric Item',
+          name: 'awardItem',
+          title: 'Award Item',
           type: 'object',
           fields: [
             defineField({
-              name: 'label',
-              title: 'Label',
+              name: 'name',
+              title: 'Award Name',
               type: 'string',
-              description: 'คำอธิบายสถิตินั้นๆ (เช่น Active Users, Return on Investment)',
             }),
             defineField({
-              name: 'value',
-              title: 'Value',
-              type: 'string',
-              description: 'ตัวเลขหรือสถิติหลัก (เช่น 100x, 5%)',
+              name: 'image',
+              title: 'Award Image / Badge',
+              type: 'image',
+              description: 'ใส่รูปโลโก้งานประกวด เหรียญ หรือรูปที่เกี่ยวกับรางวัลนี้',
+              options: { hotspot: true },
             }),
           ],
+          preview: {
+            select: {
+              title: 'name',
+              media: 'image',
+            },
+          },
         }),
       ],
     }),
@@ -223,7 +172,7 @@ export const product = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'category', // 🌟 เปลี่ยนจาก client เป็น category เพื่อไม่ให้ Error
+      subtitle: 'productCategory.title',
       media: 'thumbnail', // 🌟 โชว์ Thumbnail ในหน้าจัดการของ Sanity
     },
   },
