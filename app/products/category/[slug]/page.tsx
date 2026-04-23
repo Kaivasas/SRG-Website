@@ -20,6 +20,7 @@ const CATEGORY_PAGE_QUERY = `*[_type == "productCategory" && slug.current == $sl
     _id,
     title,
     "slug": slug.current,
+    eyebrow,
     subtitle,
     longDescription,
     thumbnail,
@@ -137,7 +138,7 @@ export default async function ProductCategoryPage({
                       <div className="flex items-start justify-between gap-4">
                         <div>
                           <p className="text-[0.72rem] uppercase tracking-[0.3em] text-[#FAD337]">
-                            {product.category || category.title}
+                            {product.eyebrow || product.category || category.title}
                           </p>
                           <h3 className="mt-3 text-[clamp(1.7rem,3vw,2.4rem)] font-bold leading-[0.95] tracking-[-0.05em] text-white">
                             {product.title}

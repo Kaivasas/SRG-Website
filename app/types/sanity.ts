@@ -96,11 +96,9 @@ export interface SanityProductDetail {
   category?: string;
   categorySlug?: string;
   longDescription?: string;
-  gradient?: string;
   thumbnail?: SanityImageSource;
   heroImage?: SanityImageSource;
   motionVideoUrl?: string;
-  tags?: string[];
   certifications?: SanityProductBadgeItem[];
   awards?: SanityProductBadgeItem[];
 }

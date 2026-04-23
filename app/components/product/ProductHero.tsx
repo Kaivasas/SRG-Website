@@ -13,9 +13,11 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
         className={`${glassPanelClass} grid gap-8 px-6 py-8 lg:grid-cols-[1fr_0.92fr] lg:items-center lg:px-10 lg:py-10`}
       >
         <div className="pr-0 lg:pr-8">
-          <p className="text-sm uppercase tracking-[0.32em] text-[#F48120]">
-            {product.category}
-          </p>
+          {product.eyebrow && (
+            <p className="text-sm uppercase tracking-[0.32em] text-[#F48120]">
+              {product.eyebrow}
+            </p>
+          )}
           <h1 className="mt-4 max-w-[10ch] text-[clamp(3.2rem,7vw,5.8rem)] font-black uppercase leading-[0.9] tracking-[-0.08em] text-white break-words">
             {product.title}
           </h1>
@@ -44,9 +46,9 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
               />
             )}
 
-            {product.category && (
+            {product.eyebrow && (
               <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
-                {product.category}
+                {product.eyebrow}
               </div>
             )}
           </div>
