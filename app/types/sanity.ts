@@ -43,13 +43,10 @@ export interface SanityServiceCard extends SanityServiceBase{
   image: string;
 }
 
-export interface SanityServiceBenefit extends SanityServiceBase{
-  desc: string;
-  image?: string;
-}
-
-export interface SanityServicePortfolioItem extends SanityServiceBase{
+export interface SanityServicePortfolioItem {
   _id: string;
+  title: string;
+  slug: string;
   image: string;
 }
 
