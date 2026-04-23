@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import type { SanityServiceNavItem /* , SanitySlug */ } from "@/app/types/sanity";
+import type { SanityServiceCard /* , SanitySlug */ } from "@/app/types/sanity";
 
 const NAV_COLUMNS = [
   ["Digital Marketing", "Event Organization"],
@@ -14,7 +14,7 @@ const NAV_COLUMNS = [
 ] as const;
 
 interface NavbarProps {
-  services?: SanityServiceNavItem[];
+  services?: SanityServiceCard[];
 }
 
 export default function Navbar({ services = [] }: NavbarProps) {
