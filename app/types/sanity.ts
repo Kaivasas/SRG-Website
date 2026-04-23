@@ -45,6 +45,11 @@ export interface SanityServicePortfolioItem {
   image: string;
 }
 
+export interface SanityServiceCard extends SanityServiceBase {
+  description: string;
+  image: string;
+}
+
 export interface SanityServiceDetail extends SanityServiceBase{
   description?: string;
   heroImage?: string;
