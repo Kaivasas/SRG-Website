@@ -32,31 +32,10 @@ export interface SanityTestimonial {
 
 // ─── Services ────────────────────────────────────────────────────
 
-export interface SanityServiceNavItem {
+export interface SanityServiceBase {
   title: string;
   slug: string | SanitySlug;
   category: string;
-}
-
-export interface SanityServiceCard {
-  title: string;
-  description: string;
-  category: string;
-  slug: string;
-  image: string;
-}
-
-export interface SanityServiceBenefit {
-  title: string;
-  desc: string;
-  image?: string;
-}
-
-export interface SanityWorkflowStep {
-  title: string;
-  desc: string;
-  color?: string;
-  isDark?: boolean;
 }
 
 export interface SanityServicePortfolioItem {
@@ -66,15 +45,12 @@ export interface SanityServicePortfolioItem {
   image: string;
 }
 
-export interface SanityServiceDetail {
-  title: string;
-  slug: string;
-  subtitle?: string;
+export interface SanityServiceDetail extends SanityServiceBase{
   description?: string;
   heroImage?: string;
   whyTitle?: string;
-  benefits?: SanityServiceBenefit[];
-  workflow?: SanityWorkflowStep[];
+  benefitImage?: string;
+  benefits?: string[];
   portfolios?: SanityServicePortfolioItem[];
 }
 

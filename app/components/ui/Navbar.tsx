@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import type { SanityServiceNavItem /* , SanitySlug */ } from "@/app/types/sanity";
+import type { SanityServiceBase} from "@/app/types/sanity";
 
 const NAV_COLUMNS = [
   ["Digital Marketing", "Event Organization"],
@@ -14,7 +14,7 @@ const NAV_COLUMNS = [
 ] as const;
 
 interface NavbarProps {
-  services?: SanityServiceNavItem[];
+  services?: SanityServiceBase[];
 }
 
 export default function Navbar({ services = [] }: NavbarProps) {
@@ -78,10 +78,12 @@ export default function Navbar({ services = [] }: NavbarProps) {
                                 <ul className="text-gray-500 text-sm font-medium space-y-3">
                                   {categoryServices.length > 0 ? (
                                     categoryServices.map((svc, i) => {
-                                      const slugStr = typeof svc.slug === "string" ? svc.slug : (svc.slug as { current: string })?.current;
+                                      // 🌟 3. เรียกใช้ svc.slug ได้ตรงๆ เลย ไม่ต้องเช็ก Type แล้ว!
                                       return (
                                         <li key={`svc-${i}`} className="hover:text-gray-900 hover:translate-x-1 transition-all">
-                                          <Link href={`/services/${slugStr}`} className="block w-full">• {svc.title}</Link>
+                                          <Link href={`/services/${svc.slug}`} className="block w-full">
+                                            • {svc.title}
+                                          </Link>
                                         </li>
                                       );
                                     })
