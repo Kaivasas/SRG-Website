@@ -129,8 +129,9 @@ export default function ContactPage() {
         </div>
 
         <div className="relative min-h-[26rem] overflow-hidden border border-white/10 bg-[#003951]">
+          {/* 🌟 เปลี่ยน src ใน iframe เป็นลิงก์ด้านล่างนี้ครับ */}
           <iframe
-            src="https://maps.google.com/maps?q=VGR%20Building,%20Samrong%20Nuea,%20Samut%20Prakan&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            src="https://maps.google.com/maps?q=Sustain+Republix+Group+Co.,Ltd.+Samut+Prakan&t=&z=16&ie=UTF8&iwloc=&output=embed"
             className="absolute inset-0 h-full w-full border-0 grayscale transition duration-700 hover:grayscale-0"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
