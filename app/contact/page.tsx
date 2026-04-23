@@ -65,13 +65,7 @@ export default function ContactPage() {
                     href="mailto:arthit.p@sustain-republix.com"
                     className="block text-lg text-white/84 transition hover:text-[#F48120]"
                   >
-                    arthit.p@sustain-republix.com
-                  </a>
-                  <a
-                    href="mailto:wilailak.p@sustain-republix.com"
-                    className="block text-lg text-white/84 transition hover:text-[#FAD337]"
-                  >
-                    wilailak.p@sustain-republix.com
+                    hrm@sustain-republix.com
                   </a>
                 </div>
               </div>

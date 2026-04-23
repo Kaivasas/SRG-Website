@@ -55,7 +55,7 @@ export default function Footer() {
       <div className="max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-gray-400">เรารอคุณอยู่</h2>
         <a href="mailto:hello@sustainrepublix.com" className="block mb-6 font-bold text-2xl text-blue-400 hover:text-white transition cursor-pointer">
-          hello@sustainrepublix.com
+          hrm@sustain-republix.com
         </a>
         <p className="text-sm leading-relaxed text-gray-400">
           Sustain Republix Group Co.,Ltd.<br />
