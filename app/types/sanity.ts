@@ -38,10 +38,10 @@ export interface SanityServiceBase {
   category: string;
 }
 
-export interface SanityServiceCard extends SanityServiceBase{
-  description: string;
-  image: string;
-}
+// export interface SanityServiceCard extends SanityServiceBase{
+//   description: string;
+//   image: string;
+// }
 
 export interface SanityServicePortfolioItem {
   _id: string;

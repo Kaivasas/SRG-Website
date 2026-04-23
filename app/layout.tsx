@@ -5,7 +5,7 @@ import Navbar from "./components/ui/Navbar";
 import Footer from "./components/ui/Footer";
 import TransitionLoader from "./components/ui/TransitionLoader";
 import { sanityFetchSafe } from "@/app/lib/sanityFetch";
-import type { SanityServiceNavItem } from "@/app/types/sanity";
+import type { SanityServiceBase } from "@/app/types/sanity";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
 
 const SERVICES_NAV_QUERY = `*[_type == "service"] | order(title asc) {
   title,
-  slug,
+  "slug": slug.current,
   category
 }`;
 
 export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const services = await sanityFetchSafe<SanityServiceNavItem[]>(SERVICES_NAV_QUERY);
+  const services = await sanityFetchSafe<SanityServiceBase[]>(SERVICES_NAV_QUERY);
 
   return (
     <html lang="en">
