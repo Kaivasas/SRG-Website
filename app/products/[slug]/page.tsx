@@ -77,7 +77,10 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
         <ProductHero product={product} />
         <ProductStory product={product} />
-        <ProductCertifications certifications={product.certifications ?? []} />
+        <ProductCertifications
+          certifications={product.certifications ?? []}
+          awards={product.awards ?? []}
+        />
         <RelatedProducts products={relatedProducts} />
         <ProductCTA />
 

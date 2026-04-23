@@ -89,6 +89,11 @@ export interface SanityProductCategory {
   productCount?: number;
 }
 
+export interface SanityProductBadgeItem {
+  name: string;
+  image?: SanityImageSource;
+}
+
 export interface SanityProductCard {
   _id: string;
   title: string;
@@ -115,7 +120,8 @@ export interface SanityProductDetail {
   heroImage?: SanityImageSource;
   motionVideoUrl?: string;
   tags?: string[];
-  certifications?: string[];
+  certifications?: SanityProductBadgeItem[];
+  awards?: SanityProductBadgeItem[];
 }
 
 export interface SanityProductRelated {

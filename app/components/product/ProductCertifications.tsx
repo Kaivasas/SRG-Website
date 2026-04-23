@@ -1,39 +1,87 @@
+import Image from "next/image";
 import Reveal from "../Reveal";
+import { urlFor } from "@/sanity/lib/image";
+import type { SanityProductBadgeItem } from "@/app/types/sanity";
 
-const glassPanelClass = "relative z-10 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03)),rgba(3,25,35,0.6)] shadow-[0_18px_46px_rgba(0,0,0,0.18)]";
+function BadgeGrid({
+  title,
+  eyebrow,
+  items,
+}: {
+  title: string;
+  eyebrow: string;
+  items: SanityProductBadgeItem[];
+}) {
+  if (!items.length) return null;
 
-export default function ProductCertifications({ certifications }: { certifications: string[] }) {
-  if (!certifications?.length) return null;
+  return (
+    <section className="border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02)),rgba(3,25,35,0.42)] px-5 py-6 sm:px-7 sm:py-8">
+      <div className="flex flex-col gap-3">
+        <div>
+          <p className="text-[0.74rem] font-bold uppercase tracking-[0.3em] text-[#F48120]">
+            {eyebrow}
+          </p>
+          <h3 className="mt-3 text-[clamp(1.7rem,4vw,2.5rem)] font-black uppercase leading-[0.95] tracking-[-0.05em] text-white">
+            {title}
+          </h3>
+        </div>
+      </div>
+
+      <div className="mt-6 h-px w-full bg-gradient-to-r from-[#F48120]/80 via-white/10 to-transparent" />
+      <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, index) => (
+          <article key={`${title}-${item.name}-${index}`} className="p-1">
+            <div className="flex min-h-[13rem] items-center justify-center overflow-hidden bg-white/5 p-3 sm:min-h-[14rem]">
+              {item.image ? (
+                <div className="relative h-36 w-full sm:h-40">
+                  <Image
+                    src={urlFor(item.image).fit("max").url()}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-contain"
+                  />
+                </div>
+              ) : (
+                <span className="text-[3rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
+                  0{index + 1}
+                </span>
+              )}
+            </div>
+            <p className="mt-4 text-center text-sm font-medium uppercase tracking-[0.18em] text-white/82 break-words">
+              {item.name}
+            </p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+export default function ProductCertifications({
+  certifications,
+  awards,
+}: {
+  certifications: SanityProductBadgeItem[];
+  awards: SanityProductBadgeItem[];
+}) {
+  if (!certifications?.length && !awards?.length) return null;
 
   return (
     <Reveal className="mt-12" delayMs={100}>
       <section>
-        <h2 className="text-[clamp(2.2rem,5vw,4.4rem)] font-black uppercase leading-[0.92] tracking-[-0.07em] text-white">
-          Certifications and readiness
-        </h2>
-        <div className={`${glassPanelClass} mt-6 p-6`}>
-          
-          {/* 🌟 1. เปลี่ยนเป็น flex, flex-wrap และ justify-center เพื่อให้ดันเข้าตรงกลางเสมอ */}
-          <div className="flex flex-wrap justify-center gap-4">
-            
-            {certifications.map((item: string, index: number) => (
-              <div 
-                key={index} 
-                // 🌟 2. ใช้ flex-1 ขยายเต็มที่ แต่จำกัดความกว้างสูงสุดไว้ที่ 320px
-                className="flex-1 basis-[240px] max-w-[320px] flex min-h-[10rem] flex-col items-center justify-center bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(255,255,255,0.04)] text-center transition duration-300 hover:-translate-y-1 p-4"
-              >
-                <span className="text-[3rem] font-extralight leading-none tracking-[-0.08em] text-[#FAD337]">
-                  0{index + 1}
-                </span>
-                {/* 🌟 3. ใส่ break-words กันเหนียวเผื่อพิมพ์คำยาวเกิน */}
-                <p className="mt-4 text-sm uppercase tracking-[0.24em] text-white/72 break-words w-full">
-                  {item}
-                </p>
-              </div>
-            ))}
-
+        <div className="mt-6 space-y-8">
+          <BadgeGrid
+            title="Certificates"
+            eyebrow="Verified Standards"
+            items={certifications ?? []}
+          />
+          <BadgeGrid
+            title="Recognition & Awards"
+            eyebrow="Product Achievements"
+            items={awards ?? []}
+          />
           </div>
-        </div>
       </section>
     </Reveal>
   );

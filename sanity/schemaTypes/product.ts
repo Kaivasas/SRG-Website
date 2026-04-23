@@ -99,7 +99,67 @@ export const product = defineType({
       name: 'certifications',
       title: 'Certifications',
       type: 'array',
-      of: [{ type: 'string' }],
+      description: 'ไม่จำเป็นต้องใส่ก็ได้ ถ้าไม่ใส่จะไม่แสดง section Certifications บนหน้า Product',
+      of: [
+        defineField({
+          name: 'certificationItem',
+          title: 'Certification Item',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Certificate Name',
+              type: 'string',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Certificate Image / Logo',
+              type: 'image',
+              description: 'ใส่รูปโลโก้ อย. หรือสัญลักษณ์รับรองที่เกี่ยวกับสินค้านี้',
+              options: { hotspot: true },
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              media: 'image',
+            },
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'awards',
+      title: 'Awards',
+      type: 'array',
+      description: 'ไม่จำเป็นต้องใส่ก็ได้ ถ้าไม่ใส่จะไม่แสดง section Awards บนหน้า Product',
+      of: [
+        defineField({
+          name: 'awardItem',
+          title: 'Award Item',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Award Name',
+              type: 'string',
+            }),
+            defineField({
+              name: 'image',
+              title: 'Award Image / Badge',
+              type: 'image',
+              description: 'ใส่รูปโลโก้งานประกวด เหรียญ หรือรูปที่เกี่ยวกับรางวัลนี้',
+              options: { hotspot: true },
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'name',
+              media: 'image',
+            },
+          },
+        }),
+      ],
     }),
     defineField({
       name: 'isFeatured',
