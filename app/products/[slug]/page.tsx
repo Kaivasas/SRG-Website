@@ -4,7 +4,6 @@ import { client } from "@/sanity/lib/client";
 
 import ProductHero from "@/app/components/product/ProductHero";
 import ProductStory from "@/app/components/product/ProductStory";
-import ProductBenefits from "@/app/components/product/ProductBenefits";
 import ProductCertifications from "@/app/components/product/ProductCertifications";
 import RelatedProducts from "@/app/components/product/RelatedProducts";
 import ProductCTA from "@/app/components/product/ProductCTA";
@@ -78,7 +77,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
 
         <ProductHero product={product} />
         <ProductStory product={product} />
-        <ProductBenefits benefits={product.benefits ?? []} />
         <ProductCertifications certifications={product.certifications ?? []} />
         <RelatedProducts products={relatedProducts} />
         <ProductCTA />

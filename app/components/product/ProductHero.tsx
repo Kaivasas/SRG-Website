@@ -32,23 +32,6 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
             </p>
           )}
 
-          {/* 🌟 2. อัปเกรด Metrics Grid ให้รองรับ Value และ Label */}
-          {product.metrics && product.metrics.length > 0 && (
-            <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-6 border-t border-white/10 pt-6">
-              {product.metrics.map((metric, index) =>(
-                <div key={index} className="border-l-[3px] border-[#FAD337] pl-4 flex flex-col justify-center">
-                  {/* แสดงตัวเลข (Value) ให้ใหญ่และหนา */}
-                  <span className="text-2xl md:text-3xl font-black text-white tracking-tight">
-                    {metric.value}
-                  </span>
-                  {/* แสดงคำอธิบาย (Label) ให้เล็ก จาง และเว้นช่องไฟให้ดูหรู */}
-                  <span className="text-xs text-white/50 uppercase tracking-[0.2em] mt-1 break-words">
-                    {metric.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
         </div>
 
         {/* ฝั่งขวา: รูปภาพ Hero */}

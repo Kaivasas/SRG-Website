@@ -45,13 +45,6 @@ export const product = defineType({
       type: 'text',
       rows: 5,
     }),
-    defineField({
-      name: 'quote',
-      title: 'Project note',
-      type: 'text',
-      rows: 3,
-    }),
-
     // 🌟 1. ภาพ Thumbnail (หน้ารวม)
     defineField({
       name: 'thumbnail',
@@ -70,16 +63,7 @@ export const product = defineType({
       options: { hotspot: true },
     }),
 
-    // 🌟 3. ภาพประกอบ Storytelling
-    defineField({
-      name: 'storyImage',
-      title: 'Storytelling Image',
-      type: 'image',
-      description: 'ภาพประกอบในส่วนของเรื่องราว (Story)',
-      options: { hotspot: true },
-    }),
-
-    // 🌟 4. วิดีโอ Motion Preview
+    // 🌟 3. วิดีโอ Motion Preview
     defineField({
       name: 'motionVideo',
       title: 'Product Motion Preview (Video)',
@@ -112,82 +96,10 @@ export const product = defineType({
       of: [{ type: 'string' }],
     }),
     defineField({
-      name: 'storyTitle',
-      title: 'Story Title',
-      type: 'string',
-    }),
-    defineField({
-      name: 'story',
-      title: 'Story Paragraphs',
-      type: 'array',
-      of: [{ type: 'text' }],
-      description: 'แต่ละกล่องข้อความคือ 1 ย่อหน้า (Paragraph)',
-    }),
-
-    // 🌟 5. เพิ่ม Image เข้าไปในแต่ละ Benefit
-    defineField({
-      name: 'benefits',
-      title: 'Benefits',
-      type: 'array',
-      of: [
-        defineField({
-          name: 'benefitItem',
-          title: 'Benefit Item',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'image',
-              title: 'Background Image',
-              type: 'image',
-              description: 'รูปภาพพื้นหลังสำหรับข้อดีข้อนี้',
-              options: { hotspot: true },
-            }),
-            defineField({
-              name: 'title',
-              title: 'Title',
-              type: 'string',
-            }),
-            defineField({
-              name: 'description',
-              title: 'Description',
-              type: 'text',
-              rows: 3,
-            }),
-          ],
-        }),
-      ],
-    }),
-    defineField({
       name: 'certifications',
       title: 'Certifications',
       type: 'array',
       of: [{ type: 'string' }],
-    }),
-    defineField({
-      name: 'metrics',
-      title: 'Metrics',
-      type: 'array',
-      of: [
-        defineField({
-          name: 'metricItem',
-          title: 'Metric Item',
-          type: 'object',
-          fields: [
-            defineField({
-              name: 'label',
-              title: 'Label',
-              type: 'string',
-              description: 'คำอธิบายสถิตินั้นๆ (เช่น Active Users, Return on Investment)',
-            }),
-            defineField({
-              name: 'value',
-              title: 'Value',
-              type: 'string',
-              description: 'ตัวเลขหรือสถิติหลัก (เช่น 100x, 5%)',
-            }),
-          ],
-        }),
-      ],
     }),
     defineField({
       name: 'isFeatured',

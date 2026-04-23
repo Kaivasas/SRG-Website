@@ -80,12 +80,6 @@ export interface SanityServiceDetail {
 
 // ─── Products ────────────────────────────────────────────────────
 
-export interface SanityProductBenefit {
-  title: string;
-  description: string;
-  image?: SanityImageSource;
-}
-
 export interface SanityProductCategory {
   _id: string;
   title: string;
@@ -116,18 +110,12 @@ export interface SanityProductDetail {
   category?: string;
   categorySlug?: string;
   longDescription?: string;
-  quote?: string;
   gradient?: string;
   thumbnail?: SanityImageSource;
   heroImage?: SanityImageSource;
-  storyImage?: SanityImageSource;
   motionVideoUrl?: string;
   tags?: string[];
-  storyTitle?: string;
-  story?: string[];
-  benefits?: SanityProductBenefit[];
   certifications?: string[];
-  metrics?: MetricItem[];
 }
 
 export interface SanityProductRelated {
