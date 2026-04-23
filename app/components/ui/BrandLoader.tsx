@@ -4,18 +4,19 @@ export default function BrandLoader() {
       <div className="loading-aura absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#005a72]/18 blur-3xl" />
 
       <div className="relative flex flex-col items-center text-center">
-        <div className="mt-8 overflow-hidden">
-          <h1 className="loading-wordmark text-[clamp(3.2rem,10vw,8rem)] font-black uppercase leading-[0.88] tracking-[-0.08em] text-white">
-            Sustain
-            <span className="block bg-[linear-gradient(90deg,#005a72,#F48120)] bg-clip-text text-transparent">
+        <div className="mt-8 px-4">
+          <h1 className="loading-wordmark text-[clamp(3.2rem,10vw,8rem)] font-black uppercase leading-[0.9] tracking-[-0.06em] text-white">
+            <span className="block">Sustain</span>
+            <span className="block pr-[0.08em] bg-[linear-gradient(90deg,#005a72,#F48120)] bg-clip-text text-transparent">
               Republix
             </span>
             <span className="block text-white/74">Group</span>
-             <span className="loading-kicker text-[0.76rem] font-bold uppercase tracking-[0.42em] text-[#FAD337]">
-          Loading...
-        </span>
           </h1>
         </div>
+
+        <span className="loading-kicker mt-8 text-[0.76rem] font-bold uppercase tracking-[0.42em] text-[#FAD337]">
+          Loading...
+        </span>
 
         <div className="mt-8 flex items-center gap-4">
          
