@@ -27,16 +27,16 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
         <div className="w-full md:w-1/2 flex flex-col justify-center order-2">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-12 h-[1px] bg-blue-500" />
-            <span className="text-blue-500 uppercase tracking-widest text-xs font-bold">Service Excellence</span>
+            {/* 🌟 แสดง Category ตรงนี้ตามที่คุณต้องการ */}
+            <span className="text-blue-500 uppercase tracking-widest text-xs font-bold">
+              {service.category}
+            </span>
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tighter text-white leading-[1.1]">
             {service.title}
           </h1>
-          <p className="text-xl md:text-2xl text-white/90 font-light mb-8 leading-snug">
-            {service.subtitle}
-          </p>
           <div className="border-l-[1px] border-white/20 pl-8">
-            <p className="text-base md:text-lg text-white/50 leading-relaxed font-light max-w-lg">
+            <p className="text-base md:text-lg text-white leading-relaxed font-light max-w-lg">
               {service.description}
             </p>
           </div>

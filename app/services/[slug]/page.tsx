@@ -12,7 +12,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
   const query = `*[_type == "service" && slug.current == $slug][0] {
     title,
     "slug": slug.current,
-    subtitle,
+    category,
     description,
     "heroImage": heroImage.asset->url,
     whyTitle,

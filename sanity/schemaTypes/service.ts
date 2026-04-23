@@ -26,8 +26,7 @@ export default defineType({
       },
       validation: (Rule) => Rule.required(), 
     }),
-
-    defineField({ name: 'subtitle', title: 'หัวข้อย่อย (Subtitle)', type: 'string' }),
+    
     defineField({ name: 'description', title: 'รายละเอียด (Description)', type: 'text' }),
     defineField({ name: 'heroImage', title: 'รูปภาพ Hero', type: 'image', options: { hotspot: true } }),
 
