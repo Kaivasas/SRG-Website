@@ -34,7 +34,7 @@ export interface SanityTestimonial {
 
 export interface SanityServiceBase {
   title: string;
-  slug: string | SanitySlug;
+  slug: string;
   category: string;
 }
 
@@ -61,6 +61,13 @@ export interface SanityServiceDetail extends SanityServiceBase{
 
 // ─── Products ────────────────────────────────────────────────────
 
+export interface SanityProductBase {
+  title: string;
+  slug: string;
+  category?: string;
+  categorySlug?: string;
+}
+
 export interface SanityProductCategory {
   _id: string;
   title: string;
@@ -75,26 +82,18 @@ export interface SanityProductBadgeItem {
   image?: SanityImageSource;
 }
 
-export interface SanityProductCard {
+export interface SanityProductCard extends SanityProductBase {
   _id: string;
-  title: string;
-  slug: string;
   eyebrow?: string;
   subtitle?: string;
   thumbnail?: SanityImageSource;
   isFeatured?: boolean;
   longDescription?: string;
-  category?: string;
-  categorySlug?: string;
 }
 
-export interface SanityProductDetail {
-  title: string;
-  slug: string;
+export interface SanityProductDetail extends SanityProductBase {
   subtitle?: string;
   eyebrow?: string;
-  category?: string;
-  categorySlug?: string;
   longDescription?: string;
   thumbnail?: SanityImageSource;
   heroImage?: SanityImageSource;
@@ -103,23 +102,22 @@ export interface SanityProductDetail {
   awards?: SanityProductBadgeItem[];
 }
 
-export interface SanityProductRelated {
-  title: string;
-  slug: string;
-  category?: string;
-  categorySlug?: string;
+export interface SanityProductRelated extends SanityProductBase {
   thumbnail?: SanityImageSource;
 }
 
 // ─── Works ───────────────────────────────────────────────────────
 
-export interface SanityWorkCard {
+export interface SanityWorkBase {
   title: string;
   slug: string;
-  thumbnail?: string;
-  tags?: string[];
   client?: string;
   year?: string;
+}
+
+export interface SanityWorkCard extends SanityWorkBase {
+  thumbnail?: string;
+  tags?: string[];
 }
 
 export interface SanityStickySection {
@@ -133,11 +131,7 @@ export interface SanityBeforeAfter {
   after?: string;
 }
 
-export interface SanityWorkDetail {
-  title: string;
-  slug: string;
-  client?: string;
-  year?: string;
+export interface SanityWorkDetail extends SanityWorkBase {
   shortDesc?: string;
   description?: string;
   heroMedia?: string;
