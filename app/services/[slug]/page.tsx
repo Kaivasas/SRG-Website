@@ -4,7 +4,6 @@ import Link from "next/link";
 // Import Components ที่เราเพิ่งหั่นไว้
 import ServiceHero from "@/app/components/services/ServiceHero";
 import WhyChooseUs from "@/app/components/services/WhyChooseUs";
-import Workflow from "@/app/components/services/Workflow";
 import ServicePortfolio from "@/app/components/services/ServicePortfolio";
 
 export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
@@ -22,7 +21,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
     desc,
     "image": image.asset->url
     },
-    workflow,
     portfolios[]->{
       _id,
       title,
@@ -50,7 +48,6 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
       {/* ประกอบร่าง Components! */}
       <ServiceHero service={service} />
       <WhyChooseUs service={service} />
-      <Workflow service={service} />
       <ServicePortfolio service={service} />
 
       {/* CTA Bottom (โค้ดสั้นๆ แปะไว้ในนี้ได้เลยไม่ต้องแยก) */}

@@ -49,36 +49,6 @@ export default defineType({
       }]
     }),
     
-    // ส่วน Workflow (คงเดิม)
-    defineField({
-      name: 'workflow',
-      title: 'ขั้นตอนการทำงาน (Workflow)',
-      type: 'array',
-      of: [{
-        type: 'object',
-        fields: [
-          { name: 'title', title: 'หัวข้อ', type: 'string' },
-          { name: 'desc', title: 'คำอธิบาย', type: 'text' },
-          defineField({
-            name: 'color',
-            title: 'สีตัวเลข (Number Color)',
-            description: 'เลือกสีที่ต้องการให้แสดงตรงตัวเลขขั้นตอน',
-            type: 'string',
-            options: {
-              list: [
-                { title: '⚪ สีขาว (Clean White)', value: 'text-white' },
-                { title: '🟢 สีเขียว (Sustain Green)', value: 'text-green-500' },
-                { title: '🔵 สีฟ้า (Ocean Blue)', value: 'text-blue-500' },
-                { title: '🟡 สีทอง (Premium Gold)', value: 'text-yellow-500' },
-              ],
-              layout: 'radio',
-            },
-            initialValue: 'text-white',
-          }),
-          { name: 'isDark', title: 'พื้นหลังสีเข้มหรือไม่?', type: 'boolean', initialValue: false }
-        ]
-      }]
-    }),
 
     // ส่วนเชื่อมโยงผลงาน
     defineField({
