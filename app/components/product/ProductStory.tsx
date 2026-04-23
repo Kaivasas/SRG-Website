@@ -46,7 +46,7 @@ export default function ProductStory({ product }: { product: SanityProductDetail
                 <div className="mt-8 border-l-[3px] border-[#F48120] pl-5 break-words">
                   <p className="text-sm uppercase tracking-[0.28em] text-[#F48120]">Project Note</p>
                   <p className="mt-4 max-w-[34rem] text-xl leading-relaxed text-white/84 whitespace-pre-wrap">
-                    "{product.quote}"
+                    &quot;{product.quote}&quot;
                   </p>
                 </div>
               )}

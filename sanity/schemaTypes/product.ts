@@ -33,34 +33,11 @@ export const product = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
-    }),
-    // 🌟 ลบ Client ออกไปแล้วครับ
-    defineField({
-      name: 'year',
-      title: 'Year',
-      type: 'string',
-    }),
-    defineField({
-      name: 'status',
-      title: 'Status',
-      type: 'string',
-      options: {
-        list: [
-          { title: 'Launched', value: 'Launched' },
-          { title: 'In Market', value: 'In Market' },
-          { title: 'Pilot', value: 'Pilot' },
-          { title: 'Rolling Out', value: 'Rolling Out' },
-        ],
-      },
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-      rows: 3,
+      name: 'productCategory',
+      title: 'Product Category',
+      type: 'reference',
+      to: [{ type: 'productCategory' }],
+      description: 'เลือกประเภทสินค้าจากเอกสาร Product Category เพื่อให้หน้า Product จัดกลุ่มได้',
     }),
     defineField({
       name: 'longDescription',
@@ -223,7 +200,7 @@ export const product = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'category', // 🌟 เปลี่ยนจาก client เป็น category เพื่อไม่ให้ Error
+      subtitle: 'productCategory.title',
       media: 'thumbnail', // 🌟 โชว์ Thumbnail ในหน้าจัดการของ Sanity
     },
   },

@@ -4,8 +4,6 @@ import { urlFor } from "@/sanity/lib/image";
 import type { SanityProductDetail } from "@/app/types/sanity";
 
 const glassPanelClass = "relative z-10 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03)),rgba(3,25,35,0.6)] shadow-[0_18px_46px_rgba(0,0,0,0.18)]";
-const metaChipClass = "inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-white/72";
-const metaAccentClass = "inline-flex items-center justify-center rounded-full bg-[#FAD337]/12 px-4 py-2.5 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#FAD337]";
 const floatingTileClass = "border border-white/20 bg-white/10";
 
 export default function ProductHero({ product }: { product: SanityProductDetail }) {
@@ -51,12 +49,6 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
               ))}
             </div>
           )}
-
-          {/* Tag สถานะโปรเจกต์ */}
-          <div className="mt-8 flex flex-wrap gap-3">
-            {product.status && <span className={metaChipClass}>{product.status}</span>}
-            {product.year && <span className={metaAccentClass}>{product.year}</span>}
-          </div>
         </div>
 
         {/* ฝั่งขวา: รูปภาพ Hero */}
@@ -67,9 +59,11 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
               <Image src={urlFor(product.heroImage).url()} alt={product.title} fill className="object-cover absolute inset-0 z-0" />
             )}
 
-            <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
-              {product.eyebrow}
-            </div>
+            {product.category && (
+              <div className="absolute left-6 top-6 z-10 rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[0.7rem] uppercase tracking-[0.26em] text-white/78">
+                {product.category}
+              </div>
+            )}
 
             {/* กล่องสี่เหลี่ยมตกแต่ง (Floating Tiles) */}
             <div className="relative z-10 grid w-full max-w-[23rem] grid-cols-2 gap-4">

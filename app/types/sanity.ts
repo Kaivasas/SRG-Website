@@ -86,17 +86,26 @@ export interface SanityProductBenefit {
   image?: SanityImageSource;
 }
 
+export interface SanityProductCategory {
+  _id: string;
+  title: string;
+  slug: string;
+  description?: string;
+  coverImage?: SanityImageSource;
+  productCount?: number;
+}
+
 export interface SanityProductCard {
   _id: string;
   title: string;
   slug: string;
   eyebrow?: string;
-  description?: string;
-  status?: string;
-  year?: string;
+  subtitle?: string;
   thumbnail?: SanityImageSource;
   isFeatured?: boolean;
   longDescription?: string;
+  category?: string;
+  categorySlug?: string;
 }
 
 export interface SanityProductDetail {
@@ -105,9 +114,7 @@ export interface SanityProductDetail {
   subtitle?: string;
   eyebrow?: string;
   category?: string;
-  year?: string;
-  status?: string;
-  description?: string;
+  categorySlug?: string;
   longDescription?: string;
   quote?: string;
   gradient?: string;
@@ -127,8 +134,7 @@ export interface SanityProductRelated {
   title: string;
   slug: string;
   category?: string;
-  year?: string;
-  status?: string;
+  categorySlug?: string;
   thumbnail?: SanityImageSource;
 }
 
