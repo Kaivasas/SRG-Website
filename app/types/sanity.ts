@@ -57,7 +57,8 @@ export interface SanityServiceDetail extends SanityServiceBase{
   description?: string;
   heroImage?: string;
   whyTitle?: string;
-  benefits?: SanityServiceBenefit[];
+  benefitImage?: string;
+  benefits?: string[];
   portfolios?: SanityServicePortfolioItem[];
 }
 

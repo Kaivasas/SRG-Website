@@ -16,11 +16,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
     description,
     "heroImage": heroImage.asset->url,
     whyTitle,
-    benefits[]{
-    title,
-    desc,
-    "image": image.asset->url
-    },
+    "benefitImage": benefitImage.asset->url,
+    benefits,
     portfolios[]->{
       _id,
       title,

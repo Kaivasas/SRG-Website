@@ -24,30 +24,29 @@ export default defineType({
           { title: 'Media', value: 'Media' }
         ]
       },
-      validation: (Rule) => Rule.required(), 
+      validation: (Rule) => Rule.required(),
     }),
-    
+
     defineField({ name: 'description', title: 'รายละเอียด (Description)', type: 'text' }),
     defineField({ name: 'heroImage', title: 'รูปภาพ Hero', type: 'image', options: { hotspot: true } }),
 
     defineField({ name: 'whyTitle', title: 'หัวข้อ Why Choose Us', type: 'string' }),
-    
+
     // 🌟 1. อัปเดตส่วน Why Choose Us ตรงนี้ครับ
     defineField({
-      name: 'benefits',
-      title: 'ข้อดี (Benefits)',
-      type: 'array',
-      of: [{
-        type: 'object',
-        fields: [
-          { name: 'title', title: 'หัวข้อ', type: 'string' },
-          { name: 'desc', title: 'คำอธิบาย', type: 'text' },
-          // 🌟 เพิ่มฟิลด์อัปโหลดรูปภาพตรงนี้
-          { name: 'image', title: 'รูปภาพประกอบ (Image)', type: 'image', options: { hotspot: true } }
-        ]
-      }]
+      name: 'benefitImage',
+      title: 'รูปภาพประกอบส่วน Why Choose Us (ใช้รูปเดียว)',
+      type: 'image',
+      options: { hotspot: true }
     }),
-    
+
+    defineField({
+      name: 'benefits',
+      title: 'หัวข้อข้อดี (Benefits)',
+      type: 'array',
+      of: [{ type: 'string', title: 'หัวข้อ' }]
+    }),
+
 
     // ส่วนเชื่อมโยงผลงาน
     defineField({
