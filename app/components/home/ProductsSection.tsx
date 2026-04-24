@@ -37,7 +37,7 @@ export default async function ProductsSection() {
             </div>
           </Reveal>
           <p className="max-w-md text-gray-300 text-lg font-light tracking-wide leading-relaxed border-l-[3px] border-[#F48120] pl-4">
-            นวัตกรรมและโซลูชันพร้อมใช้งานที่เราพัฒนาขึ้นมาเพื่อตอบสนองความต้องการในยุคดิจิทัล
+            Innovation and ready-to-use solutions that we have developed to meet the needs of the digital age.
           </p>
         </div>
 

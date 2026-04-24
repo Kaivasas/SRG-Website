@@ -22,7 +22,7 @@ export default function HeroSection() {
         </Reveal>
 
         <p className="mt-10 text-gray-300 text-lg md:text-xl max-w-2xl mx-auto font-light tracking-wider leading-relaxed">
-          เราพร้อมขับเคลื่อนธุรกิจของคุณ ด้วยเทคโนโลยีและกลยุทธ์ที่ยั่งยืน
+          We are ready to drive your business forward with sustainable technology and strategies.
         </p>
       </div>
     </section>

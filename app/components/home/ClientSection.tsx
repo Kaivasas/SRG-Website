@@ -17,7 +17,7 @@ export default async function ClientSection() {
   return (
     <section className="py-12 md:py-16 flex flex-col items-center z-10 relative">
       <h2 className="text-3xl font-bold mb-8 text-white drop-shadow-lg tracking-wide">
-        แบรนด์ที่ไว้วางใจกับทางเรา
+        Brands Trust Our Solutions
       </h2>
       <Reveal delayMs={200} className="w-full flex flex-col items-center">
         <ClientCarousel clients={clients} />
