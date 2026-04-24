@@ -39,7 +39,7 @@ export default function TestimonialCarousel({ testimonialsData = [] }: Testimoni
     <section className="py-16 md:py-20 relative z-10 flex flex-col items-center overflow-hidden">
       <Reveal delayMs={0}>
         <h2 className="text-4xl font-bold mb-12 text-center w-full max-w-5xl text-white drop-shadow-md">
-          เสียงจากลูกค้าของเรา
+          Client Testimonials
         </h2>
       </Reveal>
 

@@ -53,7 +53,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-gray-400">เรารอคุณอยู่</h2>
+        <h2 className="text-2xl font-bold mb-6 text-gray-400">We are waiting for you!</h2>
         <a href="mailto:hello@sustainrepublix.com" className="block mb-6 font-bold text-2xl text-blue-400 hover:text-white transition cursor-pointer">
           hrm@sustain-republix.com
         </a>
