@@ -37,7 +37,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
       {/* Background Video (ปล่อยไว้ในหน้านี้ได้เลย) */}
       <div className="fixed inset-0 w-screen h-screen -z-10 bg-[#050505] overflow-hidden pointer-events-none">
         <video autoPlay loop muted playsInline className="w-full h-full object-cover scale-105 opacity-90">
-          <source src="https://res.cloudinary.com/ducv7yo8h/video/upload/v1774499742/GettyImages-1310479626_ppyjhi.mp4" type="video/mp4" />
+          <source src="https://res.cloudinary.com/dix2vrg4g/video/upload/q_auto/f_auto/v1777283901/Videos-service-BG_cfbc21.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
       </div>
