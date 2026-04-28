@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Reveal from "../Reveal";
+import Reveal from "../../Reveal";
 
 const glassPanelClass = "relative z-10 border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.03)),rgba(3,25,35,0.6)] shadow-[0_18px_46px_rgba(0,0,0,0.18)]";
 

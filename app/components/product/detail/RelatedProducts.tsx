@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import Reveal from "../Reveal";
+import Reveal from "../../Reveal";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityProductRelated } from "@/app/types/sanity";
 
