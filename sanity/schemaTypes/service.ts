@@ -14,14 +14,14 @@ export default defineType({
       type: 'string',
       options: {
         list: [
-          { title: 'Digital Marketing', value: 'Digital Marketing' },
-          { title: 'Event Organization', value: 'Event Organization' },
-          { title: 'Live Streaming', value: 'Live Streaming' },
-          { title: 'Commercial', value: 'Commercial' },
-          { title: 'Business Strategies', value: 'Business Strategies' },
-          { title: 'Creator', value: 'Creator' },
+          { title: 'Business strategies', value: 'Business strategies' },
+          { title: 'Digital marketing', value: 'Digital marketing' },
+          { title: 'E-commerce', value: 'E-commerce' },
+          { title: 'Media production', value: 'Media production' },
+          { title: 'Live streaming', value: 'Live streaming' },
+          { title: 'Event organization', value: 'Event organization' },
           { title: 'Design', value: 'Design' },
-          { title: 'Media', value: 'Media' }
+          { title: 'Influencer management', value: 'Influencer management' }
         ]
       },
       validation: (Rule) => Rule.required(),
