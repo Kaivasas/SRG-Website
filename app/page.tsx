@@ -9,7 +9,7 @@ import WorksSection from "./components/home/WorksSection";
 import TestimonialSection from "./components/home/TestimonialSection";
 import CtaSection from "./components/home/CtaSection";
 
-export default async function Home() {
+export default function Home() {
   return (
     <div className="relative min-h-screen text-gray-900 font-sans">
       <BlurredBackground />
