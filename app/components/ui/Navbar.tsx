@@ -7,10 +7,10 @@ import Image from "next/image";
 import type { SanityServiceBase} from "@/app/types/sanity";
 
 const NAV_COLUMNS = [
-  ["Digital Marketing", "Event Organization"],
-  ["Live Streaming", "Commercial"],
-  ["Business Strategies", "Creator"],
-  ["Design", "Media"],
+  ["Business strategies", "Digital marketing"],
+  ["E-commerce", "Media production"],
+  ["Live streaming", "Event organization"],
+  ["Design", "Influencer management"],
 ] as const;
 
 interface NavbarProps {
