@@ -10,7 +10,10 @@ export async function sanityFetchSafe<T>(
   params: QueryParams = {},
 ): Promise<T | null> {
   try {
-    return await client.fetch<T>(query, params);
+    // 🌟 เพิ่ม Parameter ที่ 3 เข้าไปตรงนี้ครับ
+    return await client.fetch<T>(query, params, {
+      next: { revalidate: 60 } 
+    });
   } catch (error) {
     console.error("Sanity fetch error:", error);
     return null;
