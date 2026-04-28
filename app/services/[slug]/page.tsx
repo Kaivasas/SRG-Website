@@ -5,6 +5,7 @@ import Link from "next/link";
 import ServiceHero from "@/app/components/services/ServiceHero";
 import WhyChooseUs from "@/app/components/services/WhyChooseUs";
 import ServicePortfolio from "@/app/components/services/ServicePortfolio";
+import ServiceCTA from "@/app/components/services/ServiceCTA";
 
 export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -47,16 +48,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
       <WhyChooseUs service={service} />
       <ServicePortfolio service={service} />
 
-      {/* CTA Bottom (โค้ดสั้นๆ แปะไว้ในนี้ได้เลยไม่ต้องแยก) */}
-      <section className="py-32 px-6 bg-transparent relative z-10 overflow-hidden">
-        <div className="max-w-7xl mx-auto text-center flex flex-col items-center relative z-10">
-          <h2 className="text-5xl md:text-6xl font-black mb-6 text-white drop-shadow-2xl">อยากเปลี่ยนแปลงและพัฒนา</h2>
-          <p className="text-xl text-white/80 mb-12 font-light drop-shadow-md">ร่วมมือไปกับเรา ก้าวไปกับเรา แล้วคุณจะไม่ผิดหวัง</p>
-          <Link href="/contact" className="bg-white text-[#004965] font-black py-5 px-16 rounded-full text-xl shadow-[0_10px_30px_rgba(255,255,255,0.2)] hover:scale-105 transition-all hover:bg-blue-50">
-            ติดต่อเรา
-          </Link>
-        </div>
-      </section>
+      <ServiceCTA />
     </div>
   );
 }
