@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Reveal from "../Reveal";
+import Reveal from "../../Reveal";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityProductBadgeItem } from "@/app/types/sanity";
 

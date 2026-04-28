@@ -91,6 +91,10 @@ export interface SanityProductCard extends SanityProductBase {
   longDescription?: string;
 }
 
+export interface SanityProductCategoryPageData extends SanityProductCategory {
+  products: SanityProductCard[];
+}
+
 export interface SanityProductDetail extends SanityProductBase {
   subtitle?: string;
   eyebrow?: string;
