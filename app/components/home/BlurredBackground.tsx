@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const BG_VIDEO_URL =
-   "https://res.cloudinary.com/dix2vrg4g/video/upload/q_auto/f_auto/v1777284327/3_vllcly.mp4";
+   "https://res.cloudinary.com/dix2vrg4g/video/upload/q_auto/f_auto/v1777351652/3_g84boz.mp4";
 const MAX_BLUR_PX = 40;
 
 export default function BlurredBackground() {
