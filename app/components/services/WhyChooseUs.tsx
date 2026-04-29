@@ -14,32 +14,30 @@ export default function WhyChooseUs({ service }: WhyChooseUsProps) {
   if (!service.benefits || service.benefits.length === 0) return null;
 
   return (
-    // 🌟 ปรับลด Padding ด้านบน/ล่าง ลงเล็กน้อยเพื่อให้กระชับขึ้น
-    <section className="py-16 md:py-24 px-6 max-w-7xl mx-auto relative z-10">
+    <section className="pt-4 pb-16 md:pt-8 md:pb-24 px-6 max-w-7xl mx-auto relative z-10">
+      
+      {/* --- หัวข้อ "Why choose us..." (จัดกลาง) --- */}
+      <div className="flex flex-col items-center text-center mb-16 lg:mb-24">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-8 h-[1px] bg-blue-500" />
+          <span className="text-blue-500 uppercase tracking-widest text-sm font-bold">
+            Why Choose Us
+          </span>
+          <div className="w-8 h-[1px] bg-blue-500" />
+        </div>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium tracking-tight text-white/95 leading-snug max-w-5xl">
+          {service.whyTitle}
+        </h2>
+      </div>
+
       <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-start relative">
 
         {/* =============================================================
-           ฝั่งซ้าย: โซน Sticky (หัวข้อ + ภาพ)
+           ฝั่งซ้าย: โซน Sticky (ภาพ)
            ============================================================= */}
-        {/* 🌟 เปลี่ยน lg:top-32 เป็น lg:top-24 เพื่อให้ขยับขึ้นไปชิดด้านบนมากขึ้น */}
-        <div className="w-full lg:w-1/2 lg:sticky lg:top-24 flex flex-col">
+        <div className="w-full lg:w-1/2 lg:sticky lg:top-32 flex flex-col">
           
-          {/* --- 1. หัวข้อ "Why choose us..." --- */}
-          {/* 🌟 ลดระยะห่างด้านล่างจาก mb-12 เป็น mb-8 */}
-          <div className="mb-8">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-8 h-[1px] bg-blue-500" />
-              <span className="text-blue-500 uppercase tracking-widest text-xs font-bold">
-                Why Choose Us
-              </span>
-            </div>
-            {/* 🌟 ลดขนาดตัวอักษรลงเป็น lg:text-5xl (จากเดิม 6xl) */}
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white leading-[1.1]">
-              {service.whyTitle}
-            </h2>
-          </div>
-
-          {/* --- 2. ภาพประกอบ --- */}
+          {/* --- ภาพประกอบ --- */}
           {/* 🌟 เปลี่ยนมาใช้ aspect-video (สัดส่วน 16:9) เพื่อให้ภาพกว้างและไม่สูงจนล้นจอ */}
           <div className="aspect-video relative overflow-hidden bg-[#0a0a0a] border border-white/10 rounded-xl group shadow-2xl">
             <Image
@@ -78,8 +76,6 @@ export default function WhyChooseUs({ service }: WhyChooseUsProps) {
               </div>
             );
           })}
-          {/* เพิ่มพื้นที่ด้านล่างเพื่อให้ Scroll ข้อสุดท้ายพ้นขอบภาพฝั่งซ้ายสวยๆ */}
-          <div className="h-[20vh]" />
         </div>
 
       </div>
