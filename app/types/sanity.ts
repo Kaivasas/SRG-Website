@@ -77,29 +77,28 @@ export interface SanityProductCategory {
   productCount?: number;
 }
 
+export interface SanityProductCore extends SanityProductBase {
+  eyebrow?: string;
+  subtitle?: string;
+  thumbnail?: SanityImageSource;
+  longDescription?: string;
+}
+
 export interface SanityProductBadgeItem {
   name: string;
   image?: SanityImageSource;
 }
 
-export interface SanityProductCard extends SanityProductBase {
+export interface SanityProductCard extends SanityProductCore {
   _id: string;
-  eyebrow?: string;
-  subtitle?: string;
-  thumbnail?: SanityImageSource;
   isFeatured?: boolean;
-  longDescription?: string;
 }
 
 export interface SanityProductCategoryPageData extends SanityProductCategory {
   products: SanityProductCard[];
 }
 
-export interface SanityProductDetail extends SanityProductBase {
-  subtitle?: string;
-  eyebrow?: string;
-  longDescription?: string;
-  thumbnail?: SanityImageSource;
+export interface SanityProductDetail extends SanityProductCore {
   heroImage?: SanityImageSource;
   motionVideoUrl?: string;
   certifications?: SanityProductBadgeItem[];
