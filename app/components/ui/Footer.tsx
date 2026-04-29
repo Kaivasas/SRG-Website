@@ -32,8 +32,9 @@ export default function Footer() {
     <footer className="bg-[#004965] text-white py-20 px-10 md:px-24 flex flex-col md:flex-row justify-between border-t border-[#003850]">
       <div className="mb-12 md:mb-0">
         <h2 className="text-3xl font-black mb-6 tracking-wide">
-          <span className="text-[#F48120]">SUSTAIN</span>{" "}
-          <span className="text-[#939598]">REPUBLIX</span>
+          <span className="bg-[linear-gradient(90deg,#F48120)] bg-clip-text text-transparent">Sustain</span>{" "}
+          <span className="bg-[linear-gradient(90deg,#F48120,#939598)] bg-clip-text text-transparent">Republix</span>{" "}
+          <span className="text-[#939598]">Group Co., Ltd.</span>
         </h2>
         <div className="flex space-x-4">
           {SOCIAL_LINKS.map((social) => (
