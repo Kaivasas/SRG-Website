@@ -134,12 +134,17 @@ export interface SanityBeforeAfter {
   after?: string;
 }
 
+export interface SanityGalleryImage {
+  url: string;
+  aspectRatio: number;
+}
+
 export interface SanityWorkDetail extends SanityWorkBase {
   shortDesc?: string;
   description?: string;
   heroMedia?: string;
   beforeAfter?: SanityBeforeAfter;
   stickySections?: SanityStickySection[];
-  gallery?: string[];
+  gallery?: SanityGalleryImage[];
   metrics?: MetricItem[];
 }
