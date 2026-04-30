@@ -41,7 +41,10 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
       content,
       "image": image.asset->url
     },
-    "gallery": gallery[].asset->url,
+    "gallery": gallery[] {
+      "url": asset->url,
+      "aspectRatio": asset->metadata.dimensions.aspectRatio
+    },
     metrics
   }`;
 
@@ -54,23 +57,23 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   const hasBeforeAfter = Boolean(work.beforeAfter?.before && work.beforeAfter?.after);
 
   // 2. ประกอบร่าง! (โค้ดคลีนขึ้นแบบ 1000%)
-// ... โค้ดดึงข้อมูลด้านบนเหมือนเดิม ...
+  // ... โค้ดดึงข้อมูลด้านบนเหมือนเดิม ...
 
   // 2. ประกอบร่าง! (เรียงลำดับตาม Storytelling Arc)
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans selection:bg-[#F48120] selection:text-white pb-0">
-      
+
       {/* 1. The Context: Hook สายตาและปูเรื่องราว */}
       <WorkHero work={work} />
       <WorkDescription description={work.description ?? ""} />
-      
+
       {/* 2. The Journey: เล่ากระบวนการทำงาน ท่าไม้ตายของ Agency */}
       <Scrollytelling sections={work.stickySections ?? []} />
-      
+
       {/* 3. The Visual Proof: โชว์ความเปลี่ยนแปลงและผลงาน */}
       {hasBeforeAfter ? <BeforeAfterSlider beforeAfter={work.beforeAfter!} /> : null}
       <WorkGallery gallery={work.gallery ?? []} title={work.title} />
-      
+
       {/* 4. The Impact: หมัดฮุกด้วยตัวเลขสถิติความสำเร็จ */}
       <WorkMetrics metrics={work.metrics ?? []} />
 
