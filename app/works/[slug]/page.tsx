@@ -61,17 +61,17 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
       
       {/* 1. The Context: Hook สายตาและปูเรื่องราว */}
       <WorkHero work={work} />
-      <WorkDescription description={work.description} />
+      <WorkDescription description={work.description ?? ""} />
       
       {/* 2. The Journey: เล่ากระบวนการทำงาน ท่าไม้ตายของ Agency */}
-      <Scrollytelling sections={work.stickySections} />
+      <Scrollytelling sections={work.stickySections ?? []} />
       
       {/* 3. The Visual Proof: โชว์ความเปลี่ยนแปลงและผลงาน */}
       {hasBeforeAfter ? <BeforeAfterSlider beforeAfter={work.beforeAfter!} /> : null}
-      <WorkGallery gallery={work.gallery} title={work.title} />
+      <WorkGallery gallery={work.gallery ?? []} title={work.title} />
       
       {/* 4. The Impact: หมัดฮุกด้วยตัวเลขสถิติความสำเร็จ */}
-      <WorkMetrics metrics={work.metrics} />
+      <WorkMetrics metrics={work.metrics ?? []} />
 
       {/* 5. The Next Step: Call to action */}
       <div className="py-24 text-center relative z-20 bg-[#050505]">
