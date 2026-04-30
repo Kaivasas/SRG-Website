@@ -36,13 +36,21 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
         </div>
 
         <div className="border border-white/10 bg-white/5 p-5 sm:p-8">
-          <div className="relative flex min-h-[320px] items-center justify-center overflow-hidden sm:min-h-[360px]">
+          <div
+            className="relative flex items-center justify-center overflow-hidden w-full max-h-[75vh] bg-black/20"
+            style={{
+              // 🌟 เรียกใช้ตรงนี้เลยครับ! ถ้าไม่มีค่าให้ใช้ 4/3 กันเหนียว
+              aspectRatio: product.heroImageAspectRatio || '4 / 3'
+            }}
+          >
             {product.heroImage && (
               <Image
                 src={urlFor(product.heroImage).url()}
                 alt={product.title}
                 fill
-                className="absolute inset-0 z-0 object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                // 🌟 เปลี่ยนจาก object-cover เป็น object-contain
+                className="absolute inset-0 z-0 object-contain"
               />
             )}
 

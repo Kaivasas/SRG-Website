@@ -100,6 +100,7 @@ export interface SanityProductCategoryPageData extends SanityProductCategory {
 
 export interface SanityProductDetail extends SanityProductCore {
   heroImage?: SanityImageSource;
+  heroImageAspectRatio?: number;
   motionVideoUrl?: string;
   certifications?: SanityProductBadgeItem[];
   awards?: SanityProductBadgeItem[];

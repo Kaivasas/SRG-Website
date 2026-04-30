@@ -7,7 +7,8 @@ const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
   ...,
   "category": coalesce(productCategory->title, category),
   "categorySlug": productCategory->slug.current,
-  "motionVideoUrl": motionVideo.asset->url
+  "motionVideoUrl": motionVideo.asset->url,
+  "heroImageAspectRatio": heroImage.asset->metadata.dimensions.aspectRatio,
 }`;
 
 const RELATED_PRODUCTS_QUERY = `*[_type == "product" && slug.current != $slug && productCategory->slug.current == $categorySlug] | order(_createdAt desc)[0...3] {
