@@ -1,8 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
+import type { SanityBeforeAfter } from "@/app/types/sanity";
 
-export default function BeforeAfterSlider({ beforeAfter }: { beforeAfter: any }) {
+export default function BeforeAfterSlider({
+  beforeAfter,
+}: {
+  beforeAfter: SanityBeforeAfter;
+}) {
   const [sliderPos, setSliderPos] = useState(50);
 
   if (!beforeAfter || !beforeAfter.before || !beforeAfter.after) return null;

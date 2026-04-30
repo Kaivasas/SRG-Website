@@ -65,6 +65,18 @@ export default defineType({
       name: 'beforeAfter',
       title: 'ภาพเปรียบเทียบ (Before / After)',
       type: 'object',
+      validation: (Rule) =>
+        Rule.custom((value) => {
+          if (!value) return true
+
+          const hasBefore = Boolean((value as { before?: unknown }).before)
+          const hasAfter = Boolean((value as { after?: unknown }).after)
+
+          if (!hasBefore && !hasAfter) return true
+          if (hasBefore && hasAfter) return true
+
+          return 'Please provide both Before and After images, or leave both empty.'
+        }),
       fields: [
         { name: 'before', title: 'รูป Before', type: 'image' },
         { name: 'after', title: 'รูป After', type: 'image' },

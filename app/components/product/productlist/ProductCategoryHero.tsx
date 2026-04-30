@@ -26,7 +26,7 @@ export default function ProductCategoryHero({
             {category.title}
           </h1>
           <p className="mt-6 max-w-[48rem] text-lg leading-relaxed text-white/72">
-            {category.description || "Products linked to this category from Sanity Studio."}
+            {category.description || "Explore the products available in this category."}
           </p>
         </div>
 

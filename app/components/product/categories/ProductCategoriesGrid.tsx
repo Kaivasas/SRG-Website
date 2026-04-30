@@ -28,7 +28,7 @@ export default function ProductCategoriesGrid({
                 Select A Type
               </span>
               <h2 className="mt-3 text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase tracking-[-0.06em] text-white">
-                Product Collections From Sanity
+                Product Collections
               </h2>
             </div>
           </div>
@@ -93,8 +93,7 @@ export default function ProductCategoriesGrid({
             </div>
           ) : (
             <div className="border border-dashed border-white/15 bg-white/5 px-6 py-12 text-white/70">
-              No product categories are available in Sanity Studio yet. Add a
-              category first, then connect each product through the `Product Category` field.
+              No product categories are available yet. Please check back again soon.
             </div>
           )}
         </div>
