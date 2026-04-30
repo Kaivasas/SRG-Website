@@ -28,12 +28,9 @@ export default function ProductCategoriesGrid({
                 Select A Type
               </span>
               <h2 className="mt-3 text-[clamp(2.5rem,5vw,4.5rem)] font-black uppercase tracking-[-0.06em] text-white">
-                Product Collections From Sanity
+                Product Collections
               </h2>
             </div>
-            <p className="max-w-[34rem] border-l-2 border-[#F48120] pl-4 text-base leading-relaxed text-white/64">
-              สามารถเพิ่มหมวดหมู่ได้จากหน้าของผู้ดูแล
-            </p>
           </div>
 
           {categories.length > 0 ? (
@@ -96,8 +93,7 @@ export default function ProductCategoriesGrid({
             </div>
           ) : (
             <div className="border border-dashed border-white/15 bg-white/5 px-6 py-12 text-white/70">
-              ยังไม่มี Product Category ใน Sanity Studio กรุณาเพิ่มหมวดก่อน แล้วผูก
-              Product แต่ละตัวกับหมวดนั้นผ่านฟิลด์ `Product Category`
+              No product categories are available yet. Please check back again soon.
             </div>
           )}
         </div>

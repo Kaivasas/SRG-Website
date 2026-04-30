@@ -2,6 +2,7 @@
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import type { Metadata } from "next";
+import type { SanityWorkDetail } from "@/app/types/sanity";
 
 // 1. Import Components ที่เราเพิ่งหั่นไว้มาประกอบกัน
 import WorkHero from "@/app/components/works/WorkDetailHero";
@@ -43,11 +44,13 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
     metrics
   }`;
 
-  const work = await client.fetch(query, { slug });
+  const work = await client.fetch<SanityWorkDetail | null>(query, { slug });
 
   if (!work) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white text-2xl">ไม่พบผลงานที่คุณค้นหา</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white text-2xl">The work you are looking for could not be found.</div>;
   }
+
+  const hasBeforeAfter = Boolean(work.beforeAfter?.before && work.beforeAfter?.after);
 
   // 2. ประกอบร่าง! (โค้ดคลีนขึ้นแบบ 1000%)
 // ... โค้ดดึงข้อมูลด้านบนเหมือนเดิม ...
@@ -64,7 +67,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
       <Scrollytelling sections={work.stickySections} />
       
       {/* 3. The Visual Proof: โชว์ความเปลี่ยนแปลงและผลงาน */}
-      <BeforeAfterSlider beforeAfter={work.beforeAfter} />
+      {hasBeforeAfter ? <BeforeAfterSlider beforeAfter={work.beforeAfter!} /> : null}
       <WorkGallery gallery={work.gallery} title={work.title} />
       
       {/* 4. The Impact: หมัดฮุกด้วยตัวเลขสถิติความสำเร็จ */}
