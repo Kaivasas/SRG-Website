@@ -63,7 +63,7 @@ export default defineType({
     // 3. ส่วน Before / After Slider
     defineField({
       name: 'beforeAfter',
-      title: 'ภาพเปรียบเทียบ (Before / After)',
+      title: 'ภาพเปรียบเทียบ (Before / After) *No request*',
       type: 'object',
       validation: (Rule) =>
         Rule.custom((value) => {
