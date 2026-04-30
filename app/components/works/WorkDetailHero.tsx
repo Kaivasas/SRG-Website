@@ -88,16 +88,28 @@ export default function WorkHero({ work }: { work: any }) {
         </div>
 
         {/* ฝั่งขวา: รูปภาพ (โครงสร้างเดิมของน้องเป๊ะๆ) */}
-        <div className="w-full md:w-7/12 aspect-[4/3] md:aspect-video bg-gray-900 rounded-lg overflow-hidden relative shadow-2xl z-10">
+        {/* ฝั่งขวา: รูปภาพ (Dynamic Aspect Ratio) */}
+        <div
+          className="w-full md:w-7/12 relative rounded-lg overflow-hidden shadow-2xl z-10 max-h-[75vh]"
+          style={{
+            // 🌟 พระเอกอยู่ตรงนี้: สั่งให้กล่องมีสัดส่วนเท่ากับรูปเป๊ะๆ ถ้าไม่มีข้อมูลให้ใช้ 16/9 เป็นค่าเริ่มต้น
+            aspectRatio: work.heroAspectRatio || '16 / 9'
+          }}
+        >
           {work.heroMedia ? (
-            <Image src={work.heroMedia}
+            <Image
+              src={work.heroMedia}
               alt={work.title}
               fill={true}
               priority={true}
               sizes="(max-width: 768px) 100vw, 58vw"
-              className="w-full h-full object-cover" />
+              // 🌟 เปลี่ยนเป็น object-contain ป้องกันการโดนตัดขอบกรณีที่รูปยาวจนติดเพดาน max-h
+              className="w-full h-full object-contain bg-[#050505]"
+            />
           ) : (
-            <div className="flex items-center justify-center h-full text-gray-600">Video / Image Placeholder</div>
+            <div className="flex items-center justify-center h-full text-gray-600 bg-gray-900 aspect-video">
+              Video / Image Placeholder
+            </div>
           )}
         </div>
 
