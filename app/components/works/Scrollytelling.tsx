@@ -40,6 +40,9 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
 
       const vh = window.innerHeight;
       const boxHeight = boxRef.current.clientHeight;
+      const isMobile = window.innerWidth < 768;
+      const scrollFactor = isMobile ? 0.4 : 0.8;
+      
       let totalScrollHeight = 0;
       const hArray: number[] = [];
       const mArray: number[] = [];
@@ -50,7 +53,7 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
         const maxScroll = Math.max(0, contentHeight - boxHeight + 80); 
         mArray.push(maxScroll);
 
-        const scrollDistanceForThisSection = (vh * 0.8) + maxScroll;
+        const scrollDistanceForThisSection = (vh * scrollFactor) + maxScroll;
         hArray.push(scrollDistanceForThisSection);
         totalScrollHeight += scrollDistanceForThisSection;
       });
@@ -124,6 +127,62 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
   }, [sections]);
 
   if (!sections || sections.length === 0) return null;
+
+  if (sections.length === 1) {
+    const section = sections[0];
+    const contentItems = normalizeContent(section.content);
+    const autoNumber = "01";
+
+    return (
+      <section className="relative w-full border-t border-white/10 bg-[#050505] py-20">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-12 px-6 md:flex-row lg:gap-20 md:px-12 group">
+          {/* รูปภาพ */}
+          <div className="relative aspect-video w-full md:w-2/5 overflow-hidden rounded-md border border-white/10 bg-[#0a0f16] shadow-2xl">
+            <Image
+              src={section.image}
+              alt={section.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 40vw"
+              className="object-cover transition-all duration-[1500ms] ease-out grayscale group-hover:grayscale-0 scale-100"
+            />
+          </div>
+
+          {/* หัวข้อ + เนื้อหา */}
+          <div className="relative flex w-full flex-col justify-center md:w-3/5">
+            <div className="relative mb-8 w-full shrink-0">
+              <div className="flex items-center gap-4 mb-3">
+                <span className="text-[#F48120] font-bold tracking-[0.2em] text-sm">{autoNumber}</span>
+                <div className="w-12 h-[1px] bg-white/20"></div>
+              </div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white to-gray-500 pb-2">
+                {section.title}
+              </h2>
+            </div>
+            
+            <div className="relative border-l border-white/10 pl-6 md:pl-10">
+              {contentItems.length > 0 ? (
+                <ul className="space-y-6 md:space-y-8">
+                  {contentItems.map((item: string, i: number) => (
+                    <li
+                      key={i}
+                      className="text-lg font-light leading-[1.8] text-white/70 md:text-xl lg:text-2xl break-words whitespace-pre-line"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-lg font-light text-white/40">
+                  No details available.
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section ref={containerRef} className="relative w-full border-t border-white/10 bg-[#050505]">
