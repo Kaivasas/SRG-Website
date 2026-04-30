@@ -38,7 +38,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
   const service = await client.fetch(query, { slug });
 
   if (!service) {
-    return <div className="min-h-screen flex items-center justify-center text-2xl bg-black text-white">ไม่พบบริการที่คุณค้นหา</div>;
+    return <div className="min-h-screen flex items-center justify-center text-2xl bg-black text-white">The service you are looking for could not be found.</div>;
   }
 
   return (

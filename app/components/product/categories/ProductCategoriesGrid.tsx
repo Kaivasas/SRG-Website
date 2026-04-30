@@ -32,7 +32,7 @@ export default function ProductCategoriesGrid({
               </h2>
             </div>
             <p className="max-w-[34rem] border-l-2 border-[#F48120] pl-4 text-base leading-relaxed text-white/64">
-              สามารถเพิ่มหมวดหมู่ได้จากหน้าของผู้ดูแล
+              Categories can be added and managed directly from the admin panel.
             </p>
           </div>
 
@@ -96,8 +96,8 @@ export default function ProductCategoriesGrid({
             </div>
           ) : (
             <div className="border border-dashed border-white/15 bg-white/5 px-6 py-12 text-white/70">
-              ยังไม่มี Product Category ใน Sanity Studio กรุณาเพิ่มหมวดก่อน แล้วผูก
-              Product แต่ละตัวกับหมวดนั้นผ่านฟิลด์ `Product Category`
+              No product categories are available in Sanity Studio yet. Add a
+              category first, then connect each product through the `Product Category` field.
             </div>
           )}
         </div>

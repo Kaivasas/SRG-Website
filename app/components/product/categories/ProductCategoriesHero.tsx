@@ -21,8 +21,8 @@ export default function ProductCategoriesHero() {
           </h1>
         </div>
         <p className="mt-6 max-w-[860px] text-[clamp(1.05rem,2vw,1.25rem)] leading-relaxed text-white/72">
-          เปิดดูประเภทสินค้าหรือประเภทร้านที่เพิ่มจาก Sanity ได้เลย
-          แล้วค่อยเจาะเข้าไปดูสินค้าที่อยู่ในหมวดนั้นแบบแยกเป็นสัดส่วน
+          Explore the product categories added from Sanity, then dive into each
+          collection to view the products grouped inside it.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">

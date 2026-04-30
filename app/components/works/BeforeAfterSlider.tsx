@@ -24,7 +24,7 @@ export default function BeforeAfterSlider({ beforeAfter }: { beforeAfter: any })
           </h2>
         </div>
         <p className="text-white/50 text-base md:text-lg max-w-sm font-light leading-relaxed pb-2">
-          เลื่อนเพื่อดูผลลัพธ์และความเปลี่ยนแปลง ก่อนและหลังการทำงานของเรา
+          Drag the slider to compare the results and see the transformation before and after our work.
         </p>
       </div>
 

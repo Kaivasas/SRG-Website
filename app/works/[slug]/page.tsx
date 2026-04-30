@@ -46,7 +46,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
   const work = await client.fetch(query, { slug });
 
   if (!work) {
-    return <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white text-2xl">ไม่พบผลงานที่คุณค้นหา</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-[#050505] text-white text-2xl">The work you are looking for could not be found.</div>;
   }
 
   // 2. ประกอบร่าง! (โค้ดคลีนขึ้นแบบ 1000%)

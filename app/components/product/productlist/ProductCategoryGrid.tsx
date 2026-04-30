@@ -88,7 +88,7 @@ export default function ProductCategoryGrid({
           </div>
         ) : (
           <div className="border border-dashed border-white/15 bg-white/5 px-6 py-12 text-white/70">
-            ยังไม่มีหมวดสินค้าให้เลือก
+            No product categories are available yet.
           </div>
         )}
       </section>

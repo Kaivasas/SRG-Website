@@ -63,7 +63,7 @@ export default function Home() {
       {/* ลบ bg-white/90, backdrop-blur-md และ border ออกตามที่ต้องการ */}
       <section className="py-24 flex flex-col items-center z-10 relative">
         {/* เปลี่ยนสีตัวหนังสือเป็นสีขาวและใส่เงา เพื่อให้อ่านออกเมื่อชนกับวิดีโอด้านหลัง */}
-        <h2 className="text-3xl font-bold mb-10 text-white drop-shadow-lg">แบรนด์ที่ไว้วางใจกับทางเรา</h2>
+        <h2 className="text-3xl font-bold mb-10 text-white drop-shadow-lg">Brands That Trust Us</h2>
         
         {/* ปรับกล่อง Grid ให้มีความโปร่งใสเข้ากับพื้นหลัง */}
         <div className="w-full max-w-5xl bg-white/5 h-64 border-2 border-dashed border-white/20 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm">
@@ -81,15 +81,15 @@ export default function Home() {
       {/* 2. Services Section (Stacking Cards) */}
       <section id="services" className="py-24 relative">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-4xl font-bold text-center mb-20 text-white drop-shadow-md">บริการของทางเรา</h2>
+          <h2 className="text-4xl font-bold text-center mb-20 text-white drop-shadow-md">Our Services</h2>
           
           <div className="flex flex-col gap-6 pb-32">
             {/* Card 1 - ล็อคที่ 15vh */}
             <div className="sticky top-[15vh] bg-gray-800 text-white rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center shadow-2xl border border-gray-700 transition-transform duration-500 hover:scale-[1.02]">
               <div className="mb-6 md:mb-0">
-                <h3 className="text-3xl font-bold mb-4">บริการที่ 1</h3>
-                <p className="mb-6 text-gray-300 max-w-sm text-lg">รายละเอียดหรือคำเล็กๆน้อยเกี่ยวกับบริการนี้</p>
-                <a href="#" className="underline text-blue-400 font-medium">ดูรายละเอียดเพิ่มเติม</a>
+                <h3 className="text-3xl font-bold mb-4">Service 1</h3>
+                <p className="mb-6 text-gray-300 max-w-sm text-lg">A short description or supporting details about this service.</p>
+                <a href="#" className="underline text-blue-400 font-medium">View More Details</a>
               </div>
               <div className="w-64 h-40 bg-black/50 rounded-2xl flex items-center justify-center border border-gray-600">
                 <span className="text-3xl font-bold">X</span>
@@ -99,9 +99,9 @@ export default function Home() {
             {/* Card 2 - ล็อคที่ 18vh (ทับการ์ดแรกนิดๆ) */}
             <div className="sticky top-[18vh] bg-blue-900 text-white rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center shadow-2xl border border-blue-800 transition-transform duration-500 hover:scale-[1.02]">
               <div className="mb-6 md:mb-0">
-                <h3 className="text-3xl font-bold mb-4">บริการที่ 2</h3>
-                <p className="mb-6 text-gray-300 max-w-sm text-lg">รายละเอียดที่แตกต่างออกไปของการบริการที่สอง</p>
-                <a href="#" className="underline text-blue-300 font-medium">ดูรายละเอียดเพิ่มเติม</a>
+                <h3 className="text-3xl font-bold mb-4">Service 2</h3>
+                <p className="mb-6 text-gray-300 max-w-sm text-lg">A different description highlighting what makes the second service unique.</p>
+                <a href="#" className="underline text-blue-300 font-medium">View More Details</a>
               </div>
               <div className="w-64 h-40 bg-black/50 rounded-2xl flex items-center justify-center border border-blue-700">
                 <span className="text-3xl font-bold">X</span>
@@ -111,9 +111,9 @@ export default function Home() {
             {/* Card 3 - ล็อคที่ 21vh */}
             <div className="sticky top-[21vh] bg-white text-gray-900 rounded-3xl p-10 flex flex-col md:flex-row justify-between items-center shadow-2xl border border-gray-200 transition-transform duration-500 hover:scale-[1.02]">
               <div className="mb-6 md:mb-0">
-                <h3 className="text-3xl font-bold mb-4">บริการที่ 3</h3>
-                <p className="mb-6 text-gray-600 max-w-sm text-lg">บริการสุดท้ายที่พร้อมจะตอบโจทย์ธุรกิจของคุณ</p>
-                <a href="#" className="underline text-blue-600 font-medium">ดูรายละเอียดเพิ่มเติม</a>
+                <h3 className="text-3xl font-bold mb-4">Service 3</h3>
+                <p className="mb-6 text-gray-600 max-w-sm text-lg">A final service built to answer your business needs.</p>
+                <a href="#" className="underline text-blue-600 font-medium">View More Details</a>
               </div>
               <div className="w-64 h-40 bg-gray-200 rounded-2xl flex items-center justify-center border border-gray-300">
                 <span className="text-3xl font-bold text-gray-400">X</span>
@@ -128,7 +128,7 @@ export default function Home() {
       <section id="works" ref={projectSectionRef} className="h-[300vh] relative bg-white/90 backdrop-blur-md">
         {/* กล่องนี้จะ Sticky ล็อคติดหน้าจอไว้ */}
         <div className="sticky top-0 h-screen flex flex-col justify-center overflow-hidden">
-          <h2 className="text-4xl font-bold text-center mb-16">โปรเจคของเรา</h2>
+          <h2 className="text-4xl font-bold text-center mb-16">Our Projects</h2>
           
           {/* ขยับกล่องแนวนอนตามค่าเปอร์เซ็นต์โปรเกรสการ Scroll */}
           {/* 50% หมายถึงให้เลื่อนซ้ายไปครึ่งนึงของความกว้างทั้งหมด (ปรับเลขได้ตามจำนวนการ์ด) */}
@@ -165,17 +165,17 @@ export default function Home() {
 
       {/* Testimonials */}
       <section className="py-32 bg-gray-50/95 backdrop-blur-sm flex flex-col items-center border-t border-gray-200">
-        <h2 className="text-3xl font-bold mb-16 text-center w-full max-w-5xl bg-gray-200 py-6 rounded-2xl">เสียงจากลูกค้าของเรา</h2>
+        <h2 className="text-3xl font-bold mb-16 text-center w-full max-w-5xl bg-gray-200 py-6 rounded-2xl">What Our Clients Say</h2>
         <div className="flex items-center justify-center space-x-8 w-full max-w-5xl relative h-80">
           <button className="z-10 text-5xl font-light hover:scale-110 transition hover:text-blue-600">&#8592;</button>
           
           <div className="z-10 bg-white w-[500px] p-12 flex flex-col items-center text-center shadow-2xl rounded-3xl border border-gray-100 relative">
             <div className="absolute -top-10 w-20 h-20 bg-gray-800 text-white rounded-full flex items-center justify-center text-xl font-bold border-4 border-white shadow-lg">X</div>
-            <h4 className="font-bold text-xl mt-6 mb-4">ชื่อแบรนด์</h4>
-            <p className="text-lg text-gray-600 mb-8 italic">"ความคิดเห็น เช่น จากทางแบรนด์เราได้ใช้บริการรู้สึกประทับใจและเห็นผลได้จริง ...."</p>
+            <h4 className="font-bold text-xl mt-6 mb-4">Brand Name</h4>
+            <p className="text-lg text-gray-600 mb-8 italic">"A sample testimonial about the experience, the quality of the service, and the real results delivered."</p>
             <div>
-              <p className="font-bold">ชื่อผู้ให้ความคิดเห็น</p>
-              <p className="text-gray-500 text-sm">ตำแหน่งในบริษัท</p>
+              <p className="font-bold">Reviewer Name</p>
+              <p className="text-gray-500 text-sm">Job Title</p>
             </div>
           </div>
 
@@ -186,10 +186,10 @@ export default function Home() {
       {/* CTA & Footer */}
       <div className="bg-white/95 backdrop-blur-md relative z-10 border-t border-gray-200 shadow-[0_-10px_40px_rgba(0,0,0,0.05)]">
         <section id="contact" className="py-32 flex flex-col items-center text-center px-6">
-          <h2 className="text-5xl font-bold mb-6">อยากเปลี่ยนแปลงและพัฒนา</h2>
-          <p className="text-xl text-gray-600 mb-12">ร่วมมือไปกับเรา ก้าวไปกับเรา แล้วคุณจะไม่ผิดหวัง</p>
+          <h2 className="text-5xl font-bold mb-6">Ready to Grow and Transform?</h2>
+          <p className="text-xl text-gray-600 mb-12">Work with us, move forward with confidence, and build something meaningful together.</p>
           <button className="bg-black text-white font-bold py-5 px-16 rounded-full text-xl shadow-2xl hover:bg-blue-600 hover:shadow-blue-500/30 transform transition hover:-translate-y-2">
-            ติดต่อเรา
+            Contact Us
           </button>
         </section>
 
@@ -203,7 +203,7 @@ export default function Home() {
             </div>
           </div>
           <div className="max-w-md">
-            <h2 className="text-4xl font-bold mb-8">เรารอคุณอยู่</h2>
+            <h2 className="text-4xl font-bold mb-8">We'd Love to Hear From You</h2>
             <p className="mb-8 font-bold text-xl">Test@gmail.com</p>
             <p className="text-base leading-relaxed text-gray-600">
               Sustain Republix Group Co.,Ltd.,<br />

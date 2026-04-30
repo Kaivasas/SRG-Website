@@ -64,7 +64,7 @@ export default async function ProductsSection() {
                         href={`/products/${product.slug}`}
                         className={`inline-flex items-center gap-4 font-bold uppercase tracking-wider group/link transition-colors ${colorClass}`}
                       >
-                        ดูรายละเอียด <span className="transform group-hover/link:translate-x-2 transition-transform">&rarr;</span>
+                        View Details <span className="transform group-hover/link:translate-x-2 transition-transform">&rarr;</span>
                       </Link>
                     </div>
                   </div>
