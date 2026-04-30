@@ -1,11 +1,19 @@
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 // Import Components ที่เราเพิ่งหั่นไว้
 import ServiceHero from "@/app/components/services/ServiceHero";
 import WhyChooseUs from "@/app/components/services/WhyChooseUs";
 import ServicePortfolio from "@/app/components/services/ServicePortfolio";
 import ServiceCTA from "@/app/components/services/ServiceCTA";
+
+import { generateDynamicMetadata } from "@/app/lib/seoHelper";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return generateDynamicMetadata({ type: "service", slug });
+}
 
 export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

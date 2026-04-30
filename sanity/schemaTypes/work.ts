@@ -117,5 +117,12 @@ export default defineType({
         },
       ],
     }),
+
+    // 7. SEO
+    defineField({
+      name: 'seo',
+      title: 'SEO Settings (ตั้งค่าการค้นหา)',
+      type: 'seo',
+    }),
   ],
 })

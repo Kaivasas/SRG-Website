@@ -54,6 +54,13 @@ export default defineType({
       title: 'ผลงานที่เกี่ยวข้อง (ดึงจาก Works)',
       type: 'array',
       of: [{ type: 'reference', to: [{ type: 'work' }] }]
+    }),
+
+    // SEO
+    defineField({
+      name: 'seo',
+      title: 'SEO Settings (ตั้งค่าการค้นหา)',
+      type: 'seo',
     })
   ]
 })

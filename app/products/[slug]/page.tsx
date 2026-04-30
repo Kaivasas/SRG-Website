@@ -26,6 +26,14 @@ export async function generateStaticParams() {
   }
 }
 
+import type { Metadata } from "next";
+import { generateDynamicMetadata } from "@/app/lib/seoHelper";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return generateDynamicMetadata({ type: "product", slug });
+}
+
 export default async function ProductDetailPage({
   params,
 }: {

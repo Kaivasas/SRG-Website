@@ -141,6 +141,11 @@ export const product = defineType({
       description: "Enable this if the product should appear in the homepage featured section.",
       initialValue: false,
     }),
+    defineField({
+      name: "seo",
+      title: "SEO Settings (ตั้งค่าการค้นหา)",
+      type: "seo",
+    }),
   ],
   preview: {
     select: {
