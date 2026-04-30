@@ -7,8 +7,10 @@ import { productCategory } from './productCategory'
 import service from './service'
 import logobrand from './clientLogo'
 import testimonial from './testimonial'
+import { seo } from './seo'
+import { siteSettings } from './siteSettings'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   // 2. จับใส่ Array ตรงนี้
-  types: [work, productCategory, product, service, logobrand, testimonial],
+  types: [work, productCategory, product, service, logobrand, testimonial, seo, siteSettings],
 }

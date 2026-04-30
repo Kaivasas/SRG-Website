@@ -1,6 +1,7 @@
 // app/works/[slug]/page.tsx
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 // 1. Import Components ที่เราเพิ่งหั่นไว้มาประกอบกัน
 import WorkHero from "@/app/components/works/WorkDetailHero";
@@ -9,6 +10,13 @@ import BeforeAfterSlider from "@/app/components/works/BeforeAfterSlider";
 import Scrollytelling from "@/app/components/works/Scrollytelling";
 import WorkGallery from "@/app/components/works/WorkGallery";
 import WorkMetrics from "@/app/components/works/WorkMetrics";
+
+import { generateDynamicMetadata } from "@/app/lib/seoHelper";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  return generateDynamicMetadata({ type: "work", slug });
+}
 
 export default async function WorkDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

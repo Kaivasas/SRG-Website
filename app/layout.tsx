@@ -10,10 +10,35 @@ import type { SanityServiceBase } from "@/app/types/sanity";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Sustain Republix",
-  description: "Your Partner in Digital Growth",
-};
+const SITE_SETTINGS_QUERY = `*[_type == "siteSettings"][0] {
+  siteTitle,
+  seo {
+    metaTitle,
+    metaDescription
+  }
+}`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await sanityFetchSafe<any>(SITE_SETTINGS_QUERY);
+  
+  const siteTitle = settings?.siteTitle || "Sustain Republix";
+  const defaultTitle = settings?.seo?.metaTitle || siteTitle;
+  const defaultDesc = settings?.seo?.metaDescription || "Your Partner in Digital Growth";
+
+  return {
+    title: {
+      template: `%s | ${siteTitle}`,
+      default: defaultTitle,
+    },
+    description: defaultDesc,
+    openGraph: {
+      title: defaultTitle,
+      description: defaultDesc,
+      siteName: siteTitle,
+      type: "website",
+    },
+  };
+}
 
 const SERVICES_NAV_QUERY = `*[_type == "service"] | order(title asc) {
   title,
