@@ -31,6 +31,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
     shortDesc,
     description,
     "heroMedia": heroMedia.asset->url,
+    "heroAspectRatio": heroMedia.asset->metadata.dimensions.aspectRatio,
     beforeAfter {
       "before": before.asset->url,
       "after": after.asset->url
