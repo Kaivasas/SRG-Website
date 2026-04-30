@@ -31,9 +31,6 @@ export default function ProductCategoriesGrid({
                 Product Collections From Sanity
               </h2>
             </div>
-            <p className="max-w-[34rem] border-l-2 border-[#F48120] pl-4 text-base leading-relaxed text-white/64">
-              Categories can be added and managed directly from the admin panel.
-            </p>
           </div>
 
           {categories.length > 0 ? (
