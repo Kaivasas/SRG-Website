@@ -7,8 +7,8 @@ const BG_VIDEO_URL =
 const MAX_BLUR_PX = 40;
 
 export default function BlurredBackground() {
-  const [bgBlur, setBgBlur] = useState(0);
   const rafRef = useRef<number>(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,7 +17,11 @@ export default function BlurredBackground() {
         const scrollY = window.scrollY;
         const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
         const fraction = totalHeight > 0 ? scrollY / totalHeight : 0;
-        setBgBlur(fraction * MAX_BLUR_PX);
+        const blurValue = fraction * MAX_BLUR_PX;
+        
+        if (videoRef.current) {
+          videoRef.current.style.filter = `blur(${blurValue}px)`;
+        }
       });
     };
 
@@ -32,13 +36,14 @@ export default function BlurredBackground() {
   return (
     <div className="fixed inset-0 z-[-1] bg-black">
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
         preload="auto"
-        className="w-full h-full object-cover opacity-40 scale-105"
-        style={{ filter: `blur(${bgBlur}px)`, transition: "filter 0.1s ease-out" }}
+        className="w-full h-full object-cover opacity-40 scale-105 will-change-[filter]"
+        style={{ filter: "blur(0px)" }}
       >
         <source src={BG_VIDEO_URL} type="video/mp4" />
       </video>

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import BrandLoader from "./BrandLoader";
 
-const MIN_LOADER_MS = 2400;
+const MIN_LOADER_MS = 800;
 const EXIT_FADE_MS = 220;
 
 export default function TransitionLoader() {
