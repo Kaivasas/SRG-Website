@@ -48,18 +48,25 @@ export default async function ProductsSection() {
 
             return (
               <Reveal key={product.slug} delayMs={index * 100 + 100}>
-                <div className={`group flex flex-col items-stretch min-h-100 border-b border-white/10 ${isEven ? "md:flex-row" : "md:flex-row-reverse"}`}>
+                {/* 🌟 1. ล็อกความสูงของการ์ดบนหน้าจอคอมให้เท่ากันทุกใบ (เช่น 500px) */}
+                <div className={`group flex flex-col items-stretch border-b border-white/10 md:h-[450px] lg:h-[500px] ${isEven ? "md:flex-row" : "md:flex-row-reverse"}`}>
+                  
+                  {/* ฝั่งซ้าย: กล่องข้อความ */}
                   <div className="w-full md:w-1/2 p-10 md:p-16 flex flex-col justify-center relative overflow-hidden transition-colors duration-500 hover:bg-white/5">
                     <span className="absolute -left-4 -top-10 text-[10rem] font-black text-white/5 z-0 pointer-events-none transition-transform duration-500 group-hover:scale-110">
                       0{index + 1}
                     </span>
                     <div className="relative z-10">
-                      <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white uppercase tracking-wide break-words">
+                      {/* เราสามารถใช้ line-clamp-2 เผื่อกรณีที่ title ยาวเกินไปได้ด้วย */}
+                      <h3 className="text-3xl md:text-4xl font-bold mb-4 text-white uppercase tracking-wide break-words line-clamp-2">
                         {product.title}
                       </h3>
-                      <p className="mb-8 text-gray-400 text-lg leading-relaxed font-light break-words whitespace-pre-wrap">
-                        {product.longDescription}
+                      
+                      {/* 🌟 2. ใช้ line-clamp-4 เพื่อบังคับให้แสดงข้อความแค่ 4 บรรทัด (ส่วนเกินจะเป็น ...) */}
+                      <p className="mb-8 text-gray-400 text-lg md:text-base lg:text-lg leading-relaxed font-light break-words whitespace-pre-wrap line-clamp-4 md:line-clamp-5">
+                        {product.subtitle}
                       </p>
+                      
                       <Link
                         href={`/products/${product.slug}`}
                         className={`inline-flex items-center gap-4 font-bold uppercase tracking-wider group/link transition-colors ${colorClass}`}
@@ -69,7 +76,8 @@ export default async function ProductsSection() {
                     </div>
                   </div>
 
-                  <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] md:min-h-75 overflow-hidden">
+                  {/* ฝั่งขวา: รูปภาพ */}
+                  <div className="w-full md:w-1/2 relative bg-gray-900 min-h-[300px] md:min-h-full overflow-hidden">
                     {product.thumbnail && (
                       <Image
                         src={urlFor(product.thumbnail).url()}

@@ -101,15 +101,24 @@ export default function ServiceClient({ servicesData = [] }: ServiceClientProps)
                       )}
                     </div>
 
-                    <div className="w-full md:w-1/2 h-48 md:h-full rounded-3xl overflow-hidden relative group shrink-0">
-                      <div className={`absolute inset-0 ${svc.overlayClass} group-hover:bg-transparent transition duration-500 z-10`} />
-                      <Image
-                        src={svc.image}
-                        alt={svc.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover group-hover:scale-110 transition duration-700"
-                      />
+                    {/* ✅ โค้ดใหม่: สร้าง Display Frame ให้รูปภาพ */}
+                    <div className="w-full md:w-1/2 h-48 md:h-full rounded-3xl overflow-hidden relative group shrink-0 bg-black/30 border border-white/5 flex items-center justify-center p-4 md:p-8">
+
+                      {/* Overlay สีฟ้า/เทา (เพิ่ม pointer-events-none เพื่อไม่ให้บังการชี้เมาส์) */}
+                      <div className={`absolute inset-0 ${svc.overlayClass} group-hover:bg-transparent transition duration-500 z-10 pointer-events-none`} />
+
+                      {/* กล่องจัดระเบียบรูปภาพให้อยู่ตรงกลางเสมอ */}
+                      <div className="relative w-full h-full flex items-center justify-center">
+                        <Image
+                          src={svc.image}
+                          alt={svc.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          // 🌟 พระเอกของเรา: เปลี่ยนเป็น object-contain เพื่อไม่ให้ภาพโดนตัด
+                          className="object-contain drop-shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:scale-105 transition-transform duration-700 ease-out"
+                        />
+                      </div>
+
                     </div>
                   </div>
                 </div>

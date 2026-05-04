@@ -45,15 +45,23 @@ export default function WorksClient({ worksData = [] }: WorksClientProps) {
               key={index}
               className="w-[85vw] md:w-[600px] lg:w-[800px] shrink-0 group cursor-pointer"
             >
-              <div className="aspect-video bg-gray-900 mb-6 md:mb-8 overflow-hidden relative border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl md:rounded-3xl">
-                <Image
-                  src={work.thumbnail || FALLBACK_THUMBNAIL}
-                  alt={work.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 800px"
-                  className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              {/* ✅ โค้ดใหม่: Gallery Frame Style */}
+              <div className="aspect-video bg-[#050505] mb-6 md:mb-8 overflow-hidden relative border border-white/10 shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl md:rounded-3xl flex items-center justify-center p-6 md:p-12">
+
+                {/* กรอบด้านในสำหรับจัดระเบียบรูปให้อยู่ตรงกลาง */}
+                <div className="relative w-full h-full flex items-center justify-center">
+                  <Image
+                    src={work.thumbnail || FALLBACK_THUMBNAIL}
+                    alt={work.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    // 🌟 เปลี่ยนเป็น object-contain และเพิ่ม drop-shadow ให้รูปลอยเด่นขึ้นมา
+                    className="object-contain grayscale group-hover:grayscale-0 drop-shadow-[0_15px_35px_rgba(0,0,0,0.6)] group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                </div>
+
+                {/* Overlay สีฟ้าจางๆ ตอน Hover (ใส่ pointer-events-none กันบั๊กชี้เมาส์) */}
+                <div className="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </div>
               <div>
                 <h4 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 uppercase group-hover:text-blue-400 transition-colors tracking-tight line-clamp-1">
