@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 
 interface GenerateSeoProps {
   type: string;
@@ -11,13 +12,19 @@ interface GenerateSeoProps {
  * เพื่อลดการเขียนโค้ดซ้ำซ้อนในแต่ละหน้า
  */
 export async function generateDynamicMetadata({ type, slug }: GenerateSeoProps): Promise<Metadata> {
-  const query = `*[_type == $type && slug.current == $slug][0] { title, seo }`;
-  const data = await client.fetch(query, { type, slug });
+  const SEO_QUERY = defineQuery(`*[_type == $type && slug.current == $slug][0] { title, seo }`);
+  const { data } = await sanityFetch({ 
+    query: SEO_QUERY, 
+    params: { type, slug },
+    stega: false // Critical for SEO to avoid invisible characters in metadata
+  });
 
   if (!data) return {};
 
+  const typedData = data as { title: string; seo?: { metaTitle?: string; metaDescription?: string } };
+
   return {
-    title: data.seo?.metaTitle || data.title,
-    description: data.seo?.metaDescription,
+    title: typedData.seo?.metaTitle || typedData.title,
+    description: typedData.seo?.metaDescription,
   };
 }

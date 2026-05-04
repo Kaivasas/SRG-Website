@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const testimonial = defineType({
   name: 'testimonial',
   title: 'Testimonials (รีวิวจากลูกค้า)',
   type: 'document',

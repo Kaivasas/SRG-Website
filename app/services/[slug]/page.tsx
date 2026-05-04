@@ -1,4 +1,5 @@
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 import Link from "next/link";
 import type { Metadata } from "next";
 
@@ -15,10 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return generateDynamicMetadata({ type: "service", slug });
 }
 
-export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-
-  const query = `*[_type == "service" && slug.current == $slug][0] {
+const SERVICE_QUERY = defineQuery(`*[_type == "service" && slug.current == $slug][0] {
     title,
     "slug": slug.current,
     category,
@@ -33,9 +31,15 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
       "slug": slug.current,
       "image": thumbnail.asset->url
     }
-  }`;
+  }`);
 
-  const service = await client.fetch(query, { slug });
+export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+
+  const { data: service } = await sanityFetch({ 
+    query: SERVICE_QUERY, 
+    params: { slug } 
+  });
 
   if (!service) {
     return <div className="min-h-screen flex items-center justify-center text-2xl bg-black text-white">The service you are looking for could not be found.</div>;

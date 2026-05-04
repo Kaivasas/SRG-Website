@@ -73,66 +73,14 @@ export const product = defineType({
       title: "Certifications",
       type: "array",
       description: "Optional. If left empty, the Certificates section will not be shown on the product page.",
-      of: [
-        defineField({
-          name: "certificationItem",
-          title: "Certification Item",
-          type: "object",
-          fields: [
-            defineField({
-              name: "name",
-              title: "Certificate Name",
-              type: "string",
-            }),
-            defineField({
-              name: "image",
-              title: "Certificate Image / Logo",
-              type: "image",
-              description: "Add a certification logo such as FDA, GMP, or other approval marks.",
-              options: { hotspot: true },
-            }),
-          ],
-          preview: {
-            select: {
-              title: "name",
-              media: "image",
-            },
-          },
-        }),
-      ],
+      of: [{ type: "badgeItem" }],
     }),
     defineField({
       name: "awards",
       title: "Awards",
       type: "array",
       description: "Optional. If left empty, the Recognition & Awards section will not be shown on the product page.",
-      of: [
-        defineField({
-          name: "awardItem",
-          title: "Award Item",
-          type: "object",
-          fields: [
-            defineField({
-              name: "name",
-              title: "Award Name",
-              type: "string",
-            }),
-            defineField({
-              name: "image",
-              title: "Award Image / Badge",
-              type: "image",
-              description: "Add an award badge, event logo, medal image, or related visual.",
-              options: { hotspot: true },
-            }),
-          ],
-          preview: {
-            select: {
-              title: "name",
-              media: "image",
-            },
-          },
-        }),
-      ],
+      of: [{ type: "badgeItem" }],
     }),
     defineField({
       name: "isFeatured",

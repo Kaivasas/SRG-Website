@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const clientLogo = defineType({
   name: 'clientLogo',
   title: 'Clients (โลโก้ลูกค้า)',
   type: 'document',
