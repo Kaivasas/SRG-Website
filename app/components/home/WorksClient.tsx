@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Reveal from "@/app/components/Reveal";
 import Image from "next/image";
 import Link from "next/link";
-import { useScrollProgress } from "@/app/hooks/useScrollProgress";
+import { motion, useScroll, useTransform } from "framer-motion";
 import type { SanityWorkCard } from "@/app/types/sanity";
 
 const FALLBACK_THUMBNAIL = "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80";
@@ -15,7 +15,12 @@ interface WorksClientProps {
 
 export default function WorksClient({ worksData = [] }: WorksClientProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const scrollProgress = useScrollProgress(sectionRef);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  });
+  
+  const xTransform = useTransform(scrollYProgress, (v) => `calc(-${v * 100}% + ${v * 100}vw)`);
 
   if (!worksData || worksData.length === 0) return null;
 
@@ -35,9 +40,9 @@ export default function WorksClient({ worksData = [] }: WorksClientProps) {
           </Reveal>
         </div>
 
-        <div
-          className="flex gap-8 md:gap-16 px-[10vw] transition-transform duration-100 ease-out will-change-transform w-max"
-          style={{ transform: `translateX(calc(-${scrollProgress * 100}% + ${scrollProgress * 100}vw))` }}
+        <motion.div
+          className="flex gap-8 md:gap-16 px-[10vw] w-max will-change-transform"
+          style={{ x: xTransform }}
         >
           {worksData.map((work, index) => (
             <Link
@@ -76,7 +81,7 @@ export default function WorksClient({ worksData = [] }: WorksClientProps) {
               </div>
             </Link>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
