@@ -101,6 +101,7 @@ export default function ServiceClient({ servicesData = [] }: ServiceClientProps)
                       )}
                     </div>
 
+                    {/* ❌ โค้ดเดิมที่ใช้ object-cover และไม่มีกรอบ */}
                     <div className="w-full md:w-1/2 h-48 md:h-full rounded-3xl overflow-hidden relative group shrink-0">
                       <div className={`absolute inset-0 ${svc.overlayClass} group-hover:bg-transparent transition duration-500 z-10`} />
                       <Image
