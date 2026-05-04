@@ -49,6 +49,7 @@ export default function ProductCategoryHero({ category }: CategoryHeroProps) {
               sizes="(max-width: 1024px) 100vw, 40vw"
               // 🌟 เปลี่ยน object-cover เป็น object-contain
               className="object-contain z-0 drop-shadow-2xl"
+              priority
             />
           ) : (
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_top_left,rgba(250,211,55,0.16),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(0,0,0,0.28))]" />
