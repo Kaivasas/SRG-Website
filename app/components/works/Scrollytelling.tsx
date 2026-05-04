@@ -65,51 +65,62 @@ export default function Scrollytelling({ sections }: { sections: any[] }) {
       handleScroll(); 
     };
 
+    let ticking = false;
     const handleScroll = () => {
-      if (!containerRef.current || sectionScrollHeights.current.length === 0) return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (!containerRef.current || sectionScrollHeights.current.length === 0) {
+            ticking = false;
+            return;
+          }
 
-      const { top } = containerRef.current.getBoundingClientRect();
-      const scrolled = Math.max(0, -top); 
+          const { top } = containerRef.current.getBoundingClientRect();
+          const scrolled = Math.max(0, -top); 
 
-      let accumulatedScroll = 0;
-      let currentIdx = 0;
-      let localScrolled = 0;
+          let accumulatedScroll = 0;
+          let currentIdx = 0;
+          let localScrolled = 0;
 
-      for (let i = 0; i < sectionScrollHeights.current.length; i++) {
-        const sectionH = sectionScrollHeights.current[i];
-        if (scrolled >= accumulatedScroll && scrolled < accumulatedScroll + sectionH) {
-          currentIdx = i;
-          localScrolled = scrolled - accumulatedScroll;
-          break;
-        }
-        accumulatedScroll += sectionH;
-        if (i === sectionScrollHeights.current.length - 1 && scrolled >= accumulatedScroll) {
-          currentIdx = i;
-          localScrolled = scrolled - (accumulatedScroll - sectionH);
-        }
+          for (let i = 0; i < sectionScrollHeights.current.length; i++) {
+            const sectionH = sectionScrollHeights.current[i];
+            if (scrolled >= accumulatedScroll && scrolled < accumulatedScroll + sectionH) {
+              currentIdx = i;
+              localScrolled = scrolled - accumulatedScroll;
+              break;
+            }
+            accumulatedScroll += sectionH;
+            if (i === sectionScrollHeights.current.length - 1 && scrolled >= accumulatedScroll) {
+              currentIdx = i;
+              localScrolled = scrolled - (accumulatedScroll - sectionH);
+            }
+          }
+
+          setActiveSection(currentIdx);
+
+          const maxScrollForCurrent = maxTranslateY.current[currentIdx];
+          const startScrollBuffer = window.innerHeight * 0.3; 
+          let translateY = 0;
+
+          if (localScrolled > startScrollBuffer) {
+            translateY = localScrolled - startScrollBuffer;
+            if (translateY > maxScrollForCurrent) translateY = maxScrollForCurrent; 
+          }
+
+          contentRefs.current.forEach((ref, i) => {
+            if (!ref) return;
+            if (i === currentIdx) {
+              ref.style.transform = `translateY(-${translateY}px)`;
+            } else if (i < currentIdx) {
+              ref.style.transform = `translateY(-${maxTranslateY.current[i]}px)`; 
+            } else {
+              ref.style.transform = `translateY(0px)`;
+            }
+          });
+
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      setActiveSection(currentIdx);
-
-      const maxScrollForCurrent = maxTranslateY.current[currentIdx];
-      const startScrollBuffer = window.innerHeight * 0.3; 
-      let translateY = 0;
-
-      if (localScrolled > startScrollBuffer) {
-        translateY = localScrolled - startScrollBuffer;
-        if (translateY > maxScrollForCurrent) translateY = maxScrollForCurrent; 
-      }
-
-      contentRefs.current.forEach((ref, i) => {
-        if (!ref) return;
-        if (i === currentIdx) {
-          ref.style.transform = `translateY(-${translateY}px)`;
-        } else if (i < currentIdx) {
-          ref.style.transform = `translateY(-${maxTranslateY.current[i]}px)`; 
-        } else {
-          ref.style.transform = `translateY(0px)`;
-        }
-      });
     };
 
     const resizeObserver = new ResizeObserver(() => requestAnimationFrame(() => calculateHeights()));
