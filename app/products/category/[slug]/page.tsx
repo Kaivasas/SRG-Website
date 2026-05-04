@@ -10,6 +10,7 @@ const CATEGORY_PAGE_QUERY = `*[_type == "productCategory" && slug.current == $sl
   "slug": slug.current,
   description,
   coverImage,
+  "coverImageAspectRatio": coverImage.asset->metadata.dimensions.aspectRatio,
   "products": *[_type == "product" && references(^._id)] | order(_updatedAt desc) {
     _id,
     title,
