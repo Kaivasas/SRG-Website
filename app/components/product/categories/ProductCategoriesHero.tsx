@@ -9,8 +9,8 @@ export default function ProductCategoriesHero() {
         </span>
         <div className="mt-6 inline-block">
           <h1 className="text-[clamp(4rem,10vw,8.2rem)] font-black uppercase leading-[0.9] tracking-[-0.08em] text-white drop-shadow-[0_10px_40px_rgba(0,0,0,0.28)]">
-            <span className="block">Choose</span>
-            <span className="block">A Category</span>
+            <span className="block">Our Solutions</span>
+            <span className="block">Categories</span>
           </h1>
         </div>
       </div>
