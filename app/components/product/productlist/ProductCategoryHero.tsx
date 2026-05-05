@@ -6,7 +6,7 @@ import type { SanityProductCategoryPageData } from "@/app/types/sanity";
 
 // 🌟 ขยาย Type ให้รับค่า coverImageAspectRatio ได้
 interface CategoryHeroProps {
-  category: SanityProductCategoryPageData & { coverImageAspectRatio?: number };
+  category: SanityProductCategoryPageData;
 }
 
 export default function ProductCategoryHero({ category }: CategoryHeroProps) {
@@ -44,7 +44,7 @@ export default function ProductCategoryHero({ category }: CategoryHeroProps) {
           {category.coverImage ? (
             <Image
               src={urlFor(category.coverImage).url()}
-              alt={category.title}
+              alt={category.title || "Category Cover"}
               fill
               sizes="(max-width: 1024px) 100vw, 40vw"
               // 🌟 เปลี่ยน object-cover เป็น object-contain

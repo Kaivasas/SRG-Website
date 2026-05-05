@@ -1,17 +1,18 @@
 import React from "react";
-import { sanityFetchSafe } from "@/app/lib/sanityFetch";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 import type { SanityClientLogo } from "@/app/types/sanity";
 import ClientCarousel from "./ClientCarousel";
 import Reveal from "@/app/components/Reveal";
 
-const CLIENTS_QUERY = `*[_type == "clientLogo"] | order(_createdAt desc) {
+const CLIENTS_QUERY = defineQuery(`*[_type == "clientLogo"] | order(_createdAt desc) {
   _id,
   name,
   "logo": logo.asset->url
-}`;
+}`);
 
 export default async function ClientSection() {
-  const clients = await sanityFetchSafe<SanityClientLogo[]>(CLIENTS_QUERY);
+  const { data: clients } = await sanityFetch({ query: CLIENTS_QUERY });
   if (!clients || clients.length === 0) return null;
 
   return (
@@ -20,7 +21,7 @@ export default async function ClientSection() {
         Brands Trust Our Solutions
       </h2>
       <Reveal delayMs={200} className="w-full flex flex-col items-center">
-        <ClientCarousel clients={clients} />
+        <ClientCarousel clients={(clients as SanityClientLogo[])} />
       </Reveal>
     </section>
   );

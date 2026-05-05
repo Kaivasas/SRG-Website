@@ -1,6 +1,6 @@
 import { defineField, defineType } from 'sanity'
 
-export default defineType({
+export const work = defineType({
   name: 'work',
   title: 'Works (ผลงาน)',
   type: 'document',

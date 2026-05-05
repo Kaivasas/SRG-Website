@@ -1,20 +1,16 @@
 import React from "react";
 import Image from "next/image";
 
-// 🌟 สร้าง Type มารับข้อมูลแบบใหม่ที่มี aspectRatio
-export interface GalleryImage {
-  url: string;
-  aspectRatio: number;
-}
+import type { SanityGalleryImage } from "@/app/types/sanity";
 
-export default function WorkGallery({ gallery, title }: { gallery: GalleryImage[]; title: string }) {
+export default function WorkGallery({ gallery, title }: { gallery: SanityGalleryImage[]; title: string }) {
   if (!gallery || gallery.length === 0) return null;
 
   // 🌟 1 & 2. เช็คว่าภาพเป็นแนวนอนหรือแนวตั้ง
   // ถ้ารูปมีค่าความกว้าง มากกว่าหรือเท่ากับ ความสูง (สัดส่วน >= 1) = แนวนอน
-  const landscapes = gallery.filter((img) => img.aspectRatio >= 1);
+  const landscapes = gallery.filter((img) => (img.aspectRatio || 1) >= 1 && img.url);
   // ถ้ารูปแคบกว่า (สัดส่วน < 1) = แนวตั้ง
-  const portraits = gallery.filter((img) => img.aspectRatio < 1);
+  const portraits = gallery.filter((img) => (img.aspectRatio || 1) < 1 && img.url);
 
   return (
     <section className="py-24 md:py-32 px-6 md:px-12 max-w-7xl mx-auto relative z-20 bg-[#050505]">
@@ -37,13 +33,15 @@ export default function WorkGallery({ gallery, title }: { gallery: GalleryImage[
                 key={`land-${index}`} 
                 className="relative w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-sm group border border-white/5"
               >
-                <Image 
-                  src={img.url} 
-                  alt={`${title} Landscape ${index + 1}`} 
-                  fill
-                  sizes="(max-width: 768px) 100vw, 90vw"
-                  className="object-cover grayscale transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0" 
-                />
+                {img.url && (
+                  <Image 
+                    src={img.url} 
+                    alt={`${title} Landscape ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 90vw"
+                    className="object-cover grayscale transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0" 
+                  />
+                )}
               </div>
             ))}
           </div>
@@ -59,13 +57,15 @@ export default function WorkGallery({ gallery, title }: { gallery: GalleryImage[
                 // กำหนดความกว้างบนคอมพิวเตอร์ให้เป็น 1 ใน 3 (ประมาณ 33.33%) ของพื้นที่ลบด้วยช่องว่าง
                 className="relative w-full md:w-[calc(33.333%-16px)] aspect-[3/4] overflow-hidden rounded-sm group border border-white/5"
               >
-                <Image 
-                  src={img.url} 
-                  alt={`${title} Portrait ${index + 1}`} 
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover grayscale transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0" 
-                />
+                {img.url && (
+                  <Image 
+                    src={img.url} 
+                    alt={`${title} Portrait ${index + 1}`} 
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover grayscale transition-all duration-1000 ease-out group-hover:scale-105 group-hover:grayscale-0" 
+                  />
+                )}
               </div>
             ))}
           </div>

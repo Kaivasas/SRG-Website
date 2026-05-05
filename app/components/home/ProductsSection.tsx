@@ -2,18 +2,19 @@ import React from "react";
 import Reveal from "@/app/components/Reveal";
 import Image from "next/image";
 import Link from "next/link";
-import { sanityFetchSafe } from "@/app/lib/sanityFetch";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import type { SanityProductCard } from "@/app/types/sanity";
 
-const PRODUCTS_HOME_QUERY = `*[_type == "product"] | order(coalesce(isFeatured, false) desc, _updatedAt desc)[0...3] {
+const PRODUCTS_HOME_QUERY = defineQuery(`*[_type == "product"] | order(coalesce(isFeatured, false) desc, _updatedAt desc)[0...3] {
   title,
   "slug": slug.current,
   subtitle,
   longDescription,
   thumbnail,
   isFeatured
-}`;
+}`);
 
 const LINK_COLORS = [
   "text-blue-400 hover:text-blue-300",
@@ -22,7 +23,7 @@ const LINK_COLORS = [
 ] as const;
 
 export default async function ProductsSection() {
-  const products = await sanityFetchSafe<SanityProductCard[]>(PRODUCTS_HOME_QUERY);
+  const { data: products } = await sanityFetch({ query: PRODUCTS_HOME_QUERY });
   if (!products || products.length === 0) return null;
 
   return (
@@ -81,7 +82,7 @@ export default async function ProductsSection() {
                     {product.thumbnail && (
                       <Image
                         src={urlFor(product.thumbnail).url()}
-                        alt={product.title}
+                        alt={product.title || "Product Thumbnail"}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"

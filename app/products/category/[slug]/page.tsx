@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import ProductCategoryGrid from "@/app/components/product/productlist/ProductCategoryGrid";
 import ProductCategoryHero from "@/app/components/product/productlist/ProductCategoryHero";
-import { sanityFetchSafe } from "@/app/lib/sanityFetch";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 import type { SanityProductCategoryPageData } from "@/app/types/sanity";
 
-const CATEGORY_PAGE_QUERY = `*[_type == "productCategory" && slug.current == $slug][0]{
+const CATEGORY_PAGE_QUERY = defineQuery(`*[_type == "productCategory" && slug.current == $slug][0]{
   _id,
   title,
   "slug": slug.current,
@@ -22,14 +23,19 @@ const CATEGORY_PAGE_QUERY = `*[_type == "productCategory" && slug.current == $sl
     "category": coalesce(productCategory->title, category),
     "categorySlug": productCategory->slug.current
   }
-}`;
+}`);
 
-const CATEGORY_SLUGS_QUERY = `*[_type == "productCategory" && defined(slug.current)]{
+const CATEGORY_SLUGS_QUERY = defineQuery(`*[_type == "productCategory" && defined(slug.current)]{
   "slug": slug.current
-}`;
+}`);
 
 export async function generateStaticParams() {
-  return (await sanityFetchSafe<{ slug: string }[]>(CATEGORY_SLUGS_QUERY)) ?? [];
+  const { data: slugs } = await sanityFetch({ 
+    query: CATEGORY_SLUGS_QUERY,
+    perspective: 'published',
+    stega: false
+  });
+  return slugs ?? [];
 }
 
 export default async function ProductCategoryPage({
@@ -38,10 +44,10 @@ export default async function ProductCategoryPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const category = await sanityFetchSafe<SanityProductCategoryPageData>(
-    CATEGORY_PAGE_QUERY,
-    { slug }
-  );
+  const { data: category } = await sanityFetch({ 
+    query: CATEGORY_PAGE_QUERY, 
+    params: { slug } 
+  });
 
   if (!category) {
     notFound();
@@ -49,8 +55,8 @@ export default async function ProductCategoryPage({
 
   return (
     <main className="relative min-h-screen overflow-clip bg-[radial-gradient(circle_at_top_left,rgba(244,129,32,0.1),transparent_28%),radial-gradient(circle_at_82%_15%,rgba(0,90,114,0.14),transparent_24%),linear-gradient(180deg,#031018_0%,#022533_34%,#003045_68%,#003951_100%)] before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(180deg,rgba(0,0,0,0.18),transparent_18%,transparent_82%,rgba(0,0,0,0.14)),radial-gradient(circle_at_center,rgba(255,255,255,0.02),transparent_48%)] before:content-['']">
-      <ProductCategoryHero category={category} />
-      <ProductCategoryGrid category={category} />
+      <ProductCategoryHero category={category as SanityProductCategoryPageData} />
+      <ProductCategoryGrid category={category as SanityProductCategoryPageData} />
     </main>
   );
 }

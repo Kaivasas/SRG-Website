@@ -14,7 +14,7 @@ export default function ServiceHero({ service }: ServiceHeroProps) {
           {service.heroImage && (
             <Image
               src={service.heroImage}
-              alt={service.title}
+              alt={service.title || "Service Hero"}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 50vw"

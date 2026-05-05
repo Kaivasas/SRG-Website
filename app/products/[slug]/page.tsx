@@ -1,30 +1,33 @@
 import { notFound } from "next/navigation";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
+import { defineQuery } from "next-sanity";
 import ProductDetailContent from "@/app/components/product/detail/ProductDetailContent";
 import type { SanityProductDetail, SanityProductRelated } from "@/app/types/sanity";
 
-const PRODUCT_QUERY = `*[_type == "product" && slug.current == $slug][0] {
+const PRODUCT_QUERY = defineQuery(`*[_type == "product" && slug.current == $slug][0] {
   ...,
   "category": coalesce(productCategory->title, category),
   "categorySlug": productCategory->slug.current,
   "motionVideoUrl": motionVideo.asset->url,
   "heroImageAspectRatio": heroImage.asset->metadata.dimensions.aspectRatio,
-}`;
+}`);
 
-const RELATED_PRODUCTS_QUERY = `*[_type == "product" && slug.current != $slug && productCategory->slug.current == $categorySlug] | order(_createdAt desc)[0...3] {
+const RELATED_PRODUCTS_QUERY = defineQuery(`*[_type == "product" && slug.current != $slug && productCategory->slug.current == $categorySlug] | order(_createdAt desc)[0...3] {
   title,
   "slug": slug.current,
   "category": coalesce(productCategory->title, category),
   thumbnail
-}`;
+}`);
+
+const PRODUCT_SLUGS_QUERY = defineQuery(`*[_type == "product"] { "slug": slug.current }`);
 
 export async function generateStaticParams() {
-  try {
-    return await client.fetch(`*[_type == "product"] { "slug": slug.current }`);
-  } catch (error) {
-    console.error("Error generating static params:", error);
-    return [];
-  }
+  const { data: slugs } = await sanityFetch({ 
+    query: PRODUCT_SLUGS_QUERY,
+    perspective: 'published',
+    stega: false
+  });
+  return slugs ?? [];
 }
 
 import type { Metadata } from "next";
@@ -42,33 +45,26 @@ export default async function ProductDetailPage({
 }) {
   const { slug } = await params;
 
-  let product: SanityProductDetail | null = null;
-  let relatedProducts: SanityProductRelated[] = [];
-
-  try {
-    const fetchedProduct = await client.fetch<SanityProductDetail | null>(
-      PRODUCT_QUERY,
-      { slug }
-    );
-    product = fetchedProduct;
-
-    if (fetchedProduct?.categorySlug) {
-      relatedProducts = await client.fetch<SanityProductRelated[]>(
-        RELATED_PRODUCTS_QUERY,
-        {
-          slug,
-          categorySlug: fetchedProduct.categorySlug,
-        }
-      );
-    }
-  } catch (error) {
-    console.error("Sanity Error in Product Detail Page:", error);
-    throw new Error("Failed to load product data");
-  }
+  const { data: product } = await sanityFetch({ 
+    query: PRODUCT_QUERY, 
+    params: { slug } 
+  });
 
   if (!product) {
     notFound();
   }
 
-  return <ProductDetailContent product={product} relatedProducts={relatedProducts} />;
+  let relatedProducts: SanityProductRelated[] = [];
+  if (product.categorySlug) {
+    const { data: related } = await sanityFetch({
+      query: RELATED_PRODUCTS_QUERY,
+      params: {
+        slug,
+        categorySlug: product.categorySlug,
+      }
+    });
+    relatedProducts = (related as SanityProductRelated[]) ?? [];
+  }
+
+  return <ProductDetailContent product={product as SanityProductDetail} relatedProducts={relatedProducts} />;
 }

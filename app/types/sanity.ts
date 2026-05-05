@@ -1,151 +1,50 @@
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+// ─── Auto-generated Type Aliases ──────────────────────────────────────────
+// We are now utilizing Sanity TypeGen! 
+// This file maps your old manual types to the newly generated exact types
+// to prevent breaking changes across the codebase.
 
-// ─── Shared / Reusable ──────────────────────────────────────────
+import type {
+  CLIENTS_QUERYResult,
+  TESTIMONIALS_QUERYResult,
+  SERVICES_NAV_QUERYResult,
+  SERVICE_CARDS_QUERYResult,
+  SERVICE_QUERYResult,
+  PRODUCT_CATEGORIES_QUERYResult,
+  CATEGORY_PAGE_QUERYResult,
+  PRODUCT_QUERYResult,
+  RELATED_PRODUCTS_QUERYResult,
+  WORKS_QUERYResult,
+  WORK_DETAIL_QUERYResult
+} from "@/sanity.types";
 
-export interface SanitySlug {
-  current: string;
-}
+export type SanitySlug = { current: string };
+export type MetricItem = { value: string; label: string };
 
-export interface MetricItem {
-  value: string;
-  label: string;
-}
+export type SanityClientLogo = Exclude<NonNullable<CLIENTS_QUERYResult>[number], null>;
+export type SanityTestimonial = Exclude<NonNullable<TESTIMONIALS_QUERYResult>[number], null>;
 
-// ─── Client Logos ────────────────────────────────────────────────
+// Services
+export type SanityServiceBase = Exclude<NonNullable<SERVICES_NAV_QUERYResult>[number], null>;
+export type SanityServiceCard = Exclude<NonNullable<SERVICE_CARDS_QUERYResult>[number], null>;
+export type SanityServiceDetail = NonNullable<SERVICE_QUERYResult>;
+export type SanityServicePortfolioItem = NonNullable<SanityServiceDetail["portfolios"]>[number];
 
-export interface SanityClientLogo {
-  _id: string;
-  name: string;
-  logo: string; // resolved URL via GROQ projection
-}
+// Products
+export type SanityProductCategory = Exclude<NonNullable<PRODUCT_CATEGORIES_QUERYResult>[number], null>;
+export type SanityProductCategoryPageData = NonNullable<CATEGORY_PAGE_QUERYResult>;
+export type SanityProductCard = NonNullable<CATEGORY_PAGE_QUERYResult>["products"][number];
+export type SanityProductDetail = NonNullable<PRODUCT_QUERYResult>;
+export type SanityProductRelated = Exclude<NonNullable<RELATED_PRODUCTS_QUERYResult>[number], null>;
 
-// ─── Testimonials ────────────────────────────────────────────────
+// Generic fallbacks for older strict usages
+export type SanityProductBase = { title?: string | null; slug?: string | null; category?: string | null; categorySlug?: string | null };
+export type SanityProductCore = SanityProductDetail;
+export type SanityProductBadgeItem = NonNullable<SanityProductDetail["awards"]>[number];
 
-export interface SanityTestimonial {
-  name: string;
-  position?: string;
-  company?: string;
-  quote: string;
-  avatar?: string;
-  companyLogo?: string;
-}
-
-// ─── Services ────────────────────────────────────────────────────
-
-export interface SanityServiceBase {
-  title: string;
-  slug: string;
-  category: string;
-}
-
-export interface SanityServicePortfolioItem {
-  _id: string;
-  title: string;
-  slug: string;
-  image: string;
-}
-
-export interface SanityServiceCard extends SanityServiceBase {
-  description: string;
-  image: string;
-}
-
-export interface SanityServiceDetail extends SanityServiceBase{
-  description?: string;
-  heroImage?: string;
-  whyTitle?: string;
-  benefitImage?: string;
-  benefits?: string[];
-  portfolios?: SanityServicePortfolioItem[];
-}
-
-// ─── Products ────────────────────────────────────────────────────
-
-export interface SanityProductBase {
-  title: string;
-  slug: string;
-  category?: string;
-  categorySlug?: string;
-}
-
-export interface SanityProductCategory {
-  _id: string;
-  title: string;
-  slug: string;
-  description?: string;
-  coverImage?: SanityImageSource;
-  productCount?: number;
-}
-
-export interface SanityProductCore extends SanityProductBase {
-  eyebrow?: string;
-  subtitle?: string;
-  thumbnail?: SanityImageSource;
-  longDescription?: string;
-}
-
-export interface SanityProductBadgeItem {
-  name: string;
-  image?: SanityImageSource;
-}
-
-export interface SanityProductCard extends SanityProductCore {
-  _id: string;
-  isFeatured?: boolean;
-}
-
-export interface SanityProductCategoryPageData extends SanityProductCategory {
-  products: SanityProductCard[];
-}
-
-export interface SanityProductDetail extends SanityProductCore {
-  heroImage?: SanityImageSource;
-  heroImageAspectRatio?: number;
-  motionVideoUrl?: string;
-  certifications?: SanityProductBadgeItem[];
-  awards?: SanityProductBadgeItem[];
-}
-
-export interface SanityProductRelated extends SanityProductBase {
-  thumbnail?: SanityImageSource;
-}
-
-// ─── Works ───────────────────────────────────────────────────────
-
-export interface SanityWorkBase {
-  title: string;
-  slug: string;
-  client?: string;
-  year?: string;
-}
-
-export interface SanityWorkCard extends SanityWorkBase {
-  thumbnail?: string;
-  tags?: string[];
-}
-
-export interface SanityStickySection {
-  title: string;
-  content: string;
-  image?: string;
-}
-
-export interface SanityBeforeAfter {
-  before?: string;
-  after?: string;
-}
-
-export interface SanityGalleryImage {
-  url: string;
-  aspectRatio: number;
-}
-
-export interface SanityWorkDetail extends SanityWorkBase {
-  shortDesc?: string;
-  description?: string;
-  heroMedia?: string;
-  beforeAfter?: SanityBeforeAfter;
-  stickySections?: SanityStickySection[];
-  gallery?: SanityGalleryImage[];
-  metrics?: MetricItem[];
-}
+// Works
+export type SanityWorkCard = Exclude<NonNullable<WORKS_QUERYResult>[number], null>;
+export type SanityWorkDetail = NonNullable<WORK_DETAIL_QUERYResult>;
+export type SanityBeforeAfter = NonNullable<SanityWorkDetail["beforeAfter"]>;
+export type SanityStickySection = NonNullable<SanityWorkDetail["stickySections"]>[number];
+export type SanityGalleryImage = NonNullable<SanityWorkDetail["gallery"]>[number];
+export type SanityWorkBase = { title?: string | null; slug?: string | null; client?: string | null; year?: string | null };
