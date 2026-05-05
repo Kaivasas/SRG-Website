@@ -57,7 +57,7 @@ export default function WorksClient({ worksData = [] }: WorksClientProps) {
                 <div className="relative w-full h-full flex items-center justify-center">
                   <Image
                     src={work.thumbnail || FALLBACK_THUMBNAIL}
-                    alt={work.title}
+                    alt={work.title || "Work Thumbnail"}
                     fill
                     sizes="(max-width: 768px) 100vw, 800px"
                     // 🌟 เปลี่ยนเป็น object-contain และเพิ่ม drop-shadow ให้รูปลอยเด่นขึ้นมา

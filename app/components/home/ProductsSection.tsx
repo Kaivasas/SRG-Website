@@ -82,7 +82,7 @@ export default async function ProductsSection() {
                     {product.thumbnail && (
                       <Image
                         src={urlFor(product.thumbnail).url()}
-                        alt={product.title}
+                        alt={product.title || "Product Thumbnail"}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"

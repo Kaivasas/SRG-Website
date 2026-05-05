@@ -36,7 +36,7 @@ function BadgeGrid({
                 <div className="relative h-36 w-full sm:h-40">
                   <Image
                     src={urlFor(item.image).fit("max").url()}
-                    alt={item.name}
+                    alt={item.name || "Badge"}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="object-contain"

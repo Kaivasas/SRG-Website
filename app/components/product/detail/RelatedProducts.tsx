@@ -20,7 +20,7 @@ export default function RelatedProducts({ products }: { products: SanityProductR
             <Link key={item.slug} href={`/products/${item.slug}`} className="group overflow-hidden border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03)),rgba(2,17,24,0.7)] p-4 transition duration-300 hover:-translate-y-1 hover:border-[#FAD337]/25 hover:shadow-[0_18px_42px_rgba(0,0,0,0.18)]">
               <div className="relative min-h-[220px] overflow-hidden">
                 {item.thumbnail && (
-                  <Image src={urlFor(item.thumbnail).url()} alt={item.title} fill className="object-cover" />
+                  <Image src={urlFor(item.thumbnail).url()} alt={item.title || "Related Product"} fill className="object-cover" />
                 )}
               </div>
               <div className="pt-4 flex justify-between items-end">

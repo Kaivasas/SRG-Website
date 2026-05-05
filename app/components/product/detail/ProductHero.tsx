@@ -46,7 +46,7 @@ export default function ProductHero({ product }: { product: SanityProductDetail 
             {product.heroImage && (
               <Image
                 src={urlFor(product.heroImage).url()}
-                alt={product.title}
+                alt={product.title || "Product Hero"}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 // 🌟 เปลี่ยนจาก object-cover เป็น object-contain

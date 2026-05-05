@@ -50,7 +50,7 @@ export default function ProductCategoriesGrid({
                     {category.coverImage && (
                       <Image
                         src={urlFor(category.coverImage).url()}
-                        alt={category.title}
+                        alt={category.title || "Product Category"}
                         fill
                         className="absolute inset-0 object-cover transition duration-700 group-hover:scale-[1.06]"
                       />

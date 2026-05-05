@@ -72,7 +72,7 @@ export default async function WorkDetailPage({ params }: { params: Promise<{ slu
 
       {/* 3. The Visual Proof: โชว์ความเปลี่ยนแปลงและผลงาน */}
       {hasBeforeAfter ? <BeforeAfterSlider beforeAfter={typedWork.beforeAfter!} /> : null}
-      <WorkGallery gallery={typedWork.gallery ?? []} title={typedWork.title} />
+      <WorkGallery gallery={typedWork.gallery ?? []} title={typedWork.title || "Work Gallery"} />
 
       {/* 4. The Impact: หมัดฮุกด้วยตัวเลขสถิติความสำเร็จ */}
       <WorkMetrics metrics={typedWork.metrics ?? []} />
