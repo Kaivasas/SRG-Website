@@ -16,15 +16,23 @@ This repository is the version I delivered in May 2026. The live site may have c
 ---
 
 ## Summary
-A corporate website for Sustain Republix Group, built solo during my 5-month internship (Jan–May 2026). I handled requirement gathering, UI/UX design in Figma, frontend development with Next.js, TypeScript and Tailwind CSS, and content modeling in Sanity, so non-technical staff can manage products, services and portfolio works on their own. The site is now live in production, deployed by the company’s team.
+A corporate website for Sustain Republix Group, built by a two-person team during my 4-month internship (Jan–May 2026), with no senior developer to guide us. We gathered requirements and designed the UI together in Figma. I built the Home, Services, Works and Contact pages with Next.js, TypeScript and Tailwind CSS, and designed Sanity content schemas so non-technical staff can manage the content on their own. My teammate built the Products pages. The site is now live in production, deployed by the company's team.
 
 ## หน้าที่และสิ่งที่ได้ทำ (My Role)
-- สร้างเว็บไซต์นี้ด้วยตัวคนเดียวในช่วง สหกิจศึกษา (ตั้งแต่ ม.ค. - พ.ค. 2026)
-- เริ่มจากรวบรวม Requirements จาก บริษัท
-- ออกแบบหน้าตาเว็บไซต์ และ Feature ใน Figma
-- เขียนโค้ดในส่วนของ Front-end โดยแยกแต่ละหน้าให้ทำงานแบบ components สามารถเรียกใช้ซ้ำได้
-- ออกแบบ schema ใน Sanity ตาม Requirement จากบริษัท ว่าในแต่ละ ข้อมูล ควรมีอะไรบ้าง (ชื่อ, รายละเอียด ฯลฯ)
-- เพิ่ม SEO เข้าไปใน schema
+ทำเป็นทีม 2 คน (ฉันกับเพื่อน) ในช่วงสหกิจศึกษา (5 ม.ค. – 5 พ.ค. 2026) โดยไม่มี Senior คอยดูแล
+
+**ทำร่วมกัน**
+- รวบรวม Requirements จากบริษัท
+- ออกแบบหน้าตาเว็บไซต์และฟีเจอร์ใน Figma
+- รับ Feedback และปรับปรุงแก้ไข
+
+**ส่วนที่ฉันรับผิดชอบ**
+- เขียน Front-end ของหน้า Home, Services, Works (รวมหน้ารายละเอียด) และ Contact แบบ components ที่เรียกใช้ซ้ำได้
+- ออกแบบ Sanity schema และสร้าง SEO object type ที่ใช้ซ้ำได้
+
+**ส่วนที่เพื่อนรับผิดชอบ**
+- หน้า Products ทั้งหมด (ฉันปรับเล็กน้อย)
+- Loading screen ที่ใช้ทุกหน้า (ยกเว้น `/studio`)
 
 ## รูปภาพตัวอย่างเว็บไซต์ (Screenshot)
 ![หน้าแรก](./docs/screenshots/image_home.png)
